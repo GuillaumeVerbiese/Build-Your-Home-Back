@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -46,7 +47,24 @@ class UserFixture extends Fixture
         // TODO persist
         $manager->persist($newUserAdmin);
 
-        
+        $categoriesList = [];
+        $categoryNameList = ["electroménager","image","son","téléphone","console","gaming","cuisine","informatique","tablette","jardin","beauté","santé"];
+        for ($i=1; $i < 10; $i++) { 
+
+            // TODO créer une nouvelle categorie
+            $newCategory = new Category();
+            // TODO renseigner toutes les propriétés
+            $name = $categoryNameList[$i];
+            $newCategory->setCategoryName($name)
+            ->setCategoryPictureLink('https://picsum.photos/id/'.rand(500,1000).'/200/300')
+            ->setCategorySlug($name)
+            ->setCategoryDisplayOrder($i<=5?$i:0)
+            ->setCategoryCreatedAt(new DateTime());
+            // TODO persist
+            $manager->persist($newCategory);
+            // TODO l'ajouter à la liste
+            $categoriesList[] = $newCategory;
+        }
         $manager->flush();
     }
 }
