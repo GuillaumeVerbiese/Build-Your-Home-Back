@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\DeliveriesFees;
+use App\Entity\Order;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -65,6 +67,38 @@ class UserFixture extends Fixture
             // TODO l'ajouter à la liste
             $categoriesList[] = $newCategory;
         }
+
+        $deliveryFeesList = [];
+        $deliveryNameList = ["petit","moyen","gros"];
+        for ($i=0; $i < 3; $i++) { 
+
+            // TODO créer un nouveau frais de livraison
+            $newDeliveryFees = new DeliveriesFees();
+            // TODO renseigner toutes les propriétés
+            $name = $deliveryNameList[$i];
+            $newDeliveryFees->setDeliveryFeesName($name)
+                            ->setDeliveryFeesPrice(($i+1)*10)
+                            ->setDeliveryFeesCreatedAt(new DateTime());
+            // TODO persist
+            $manager->persist($newDeliveryFees);
+            // TODO l'ajouter à la liste
+            $deliveryFeesList[] = $newDeliveryFees;
+        }
+
+        for ($i=0; $i < 20; $i++) { 
+            
+            // TODO créer une nouvelle commande
+            $newOrder = new Order();
+            // TODO renseigner toutes les propriétés
+            $newOrder->setOrderStatus(rand(0,2))
+            ->setOrderUser($i%2==0?$newUser:$newUserAdmin)
+            ->setOrderDeliveries($deliveryFeesList[rand(0,count($deliveryFeesList)-1)])
+            ->setOrderCreatedAt(new DateTime());
+            // TODO persist
+            $manager->persist($newOrder);
+        }
+
+
         $manager->flush();
     }
 }
