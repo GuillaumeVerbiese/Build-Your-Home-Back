@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -79,6 +81,33 @@ class Article
      * @ORM\ManyToOne(targetEntity=Discount::class, inversedBy="articles")
      */
     private $article_discount;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_article")
+     */
+    private $favorites;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_article")
+     */
+    private $comments;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $article_rating;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_article")
+     */
+    private $orderlists;
+
+    public function __construct()
+    {
+        $this->favorites = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->orderlists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -225,6 +254,108 @@ class Article
     public function setArticleDiscount(?Discount $article_discount): self
     {
         $this->article_discount = $article_discount;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorite>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setFavoriteArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getFavoriteArticle() === $this) {
+                $favorite->setFavoriteArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setCommentArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getCommentArticle() === $this) {
+                $comment->setCommentArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getArticleRating(): ?float
+    {
+        return $this->article_rating;
+    }
+
+    public function setArticleRating(?float $article_rating): self
+    {
+        $this->article_rating = $article_rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orderlist>
+     */
+    public function getOrderlists(): Collection
+    {
+        return $this->orderlists;
+    }
+
+    public function addOrderlist(Orderlist $orderlist): self
+    {
+        if (!$this->orderlists->contains($orderlist)) {
+            $this->orderlists[] = $orderlist;
+            $orderlist->setOrderlistArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderlist(Orderlist $orderlist): self
+    {
+        if ($this->orderlists->removeElement($orderlist)) {
+            // set the owning side to null (unless already changed)
+            if ($orderlist->getOrderlistArticle() === $this) {
+                $orderlist->setOrderlistArticle(null);
+            }
+        }
 
         return $this;
     }

@@ -74,9 +74,21 @@ class User
      */
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_user")
+     */
+    private $favorites;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_user")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,6 +240,66 @@ class User
             // set the owning side to null (unless already changed)
             if ($order->getOrderUser() === $this) {
                 $order->setOrderUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorite>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setFavoriteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getFavoriteUser() === $this) {
+                $favorite->setFavoriteUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setCommentUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getCommentUser() === $this) {
+                $comment->setCommentUser(null);
             }
         }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Order
      * @ORM\ManyToOne(targetEntity=DeliveriesFees::class, inversedBy="orders")
      */
     private $order_deliveries;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_order")
+     */
+    private $orderlists;
+
+    public function __construct()
+    {
+        $this->orderlists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +133,36 @@ class Order
     public function setOrderDeliveries(?DeliveriesFees $order_deliveries): self
     {
         $this->order_deliveries = $order_deliveries;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orderlist>
+     */
+    public function getOrderlists(): Collection
+    {
+        return $this->orderlists;
+    }
+
+    public function addOrderlist(Orderlist $orderlist): self
+    {
+        if (!$this->orderlists->contains($orderlist)) {
+            $this->orderlists[] = $orderlist;
+            $orderlist->setOrderlistOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderlist(Orderlist $orderlist): self
+    {
+        if ($this->orderlists->removeElement($orderlist)) {
+            // set the owning side to null (unless already changed)
+            if ($orderlist->getOrderlistOrder() === $this) {
+                $orderlist->setOrderlistOrder(null);
+            }
+        }
 
         return $this;
     }
