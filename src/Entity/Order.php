@@ -20,10 +20,7 @@ class Order
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $order_ref;
+   
 
     /**
      * @ORM\Column(type="integer")
@@ -65,17 +62,7 @@ class Order
         return $this->id;
     }
 
-    public function getOrderRef(): ?string
-    {
-        return $this->order_ref;
-    }
-
-    public function setOrderRef(string $order_ref): self
-    {
-        $this->order_ref = $order_ref;
-
-        return $this;
-    }
+   
 
     public function getOrderStatus(): ?int
     {
