@@ -76,12 +76,12 @@ class Category
         return $this;
     }
 
-    public function getCategoryPictureLilnk(): ?string
+    public function getCategoryPictureLink(): ?string
     {
         return $this->category_picture_lilnk;
     }
 
-    public function setCategoryPictureLilnk(string $category_picture_lilnk): self
+    public function setCategoryPictureLink(string $category_picture_lilnk): self
     {
         $this->category_picture_lilnk = $category_picture_lilnk;
 
