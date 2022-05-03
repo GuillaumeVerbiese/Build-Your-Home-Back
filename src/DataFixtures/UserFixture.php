@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\DeliveriesFees;
 use App\Entity\Order;
 use App\Entity\Orderlist;
@@ -114,6 +115,23 @@ class UserFixture extends Fixture
             // TODO persist
             $manager->persist($newOrderlist);
         }
+
+        for ($i=0; $i < 100; $i++) { 
+
+            // TODO créer un nouveau commentaire
+            $newComment = new Comment();
+            // TODO renseigner toutes les propriétés
+            $newComment->setCommentBody($faker->paragraph())
+                       ->setCommentRating(rand(0,5))
+                       ->setCommentArticle($articleList[rand(0,count($articleList)-1)])
+                       ->setCommentUser($i%2==0?$newUser:$newUserAdmin)
+                       ->setCommentCreatedAt(new DateTime());
+            
+            // TODO persist
+            $manager->persist($newComment);
+        }
+
+
 
 
         $manager->flush();
