@@ -32,12 +32,12 @@ class Orderlist
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $orderlist_created_at;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private $orderlist_quantity;
 
     public function getId(): ?int
     {
@@ -68,26 +68,26 @@ class Orderlist
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getOrderlistCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->orderlist_created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setOrderlistCreatedAt(\DateTimeInterface $orderlist_created_at): self
     {
-        $this->created_at = $created_at;
+        $this->orderlist_created_at = $orderlist_created_at;
 
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getOrderlistQuantity(): ?int
     {
-        return $this->quantity;
+        return $this->orderlist_quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setOrderlistQuantity(int $orderlist_quantity): self
     {
-        $this->quantity = $quantity;
+        $this->orderlist_quantity = $orderlist_quantity;
 
         return $this;
     }
