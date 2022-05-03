@@ -7,6 +7,7 @@ use Faker\Factory;
 use App\Entity\VAT;
 use App\Entity\User;
 use App\Entity\Brand;
+use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Discount;
 use App\Entity\DeliveriesFees;
@@ -38,6 +39,7 @@ class UserFixture extends Fixture
         }
 
         //brand
+        $brandList = [];
         $brandNameList = [
             "Belden",
             "Doodle Labs",
@@ -65,10 +67,11 @@ class UserFixture extends Fixture
                 ->setBrandUpdatedAt(new Datetime);
 
             $manager->persist($newBrand);
+            $brandList[] = $newBrand;
         }
 
         //discount 
-
+        $discountList = [];
         for ($i = 0; $i < 20; $i++) {
             $newDiscount = new Discount();
 
@@ -78,9 +81,11 @@ class UserFixture extends Fixture
                 ->setDiscountUpdatedAt(new Datetime);
 
             $manager->persist($newDiscount);
+            $discountList[] = $newDiscount;
         }
         $manager->flush();
 
+        $VATList = [];
         for ($i = 0; $i < 3; $i++) {
             $newVAT = new VAT();
 
@@ -103,19 +108,10 @@ class UserFixture extends Fixture
                     ->setVATUpdatedAt(new Datetime);
             }
             $manager->persist($newVAT);
+            $VATList[] = $newVAT;
         }
 
-        for ($i =0; $i < 5; $i++){
-
-            $newDeliveryFees = new DeliveriesFees();
-
-            $newDeliveryFees->setDeliveryFeesName($faker->unique()->word())
-            ->setDeliveryFeesPrice(rand(0,50))
-            ->setDeliveryFeesCreatedAt(new Datetime)
-            ->setDeliveryFeesUpdatedAt(new Datetime);
-
-            $manager->persist($newDeliveryFees);
-        }
+        
 
         $categoriesList = [];
         $categoryNameList = ["electroménager","image","son","téléphone","console","gaming","cuisine","informatique","tablette","jardin","beauté","santé"];
@@ -134,8 +130,38 @@ class UserFixture extends Fixture
             $manager->persist($newCategory);
             // TODO l'ajouter à la liste
             $categoriesList[] = $newCategory;
-        }
+        };
         
+        
+
+
+        $articleList = [] ;
+        for($i=0; $i<20; $i++){
+            $newArticle = new Article();
+            $newArticleName = $faker->unique()->word() ;
+
+            //creation of a random float number between 1 and 5
+            $entier = rand(1, 4);
+            $decimale = rand(1, 9);
+            $nombre = $entier.'.'.$decimale;
+
+            $newArticle->setArticleName($newArticleName)
+            ->setArticleDescription($faker->paragraph())
+            ->setArticlePrice(rand(1,500))
+            ->setArticleStock(rand(1,20))
+            ->setArticleRating($nombre)
+            ->setArticlePictureLink('https://picsum.photos/id/'.rand(500,1000).'/200/300')
+            ->setArticleSlug($newArticleName)
+            ->setArticleCreatedAt(new Datetime)
+            ->setArticleUpdatedAt(new Datetime)
+            ->setArticleVat($VATList[rand(1,count($VATList)-1)])
+            ->setArticleBrand($brandList[rand(1,count($brandList)-1)])
+            ->setArticleDiscount($discountList[rand(1,count($discountList)-1)])
+            ->setArticleCategory($categoriesList[rand(1,count($VATList)-1)]);
+
+            $manager->persist($newArticle);
+            $articleList[] = $newArticle ;
+        }
         
         $manager->flush();
     }
