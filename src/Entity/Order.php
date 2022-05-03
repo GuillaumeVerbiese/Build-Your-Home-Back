@@ -38,6 +38,16 @@ class Order
      */
     private $order_updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     */
+    private $order_user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DeliveriesFees::class, inversedBy="orders")
+     */
+    private $order_deliveries;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +97,30 @@ class Order
     public function setOrderUpdatedAt(?\DateTimeInterface $order_updatedAt): self
     {
         $this->order_updatedAt = $order_updatedAt;
+
+        return $this;
+    }
+
+    public function getOrderUser(): ?User
+    {
+        return $this->order_user;
+    }
+
+    public function setOrderUser(?User $order_user): self
+    {
+        $this->order_user = $order_user;
+
+        return $this;
+    }
+
+    public function getOrderDeliveries(): ?DeliveriesFees
+    {
+        return $this->order_deliveries;
+    }
+
+    public function setOrderDeliveries(?DeliveriesFees $order_deliveries): self
+    {
+        $this->order_deliveries = $order_deliveries;
 
         return $this;
     }

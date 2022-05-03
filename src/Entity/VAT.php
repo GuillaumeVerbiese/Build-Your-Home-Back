@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VATRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class VAT
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $vat_updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_vat")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class VAT
     public function setVatUpdatedAt(?\DateTimeInterface $vat_updatedAt): self
     {
         $this->vat_updatedAt = $vat_updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setArticleVat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getArticleVat() === $this) {
+                $article->setArticleVat(null);
+            }
+        }
 
         return $this;
     }

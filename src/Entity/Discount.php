@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DiscountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Discount
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $discount_updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_discount")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Discount
     public function setDiscountUpdatedAt(?\DateTimeInterface $discount_updatedAt): self
     {
         $this->discount_updatedAt = $discount_updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setArticleDiscount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getArticleDiscount() === $this) {
+                $article->setArticleDiscount(null);
+            }
+        }
 
         return $this;
     }

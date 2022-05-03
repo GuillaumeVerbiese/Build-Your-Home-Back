@@ -57,6 +57,29 @@ class Article
      */
     private $article_updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=VAT::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $article_vat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $article_brand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $article_category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Discount::class, inversedBy="articles")
+     */
+    private $article_discount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +177,54 @@ class Article
     public function setArticleUpdatedAt(?\DateTimeInterface $article_updatedAt): self
     {
         $this->article_updatedAt = $article_updatedAt;
+
+        return $this;
+    }
+
+    public function getArticleVat(): ?VAT
+    {
+        return $this->article_vat;
+    }
+
+    public function setArticleVat(?VAT $article_vat): self
+    {
+        $this->article_vat = $article_vat;
+
+        return $this;
+    }
+
+    public function getArticleBrand(): ?Brand
+    {
+        return $this->article_brand;
+    }
+
+    public function setArticleBrand(?Brand $article_brand): self
+    {
+        $this->article_brand = $article_brand;
+
+        return $this;
+    }
+
+    public function getArticleCategory(): ?Category
+    {
+        return $this->article_category;
+    }
+
+    public function setArticleCategory(?Category $article_category): self
+    {
+        $this->article_category = $article_category;
+
+        return $this;
+    }
+
+    public function getArticleDiscount(): ?Discount
+    {
+        return $this->article_discount;
+    }
+
+    public function setArticleDiscount(?Discount $article_discount): self
+    {
+        $this->article_discount = $article_discount;
 
         return $this;
     }
