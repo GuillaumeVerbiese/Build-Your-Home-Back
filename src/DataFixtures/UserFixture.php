@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\DeliveriesFees;
 use App\Entity\Order;
+use App\Entity\Orderlist;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -85,6 +86,7 @@ class UserFixture extends Fixture
             $deliveryFeesList[] = $newDeliveryFees;
         }
 
+        $orderlist = [];
         for ($i=0; $i < 20; $i++) { 
             
             // TODO créer une nouvelle commande
@@ -96,7 +98,19 @@ class UserFixture extends Fixture
             ->setOrderCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newOrder);
+            $orderlist[] = $newOrder;
         }
+
+        // TODO créer une nouvelle liste de commande
+        $newOrderlist = new Orderlist();
+        // TODO renseigner toutes les propriétés
+        $newOrderlist->setOrderlistArticle($articleList[rand(0,count($articleList)-1)])
+                     ->setOrderlistOrder($orderList[rand(0,count($orderList)-1)])
+                     ->setQuantity(rand(1,3))
+                     ->setCreatedAt(new DateTime());
+
+        // TODO persist
+        $manager->persist($newOrderlist);
 
 
         $manager->flush();
