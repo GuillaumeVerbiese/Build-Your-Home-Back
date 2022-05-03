@@ -196,7 +196,7 @@ class UserFixture extends Fixture
             $nombre = $entier . '.' . $decimale;
 
             $newArticle->setArticleName($newArticleName)
-                ->setArticleDescription($faker->paragraph())
+                ->setArticleDescription($faker->sentence(15))
                 ->setArticlePrice(rand(1, 500))
                 ->setArticleStock(rand(1, 20))
                 ->setArticleRating($nombre)
@@ -246,7 +246,7 @@ class UserFixture extends Fixture
             $newComment = new Comment();
             // TODO renseigner toutes les propriétés
 
-            $newComment->setCommentBody($faker->paragraph())
+            $newComment->setCommentBody($faker->sentence(15))
                        ->setCommentRating(rand(0,5))
                        ->setCommentArticle($articleList[rand(0,count($articleList)-1)])
                        ->setCommentUser($i%2==0?$newUser:$newUserAdmin)
