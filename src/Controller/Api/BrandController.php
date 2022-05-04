@@ -55,4 +55,27 @@ class BrandController extends AbstractController
             ]
         );
     }
+    /**
+     * @Route("/api/brand/{id}/articles", name="app_api_read_brand_articles", methods={"GET"}, requirements={"id":"\d+"})
+     *  
+     */
+    public function readByArticle(Brand $brand = null)
+    {
+        if ($brand === null) {
+            return $this->json(
+                $brand,
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return $this->json(
+            $brand->getArticles(),
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" => [
+                    "read_category_article"
+                ]
+            ]
+        );
+    }
 }

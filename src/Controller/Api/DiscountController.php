@@ -55,4 +55,27 @@ class DiscountController extends AbstractController
             ]
         );
     }
+    /**
+     * @Route("/api/discount/{id}/articles", name="app_api_read_discount_articles", methods={"GET"}, requirements={"id":"\d+"})
+     *  
+     */
+    public function readByArticle(Discount $discount = null)
+    {
+        if ($discount === null) {
+            return $this->json(
+                $discount,
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return $this->json(
+            $discount->getArticles(),
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" => [
+                    "read_category_article"
+                ]
+            ]
+        );
+    }
 }
