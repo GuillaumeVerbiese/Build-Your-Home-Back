@@ -28,6 +28,8 @@ class Discount
      * @Groups("browse_discount")
      * @Groups("read_discount")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $discount_name;
 
@@ -39,6 +41,8 @@ class Discount
      * @Groups("browse_discount")
      * @Groups("read_discount")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      * 
      */
     private $discount_rate;

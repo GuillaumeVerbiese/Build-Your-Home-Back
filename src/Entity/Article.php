@@ -21,6 +21,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $id;
 
@@ -30,6 +32,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_name;
 
@@ -39,6 +43,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_description;
 
@@ -48,6 +54,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_price;
 
@@ -57,6 +65,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_stock;
 
@@ -66,6 +76,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_picture_link;
 
@@ -75,6 +87,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_slug;
 
@@ -84,6 +98,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_createdAt;
 
@@ -93,6 +109,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_updatedAt;
 
@@ -103,6 +121,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_vat;
 
@@ -113,6 +133,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_brand;
 
@@ -122,6 +144,8 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_category;
 
@@ -131,6 +155,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_discount;
 
@@ -154,6 +180,8 @@ class Article
      * @Groups("browse_article")
      * @Groups("read_article")
      * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_rating;
 

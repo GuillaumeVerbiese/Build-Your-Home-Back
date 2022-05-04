@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -17,6 +18,9 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $id;
 
@@ -24,31 +28,49 @@ class Order
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $order_status;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $order_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $order_updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $order_user;
 
     /**
      * @ORM\ManyToOne(targetEntity=DeliveriesFees::class, inversedBy="orders")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $order_deliveries;
 
     /**
      * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_order")
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $orderlists;
 

@@ -83,6 +83,9 @@ class CategoryController extends AbstractController
             ]
         );
     }
+
+
+    
     /**
      * @Route("/api/category/{id}/articlesTest", name="app_api_read_category_articlesTest", methods={"GET"}, requirements={"id":"\d+"})
      *  

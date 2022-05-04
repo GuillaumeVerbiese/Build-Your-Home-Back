@@ -55,4 +55,28 @@ class DeliveriesFeesController extends AbstractController
             ]
         );
     }
+    /**
+     * @Route("/api/deliveryfee/{id}/orders", name="app_api_read_deliveryfee_orders", methods={"GET"}, requirements={"id":"\d+"})
+     *  
+     */
+    public function readByArticle(DeliveriesFees $deliveryfee = null)
+    {
+        if ($deliveryfee === null) {
+            return $this->json(
+                $deliveryfee,
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return $this->json(
+            $deliveryfee->getOrders(),
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" => [
+                    "read_order",
+                    
+                ]
+            ]
+        );
+    }
 }

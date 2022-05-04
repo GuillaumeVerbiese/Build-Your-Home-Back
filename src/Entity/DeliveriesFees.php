@@ -36,6 +36,8 @@ class DeliveriesFees
      * 
      * @Groups("browse_deliveryfee")
      * @Groups("read_deliveriesfee")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $delivery_fees_price;
 
@@ -44,6 +46,8 @@ class DeliveriesFees
      * 
      * @Groups("browse_deliveryfee")
      * @Groups("read_deliveriesfee")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $delivery_fees_createdAt;
 
