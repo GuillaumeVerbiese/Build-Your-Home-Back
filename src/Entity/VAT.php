@@ -6,6 +6,7 @@ use App\Repository\VATRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VATRepository::class)
@@ -21,11 +22,15 @@ class VAT
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $vat_name;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $vat_rate;
 

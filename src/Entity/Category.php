@@ -17,6 +17,7 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
@@ -26,14 +27,18 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $category_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
@@ -42,6 +47,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
@@ -50,6 +56,7 @@ class Category
 
     /**
      * @ORM\Column(type="datetime")
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
@@ -58,6 +65,7 @@ class Category
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")

@@ -20,6 +20,7 @@ class Brand
      * 
      * @Groups("browse_brand")
      * @Groups("read_brand")
+     * 
      */
     private $id;
 
@@ -27,6 +28,8 @@ class Brand
      * @ORM\Column(type="string", length=30)
      * @Groups("browse_brand")
      * @Groups("read_brand")
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $brand_name;
 

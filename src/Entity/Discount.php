@@ -6,6 +6,7 @@ use App\Repository\DiscountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DiscountRepository::class)
@@ -21,26 +22,45 @@ class Discount
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("browse_discount")
+     * @Groups("read_discount")
      */
     private $discount_name;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("browse_discount")
+     * @Groups("read_discount")
+     * 
      */
     private $discount_rate;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_discount")
+     * @Groups("read_discount")
      */
     private $discount_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("browse_discount")
+     * @Groups("read_discount")
      */
     private $discount_updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_discount")
+     * 
+     * 
      */
     private $articles;
 
