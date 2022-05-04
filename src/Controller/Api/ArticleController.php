@@ -55,4 +55,27 @@ class ArticleController extends AbstractController
             ]
         );
     }
+    /**
+     * @Route("/api/comments/{id}/articles", name="app_api_read_article_comments", methods={"GET"}, requirements={"id":"\d+"})
+     *  
+     */
+    public function readByCategory(Article $article = null): JsonResponse
+    {
+        if ($article === null) {
+            return $this->json(
+                $article,
+                Response::HTTP_NOT_FOUND
+            );
+        }
+        return $this->json(
+            $article->getComments(),
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" => [
+                    "read_article"
+                ]
+            ]
+        );
+    }
 }
