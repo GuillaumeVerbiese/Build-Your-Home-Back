@@ -6,6 +6,7 @@ use App\Repository\BrandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BrandRepository::class)
@@ -16,26 +17,37 @@ class Brand
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_brand")
+     * @Groups("read_brand")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("browse_brand")
+     * @Groups("read_brand")
      */
     private $brand_name;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Groups("browse_brand")
+     * @Groups("read_brand")
      */
     private $brand_slug;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("browse_brand")
+     * @Groups("read_brand")
      */
     private $brand_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("browse_brand")
+     * @Groups("read_brand")
      */
     private $brand_updatedAt;
 

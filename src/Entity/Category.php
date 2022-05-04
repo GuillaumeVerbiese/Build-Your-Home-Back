@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -16,36 +17,56 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
      */
     private $category_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
      */
     private $category_picture_link;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
      */
     private $category_slug;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
      */
     private $category_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("browse_category")
+     * @Groups("read_category")
+     * @Groups("add_category")
      */
     private $category_updatedAt;
 
     /**
      * @ORM\Column(type="integer")
+     * 
      */
     private $category_display_order;
 
