@@ -30,6 +30,7 @@ class Brand
      * @Groups("read_brand")
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $brand_name;
 

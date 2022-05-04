@@ -21,6 +21,7 @@ class Category
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("read_category_article")
      * 
      */
     private $id;
@@ -33,6 +34,7 @@ class Category
      * @Groups("add_category")
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $category_name;
 
@@ -42,6 +44,7 @@ class Category
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("read_category_article")
      */
     private $category_picture_link;
 
@@ -51,6 +54,7 @@ class Category
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("read_category_article")
      */
     private $category_slug;
 
@@ -60,6 +64,7 @@ class Category
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("read_category_article")
      */
     private $category_createdAt;
 
@@ -69,6 +74,7 @@ class Category
      * @Groups("browse_category")
      * @Groups("read_category")
      * @Groups("add_category")
+     * @Groups("read_category_article")
      */
     private $category_updatedAt;
 

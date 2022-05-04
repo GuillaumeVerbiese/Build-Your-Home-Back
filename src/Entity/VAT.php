@@ -30,6 +30,8 @@ class VAT
      * @Groups("read_article")
      * @Groups("browse_vat")
      * @Groups("read_vat")
+     * @Groups("read_category_article")
+     * 
      */
     private $vat_name;
 
@@ -40,6 +42,7 @@ class VAT
      * @Groups("read_article")
      * @Groups("browse_vat")
      * @Groups("read_vat")
+     * @Groups("read_category_article")
      */
     private $vat_rate;
 

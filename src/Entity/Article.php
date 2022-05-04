@@ -20,6 +20,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $id;
 
@@ -28,6 +29,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_name;
 
@@ -36,6 +38,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_description;
 
@@ -44,6 +47,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_price;
 
@@ -52,6 +56,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_stock;
 
@@ -60,6 +65,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_picture_link;
 
@@ -68,6 +74,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_slug;
 
@@ -76,6 +83,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_createdAt;
 
@@ -84,6 +92,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_updatedAt;
 
@@ -93,6 +102,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_vat;
 
@@ -102,6 +112,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_brand;
 
@@ -119,6 +130,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_discount;
 
@@ -141,6 +153,7 @@ class Article
      * 
      * @Groups("browse_article")
      * @Groups("read_article")
+     * @Groups("read_category_article")
      */
     private $article_rating;
 
