@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FavoriteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FavoriteRepository::class)
@@ -14,6 +15,7 @@ class Favorite
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("readUser")
      */
     private $id;
 
