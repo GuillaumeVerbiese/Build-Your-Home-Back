@@ -34,9 +34,9 @@ class UserFixture extends Fixture
                 ->setUserFirstname($faker->firstName())
                 ->setUserAdress($faker->address())
                 ->setUserBirthdate(new DateTime())
-                ->setUserPassword('user')// TODO hasher le password
-                ->setUserRole('ROLE_USER')
-                ->setUserMail('user@user.com')
+                ->setPassword('user')// TODO hasher le password
+                ->setRoles(['ROLE_USER'])
+                ->setEmail('user@user.com')
                 ->setUserPhone($faker->phoneNumber())
                 ->setUserCreatedAt(new DateTime());
         // TODO persist
@@ -49,9 +49,9 @@ class UserFixture extends Fixture
                 ->setUserFirstname($faker->firstName())
                 ->setUserAdress($faker->address())
                 ->setUserBirthdate(new DateTime())
-                ->setUserPassword('admin')// TODO hasher le password
-                ->setUserRole('ROLE_ADMIN')
-                ->setUserMail('admin@admin.com')
+                ->setPassword('admin')// TODO hasher le password
+                ->setRoles(['ROLE_ADMIN'])
+                ->setEmail('admin@admin.com')
                 ->setUserPhone($faker->phoneNumber())
                 ->setUserCreatedAt(new DateTime());
         // TODO persist
