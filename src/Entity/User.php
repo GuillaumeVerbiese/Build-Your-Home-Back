@@ -3,21 +3,22 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
@@ -61,25 +62,31 @@ class User
     private $user_birthdate;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $user_password;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $user_role;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_mail;
+    
+    private $email;
 
     /**
+     * @ORM\Column(type="json")
+     * 
+     * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+        /**
      * @ORM\Column(type="string", length=20)
      * 
      * @Groups("readUser")
@@ -116,16 +123,28 @@ class User
      */
     private $comments;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->comments = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getUserLastname(): ?string
@@ -176,41 +195,6 @@ class User
         return $this;
     }
 
-    public function getUserPassword(): ?string
-    {
-        return $this->user_password;
-    }
-
-    public function setUserPassword(string $user_password): self
-    {
-        $this->user_password = $user_password;
-
-        return $this;
-    }
-
-    public function getUserRole(): ?string
-    {
-        return $this->user_role;
-    }
-
-    public function setUserRole(string $user_role): self
-    {
-        $this->user_role = $user_role;
-
-        return $this;
-    }
-
-    public function getUserMail(): ?string
-    {
-        return $this->user_mail;
-    }
-
-    public function setUserMail(string $user_mail): self
-    {
-        $this->user_mail = $user_mail;
-
-        return $this;
-    }
 
     public function getUserPhone(): ?string
     {
@@ -336,5 +320,77 @@ class User
         }
 
         return $this;
+    }
+    
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
