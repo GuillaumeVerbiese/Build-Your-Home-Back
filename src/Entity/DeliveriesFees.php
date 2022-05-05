@@ -6,6 +6,7 @@ use App\Repository\DeliveriesFeesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DeliveriesFeesRepository::class)
@@ -16,26 +17,45 @@ class DeliveriesFees
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_deliveryfee")
+     * @Groups("read_deliveriesfee")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
+     * @Groups("browse_deliveryfee")
+     * @Groups("read_deliveriesfee")
      */
     private $delivery_fees_name;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups("browse_deliveryfee")
+     * @Groups("read_deliveriesfee")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $delivery_fees_price;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_deliveryfee")
+     * @Groups("read_deliveriesfee")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $delivery_fees_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("browse_deliveryfee")
+     * @Groups("read_deliveriesfee")
      */
     private $delivery_fees_updatedAt;
 
