@@ -61,9 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $user_birthdate;
 
-
-
-
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * 
@@ -76,6 +73,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="json")
+     * 
+     * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $roles = [];
 
@@ -320,6 +321,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
     /**
      * A visual identifier that represents this user.
      *

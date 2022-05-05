@@ -17,24 +17,38 @@ use App\Entity\DeliveriesFees;
 use App\Entity\Favorite;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
 class UserFixture extends Fixture
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->passwordHasher = $hasher;
+    }
+    
     public function load(ObjectManager $manager): void
     {
+        
         // TODO récupérer faker
         $faker = Factory::create('fr-FR');
 
         // user
         // TODO créer un nouvel utilisateur user
         $newUser = new User();
+        // On prepare le password
+        $plaintextPassword = "user";
+        // On le hash
+        $hashedPassword = $this->passwordHasher->hashPassword($newUser,$plaintextPassword);
         // TODO renseigner toutes les propriétés
         $newUser->setUserLastname($faker->unique()->lastName())
                 ->setUserFirstname($faker->firstName())
                 ->setUserAdress($faker->address())
                 ->setUserBirthdate(new DateTime())
-                ->setPassword('user')// TODO hasher le password
+                ->setPassword($hashedPassword)
                 ->setRoles(['ROLE_USER'])
                 ->setEmail('user@user.com')
                 ->setUserPhone($faker->phoneNumber())
@@ -44,12 +58,16 @@ class UserFixture extends Fixture
 
         // TODO créer un nouvel utilisateur admin
         $newUserAdmin = new User();
+        // On prepare le password
+        $plaintextPassword = "admin";
+        // On le hash
+        $hashedPassword = $this->passwordHasher->hashPassword($newUserAdmin,$plaintextPassword);
         // TODO renseigner toutes les propriétés
         $newUserAdmin->setUserLastname($faker->unique()->lastName())
                 ->setUserFirstname($faker->firstName())
                 ->setUserAdress($faker->address())
                 ->setUserBirthdate(new DateTime())
-                ->setPassword('admin')// TODO hasher le password
+                ->setPassword($hashedPassword)
                 ->setRoles(['ROLE_ADMIN'])
                 ->setEmail('admin@admin.com')
                 ->setUserPhone($faker->phoneNumber())
