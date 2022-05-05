@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_lastname;
+    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_firstname;
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_adress;
+    private $adress;
 
     /**
      * @ORM\Column(type="datetime")
@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_birthdate;
+    private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -93,17 +93,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $user_phone;
+    private $phone;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $user_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $user_updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
@@ -149,48 +149,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserLastname(): ?string
     {
-        return $this->user_lastname;
+        return $this->lastname;
     }
 
-    public function setUserLastname(string $user_lastname): self
+    public function setUserLastname(string $lastname): self
     {
-        $this->user_lastname = $user_lastname;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
     public function getUserFirstname(): ?string
     {
-        return $this->user_firstname;
+        return $this->firstname;
     }
 
-    public function setUserFirstname(string $user_firstname): self
+    public function setUserFirstname(string $firstname): self
     {
-        $this->user_firstname = $user_firstname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     public function getUserAdress(): ?string
     {
-        return $this->user_adress;
+        return $this->adress;
     }
 
-    public function setUserAdress(string $user_adress): self
+    public function setUserAdress(string $adress): self
     {
-        $this->user_adress = $user_adress;
+        $this->adress = $adress;
 
         return $this;
     }
 
     public function getUserBirthdate(): ?\DateTimeInterface
     {
-        return $this->user_birthdate;
+        return $this->birthdate;
     }
 
-    public function setUserBirthdate(\DateTimeInterface $user_birthdate): self
+    public function setUserBirthdate(\DateTimeInterface $birthdate): self
     {
-        $this->user_birthdate = $user_birthdate;
+        $this->birthdate = $birthdate;
 
         return $this;
     }
@@ -198,36 +198,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserPhone(): ?string
     {
-        return $this->user_phone;
+        return $this->phone;
     }
 
-    public function setUserPhone(string $user_phone): self
+    public function setUserPhone(string $phone): self
     {
-        $this->user_phone = $user_phone;
+        $this->phone = $phone;
 
         return $this;
     }
 
     public function getUserCreatedAt(): ?\DateTimeInterface
     {
-        return $this->user_createdAt;
+        return $this->createdAt;
     }
 
-    public function setUserCreatedAt(\DateTimeInterface $user_createdAt): self
+    public function setUserCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->user_createdAt = $user_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUserUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->user_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setUserUpdatedAt(?\DateTimeInterface $user_updatedAt): self
+    public function setUserUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->user_updatedAt = $user_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
