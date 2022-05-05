@@ -167,7 +167,7 @@ class Article
     private $favorites;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_article")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article")
      * 
      * @Groups("browse_article")
      * @Groups("read_article")

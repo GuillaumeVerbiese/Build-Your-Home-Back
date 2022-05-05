@@ -25,7 +25,7 @@ class Comment
      * @Groups("browse_article")
      * @Groups("read_article")
      */
-    private $comment_body;
+    private $body;
 
     /**
      * @ORM\Column(type="integer")
@@ -33,7 +33,7 @@ class Comment
      * @Groups("browse_article")
      * @Groups("read_article")
      */
-    private $comment_rating;
+    private $rating;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,24 +41,24 @@ class Comment
      * @Groups("browse_article")
      * @Groups("read_article")
      */
-    private $comment_created_at;
+    private $created_at;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $comment_updated_at;
+    private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $comment_article;
+    private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $comment_user;
+    private $user;
 
     public function getId(): ?int
     {
@@ -67,72 +67,72 @@ class Comment
 
     public function getCommentBody(): ?string
     {
-        return $this->comment_body;
+        return $this->body;
     }
 
-    public function setCommentBody(string $comment_body): self
+    public function setCommentBody(string $body): self
     {
-        $this->comment_body = $comment_body;
+        $this->body = $body;
 
         return $this;
     }
 
     public function getCommentRating(): ?int
     {
-        return $this->comment_rating;
+        return $this->rating;
     }
 
-    public function setCommentRating(int $comment_rating): self
+    public function setCommentRating(int $rating): self
     {
-        $this->comment_rating = $comment_rating;
+        $this->rating = $rating;
 
         return $this;
     }
 
     public function getCommentCreatedAt(): ?\DateTimeInterface
     {
-        return $this->comment_created_at;
+        return $this->created_at;
     }
 
-    public function setCommentCreatedAt(\DateTimeInterface $comment_created_at): self
+    public function setCommentCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->comment_created_at = $comment_created_at;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
     public function getCommentUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->comment_updated_at;
+        return $this->updated_at;
     }
 
-    public function setCommentUpdatedAt(?\DateTimeInterface $comment_updated_at): self
+    public function setCommentUpdatedAt(?\DateTimeInterface $updated_at): self
     {
-        $this->comment_updated_at = $comment_updated_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
 
     public function getCommentArticle(): ?Article
     {
-        return $this->comment_article;
+        return $this->article;
     }
 
-    public function setCommentArticle(?Article $comment_article): self
+    public function setCommentArticle(?Article $article): self
     {
-        $this->comment_article = $comment_article;
+        $this->article = $article;
 
         return $this;
     }
 
     public function getCommentUser(): ?User
     {
-        return $this->comment_user;
+        return $this->user;
     }
 
-    public function setCommentUser(?User $comment_user): self
+    public function setCommentUser(?User $user): self
     {
-        $this->comment_user = $comment_user;
+        $this->user = $user;
 
         return $this;
     }

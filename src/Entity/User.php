@@ -118,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $favorites;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_user")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      * @Groups("readUser")
      */
     private $comments;
