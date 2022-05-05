@@ -126,9 +126,9 @@ class UserController extends AbstractController
                 $entityManagerInterface->remove($favorite);
             }
         }
-            // On récupére ses commandes
-            $userOrders = $user->getOrders();
-            // Si il y a des commandes
+        // On récupére ses commandes
+        $userOrders = $user->getOrders();
+        // Si il y a des commandes
         if ($userOrders !== null) {
         
             // On boucle sur le tableau pour les supprimer
@@ -141,6 +141,16 @@ class UserController extends AbstractController
                 }
                 // Puis on supprime la commande
                 $entityManagerInterface->remove($order);
+            }
+        }
+        // On récupére ses commentaires
+        $userComments = $user->getComments();
+        // Si il y a des commandes
+        if ($userComments !== null) {
+        
+            // On boucle sur le tableau pour supprimer leur utilisateur associé
+            foreach ($userComments as $comment) {
+                $comment->setCommentUser(null);
             }
         }
             // On supprime l'utilisateur
