@@ -18,7 +18,7 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * 
+     * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
      */

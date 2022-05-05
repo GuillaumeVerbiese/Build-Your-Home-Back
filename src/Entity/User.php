@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -16,26 +17,31 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("readUser")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("readUser")
      */
     private $user_lastname;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups("readUser")
      */
     private $user_firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("readUser")
      */
     private $user_adress;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("readUser")
      */
     private $user_birthdate;
 
@@ -51,11 +57,13 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("readUser")
      */
     private $user_mail;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Groups("readUser")
      */
     private $user_phone;
 
@@ -71,16 +79,19 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="order_user")
+     * @Groups("readUser")
      */
     private $orders;
 
     /**
      * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_user")
+     * @Groups("readUser")
      */
     private $favorites;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_user")
+     * @Groups("readUser")
      */
     private $comments;
 
