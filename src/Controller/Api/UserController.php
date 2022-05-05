@@ -92,23 +92,63 @@ class UserController extends AbstractController
     /**
      * Supprime l'utilisateur correspondant à l'id
      * 
+     * @OA\Response(
+     *     response=200,
+     *     description="User is delete"
+     * )
+     * 
+     * @OA\Response(
+     *     response=404,
+     *     description="User not found"
+     * )
+     * 
      * @Route("/user/{id}", name="_delete_user", requirements={"id":"\d+"}, methods={"DELETE"})
      *
+     * @param integer $id
      * @param EntityManagerInterface $entityManagerInterface
-     * @param Request $request
-     * @param SerializerInterface $serializerInterface
+     * @param UserRepository $userRepository
      * @return JsonResponse
      */
     public function delete(int $id, EntityManagerInterface $entityManagerInterface, UserRepository $userRepository): JsonResponse
     {
         // On récupére l'utilisateur
         $user = $userRepository->find($id);
-        // On le supprime avec l'entityManager
+        // Si l'utilisateur n'existe pas
+        if ($user == null) {
+            return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+        }
+        // On récupére ses favoris
+        $userFavorites = $user->getFavorites();
+        // Si il y a des favories
+        if ($userFavorites !== null) {
+            // On boucle sur le tableau pour les supprimer
+            foreach ($userFavorites as $favorite) {
+                $entityManagerInterface->remove($favorite);
+            }
+        }
+            // On récupére ses commandes
+            $userOrders = $user->getOrders();
+            // Si il y a des commandes
+        if ($userOrders !== null) {
+        
+            // On boucle sur le tableau pour les supprimer
+            foreach ($userOrders as $order) {
+                // Avant de supprimer la commande il faut supprimer leurs orderlist
+                $orderOrderlists = $order->getOrderlists();
+                // On boucle sur le tableau pour les supprimer
+                foreach ($orderOrderlists as $orderlist) {
+                    $entityManagerInterface->remove($orderlist);
+                }
+                // Puis on supprime la commande
+                $entityManagerInterface->remove($order);
+            }
+        }
+            // On supprime l'utilisateur
         $entityManagerInterface->remove($user);
         // On le supprime de la DB
         $entityManagerInterface->flush();
 
-        return $this->json($user,Response::HTTP_OK);
+        return $this->json("Utilisateur supprimé",Response::HTTP_OK);
         
     }
 
