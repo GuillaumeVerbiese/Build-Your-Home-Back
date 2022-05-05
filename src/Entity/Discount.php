@@ -31,7 +31,7 @@ class Discount
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $discount_name;
+    private $name;
 
     /**
      * @ORM\Column(type="float")
@@ -45,7 +45,7 @@ class Discount
      * @Groups("read_order")
      * 
      */
-    private $discount_rate;
+    private $rate;
 
     /**
      * @ORM\Column(type="datetime")
@@ -53,7 +53,7 @@ class Discount
      * @Groups("browse_discount")
      * @Groups("read_discount")
      */
-    private $discount_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -61,7 +61,7 @@ class Discount
      * @Groups("browse_discount")
      * @Groups("read_discount")
      */
-    private $discount_updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="discount")
@@ -82,48 +82,48 @@ class Discount
 
     public function getDiscountName(): ?string
     {
-        return $this->discount_name;
+        return $this->name;
     }
 
-    public function setDiscountName(string $discount_name): self
+    public function setDiscountName(string $name): self
     {
-        $this->discount_name = $discount_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getDiscountRate(): ?float
     {
-        return $this->discount_rate;
+        return $this->rate;
     }
 
-    public function setDiscountRate(float $discount_rate): self
+    public function setDiscountRate(float $rate): self
     {
-        $this->discount_rate = $discount_rate;
+        $this->rate = $rate;
 
         return $this;
     }
 
     public function getDiscountCreatedAt(): ?\DateTimeInterface
     {
-        return $this->discount_createdAt;
+        return $this->createdAt;
     }
 
-    public function setDiscountCreatedAt(\DateTimeInterface $discount_createdAt): self
+    public function setDiscountCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->discount_createdAt = $discount_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getDiscountUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->discount_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setDiscountUpdatedAt(?\DateTimeInterface $discount_updatedAt): self
+    public function setDiscountUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->discount_updatedAt = $discount_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
