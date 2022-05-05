@@ -58,7 +58,7 @@ class Brand
     private $brand_updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_brand")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="brand")
      */
     private $articles;
 

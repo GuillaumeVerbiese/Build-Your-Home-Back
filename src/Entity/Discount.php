@@ -64,7 +64,7 @@ class Discount
     private $discount_updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_discount")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="discount")
      * 
      * 
      */

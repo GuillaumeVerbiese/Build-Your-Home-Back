@@ -93,7 +93,7 @@ class Category
     private $category_display_order;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_category")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="category")
      */
     private $articles;
 

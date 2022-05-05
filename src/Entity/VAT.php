@@ -67,7 +67,7 @@ class VAT
     private $vat_updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_vat")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="vat")
      */
     private $articles;
 

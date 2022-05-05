@@ -29,7 +29,7 @@ final class Version20220503075428 extends AbstractMigration
         $this->addSql('ALTER TABLE favorite ADD CONSTRAINT FK_68C58ED96C5F6461 FOREIGN KEY (favorite_article_id) REFERENCES article (id)');
         $this->addSql('ALTER TABLE orderlist ADD CONSTRAINT FK_4AF8AE82AD69A89B FOREIGN KEY (orderlist_order_id) REFERENCES `order` (id)');
         $this->addSql('ALTER TABLE orderlist ADD CONSTRAINT FK_4AF8AE821CB07F7F FOREIGN KEY (orderlist_article_id) REFERENCES article (id)');
-        $this->addSql('ALTER TABLE article ADD article_rating DOUBLE PRECISION DEFAULT NULL');
+        $this->addSql('ALTER TABLE article ADD rating DOUBLE PRECISION DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
@@ -38,6 +38,6 @@ final class Version20220503075428 extends AbstractMigration
         $this->addSql('DROP TABLE comment');
         $this->addSql('DROP TABLE favorite');
         $this->addSql('DROP TABLE orderlist');
-        $this->addSql('ALTER TABLE article DROP article_rating');
+        $this->addSql('ALTER TABLE article DROP rating');
     }
 }
