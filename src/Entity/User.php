@@ -17,31 +17,46 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_lastname;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_adress;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_birthdate;
 
@@ -57,13 +72,19 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_mail;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * 
      * @Groups("readUser")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $user_phone;
 
