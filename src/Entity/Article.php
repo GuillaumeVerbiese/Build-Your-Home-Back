@@ -161,7 +161,7 @@ class Article
     private $discount;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_article")
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="article")
      * 
      */
     private $favorites;

@@ -23,13 +23,13 @@ class Favorite
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="favorites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $favorite_user;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="favorites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $favorite_article;
+    private $article;
 
     public function getId(): ?int
     {
@@ -38,24 +38,24 @@ class Favorite
 
     public function getFavoriteUser(): ?User
     {
-        return $this->favorite_user;
+        return $this->user;
     }
 
-    public function setFavoriteUser(?User $favorite_user): self
+    public function setFavoriteUser(?User $user): self
     {
-        $this->favorite_user = $favorite_user;
+        $this->user = $user;
 
         return $this;
     }
 
     public function getFavoriteArticle(): ?Article
     {
-        return $this->favorite_article;
+        return $this->article;
     }
 
-    public function setFavoriteArticle(?Article $favorite_article): self
+    public function setFavoriteArticle(?Article $article): self
     {
-        $this->favorite_article = $favorite_article;
+        $this->article = $article;
 
         return $this;
     }

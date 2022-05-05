@@ -112,7 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $orders;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_user")
+     * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="user")
      * @Groups("readUser")
      */
     private $favorites;
