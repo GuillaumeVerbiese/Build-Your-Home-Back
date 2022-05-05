@@ -22,7 +22,7 @@ class Orderlist
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderlists")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $orderlist_order;
+    private $order;
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderlists")
@@ -31,17 +31,17 @@ class Orderlist
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $orderlist_article;
+    private $article;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $orderlist_created_at;
+    private $created_at;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $orderlist_quantity;
+    private $quantity;
 
     public function getId(): ?int
     {
@@ -50,48 +50,48 @@ class Orderlist
 
     public function getOrderlistOrder(): ?Order
     {
-        return $this->orderlist_order;
+        return $this->order;
     }
 
-    public function setOrderlistOrder(?Order $orderlist_order): self
+    public function setOrderlistOrder(?Order $order): self
     {
-        $this->orderlist_order = $orderlist_order;
+        $this->order = $order;
 
         return $this;
     }
 
     public function getOrderlistArticle(): ?Article
     {
-        return $this->orderlist_article;
+        return $this->article;
     }
 
-    public function setOrderlistArticle(?Article $orderlist_article): self
+    public function setOrderlistArticle(?Article $article): self
     {
-        $this->orderlist_article = $orderlist_article;
+        $this->article = $article;
 
         return $this;
     }
 
     public function getOrderlistCreatedAt(): ?\DateTimeInterface
     {
-        return $this->orderlist_created_at;
+        return $this->created_at;
     }
 
-    public function setOrderlistCreatedAt(\DateTimeInterface $orderlist_created_at): self
+    public function setOrderlistCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->orderlist_created_at = $orderlist_created_at;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
     public function getOrderlistQuantity(): ?int
     {
-        return $this->orderlist_quantity;
+        return $this->quantity;
     }
 
-    public function setOrderlistQuantity(int $orderlist_quantity): self
+    public function setOrderlistQuantity(int $quantity): self
     {
-        $this->orderlist_quantity = $orderlist_quantity;
+        $this->quantity = $quantity;
 
         return $this;
     }

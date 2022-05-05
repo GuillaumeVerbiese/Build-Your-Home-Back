@@ -67,7 +67,7 @@ class Order
     private $deliveries;
 
     /**
-     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_order")
+     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="order")
      * 
      * @Groups("browse_order")
      * @Groups("read_order")

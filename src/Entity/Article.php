@@ -186,7 +186,7 @@ class Article
     private $rating;
 
     /**
-     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_article")
+     * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="article")
      * 
      */
     private $orderlists;
