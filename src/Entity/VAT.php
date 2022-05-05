@@ -35,7 +35,7 @@ class VAT
      * @Groups("read_order")
      * 
      */
-    private $vat_name;
+    private $name;
 
     /**
      * @ORM\Column(type="float")
@@ -48,7 +48,7 @@ class VAT
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $vat_rate;
+    private $rate;
 
     /**
      * @ORM\Column(type="datetime")
@@ -56,7 +56,7 @@ class VAT
      * @Groups("browse_vat")
      * @Groups("read_vat")
      */
-    private $vat_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -64,7 +64,7 @@ class VAT
      * @Groups("browse_vat")
      * @Groups("read_vat")
      */
-    private $vat_updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="vat")
@@ -83,48 +83,48 @@ class VAT
 
     public function getVatName(): ?string
     {
-        return $this->vat_name;
+        return $this->name;
     }
 
-    public function setVatName(string $vat_name): self
+    public function setVatName(string $name): self
     {
-        $this->vat_name = $vat_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getVatRate(): ?float
     {
-        return $this->vat_rate;
+        return $this->rate;
     }
 
-    public function setVatRate(float $vat_rate): self
+    public function setVatRate(float $rate): self
     {
-        $this->vat_rate = $vat_rate;
+        $this->rate = $rate;
 
         return $this;
     }
 
     public function getVatCreatedAt(): ?\DateTimeInterface
     {
-        return $this->vat_createdAt;
+        return $this->createdAt;
     }
 
-    public function setVatCreatedAt(\DateTimeInterface $vat_createdAt): self
+    public function setVatCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->vat_createdAt = $vat_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getVatUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->vat_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setVatUpdatedAt(?\DateTimeInterface $vat_updatedAt): self
+    public function setVatUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->vat_updatedAt = $vat_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
