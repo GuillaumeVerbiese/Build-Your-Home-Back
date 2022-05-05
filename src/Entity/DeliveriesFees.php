@@ -29,7 +29,7 @@ class DeliveriesFees
      * @Groups("browse_deliveryfee")
      * @Groups("read_deliveriesfee")
      */
-    private $delivery_fees_name;
+    private $name;
 
     /**
      * @ORM\Column(type="float")
@@ -39,7 +39,7 @@ class DeliveriesFees
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $delivery_fees_price;
+    private $price;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,7 +49,7 @@ class DeliveriesFees
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $delivery_fees_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -57,10 +57,10 @@ class DeliveriesFees
      * @Groups("browse_deliveryfee")
      * @Groups("read_deliveriesfee")
      */
-    private $delivery_fees_updatedAt;
+    private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="order_deliveries")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="deliveries")
      */
     private $orders;
 
@@ -76,48 +76,48 @@ class DeliveriesFees
 
     public function getDeliveryFeesName(): ?string
     {
-        return $this->delivery_fees_name;
+        return $this->name;
     }
 
-    public function setDeliveryFeesName(string $delivery_fees_name): self
+    public function setDeliveryFeesName(string $name): self
     {
-        $this->delivery_fees_name = $delivery_fees_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getDeliveryFeesPrice(): ?float
     {
-        return $this->delivery_fees_price;
+        return $this->price;
     }
 
-    public function setDeliveryFeesPrice(float $delivery_fees_price): self
+    public function setDeliveryFeesPrice(float $price): self
     {
-        $this->delivery_fees_price = $delivery_fees_price;
+        $this->price = $price;
 
         return $this;
     }
 
     public function getDeliveryFeesCreatedAt(): ?\DateTimeInterface
     {
-        return $this->delivery_fees_createdAt;
+        return $this->createdAt;
     }
 
-    public function setDeliveryFeesCreatedAt(\DateTimeInterface $delivery_fees_createdAt): self
+    public function setDeliveryFeesCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->delivery_fees_createdAt = $delivery_fees_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getDeliveryFeesUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->delivery_fees_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setDeliveryFeesUpdatedAt(?\DateTimeInterface $delivery_fees_updatedAt): self
+    public function setDeliveryFeesUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->delivery_fees_updatedAt = $delivery_fees_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

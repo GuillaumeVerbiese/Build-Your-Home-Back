@@ -34,31 +34,31 @@ class Brand
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $brand_name;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      * @Groups("browse_brand")
      * @Groups("read_brand")
      */
-    private $brand_slug;
+    private $slug;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups("browse_brand")
      * @Groups("read_brand")
      */
-    private $brand_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("browse_brand")
      * @Groups("read_brand")
      */
-    private $brand_updatedAt;
+    private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_brand")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="brand")
      */
     private $articles;
 
@@ -74,48 +74,48 @@ class Brand
 
     public function getBrandName(): ?string
     {
-        return $this->brand_name;
+        return $this->name;
     }
 
-    public function setBrandName(string $brand_name): self
+    public function setBrandName(string $name): self
     {
-        $this->brand_name = $brand_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getBrandSlug(): ?string
     {
-        return $this->brand_slug;
+        return $this->slug;
     }
 
-    public function setBrandSlug(string $brand_slug): self
+    public function setBrandSlug(string $slug): self
     {
-        $this->brand_slug = $brand_slug;
+        $this->slug = $slug;
 
         return $this;
     }
 
     public function getBrandCreatedAt(): ?\DateTimeInterface
     {
-        return $this->brand_createdAt;
+        return $this->createdAt;
     }
 
-    public function setBrandCreatedAt(\DateTimeInterface $brand_createdAt): self
+    public function setBrandCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->brand_createdAt = $brand_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getBrandUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->brand_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setBrandUpdatedAt(?\DateTimeInterface $brand_updatedAt): self
+    public function setBrandUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->brand_updatedAt = $brand_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -51,7 +51,7 @@ class OrderRepository extends ServiceEntityRepository
         $dbal = $this->getEntityManager()->getConnection();
         $sql = "select * 
             FROM `order`
-            WHERE `order_status` = '{$status}'";
+            WHERE `status` = '{$status}'";
         
             $stmt = $dbal->prepare($sql);
         $resultSet = $stmt->executeQuery();

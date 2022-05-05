@@ -38,7 +38,7 @@ class Category
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $category_name;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,7 +50,7 @@ class Category
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $category_picture_link;
+    private $picture_link;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
@@ -62,7 +62,7 @@ class Category
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $category_slug;
+    private $slug;
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,7 +74,7 @@ class Category
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $category_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -84,16 +84,16 @@ class Category
      * @Groups("add_category")
      * @Groups("read_category_article")
      */
-    private $category_updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\Column(type="integer")
      * 
      */
-    private $category_display_order;
+    private $display_order;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="article_category")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="category")
      */
     private $articles;
 
@@ -109,72 +109,72 @@ class Category
 
     public function getCategoryName(): ?string
     {
-        return $this->category_name;
+        return $this->name;
     }
 
-    public function setCategoryName(string $category_name): self
+    public function setCategoryName(string $name): self
     {
-        $this->category_name = $category_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getCategoryPictureLink(): ?string
     {
-        return $this->category_picture_link;
+        return $this->picture_link;
     }
 
-    public function setCategoryPictureLink(string $category_picture_link): self
+    public function setCategoryPictureLink(string $picture_link): self
     {
-        $this->category_picture_link = $category_picture_link;
+        $this->picture_link = $picture_link;
 
         return $this;
     }
 
     public function getCategorySlug(): ?string
     {
-        return $this->category_slug;
+        return $this->slug;
     }
 
-    public function setCategorySlug(?string $category_slug): self
+    public function setCategorySlug(?string $slug): self
     {
-        $this->category_slug = $category_slug;
+        $this->slug = $slug;
 
         return $this;
     }
 
     public function getCategoryCreatedAt(): ?\DateTimeInterface
     {
-        return $this->category_createdAt;
+        return $this->createdAt;
     }
 
-    public function setCategoryCreatedAt(\DateTimeInterface $category_createdAt): self
+    public function setCategoryCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->category_createdAt = $category_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getCategoryUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->category_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setCategoryUpdatedAt(?\DateTimeInterface $category_updatedAt): self
+    public function setCategoryUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->category_updatedAt = $category_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     public function getCategoryDisplayOrder(): ?int
     {
-        return $this->category_display_order;
+        return $this->display_order;
     }
 
-    public function setCategoryDisplayOrder(int $category_display_order): self
+    public function setCategoryDisplayOrder(int $display_order): self
     {
-        $this->category_display_order = $category_display_order;
+        $this->display_order = $display_order;
 
         return $this;
     }
