@@ -32,7 +32,7 @@ class Order
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $order_status;
+    private $status;
 
     /**
      * @ORM\Column(type="datetime")
@@ -40,7 +40,7 @@ class Order
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $order_createdAt;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -48,7 +48,7 @@ class Order
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $order_updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
@@ -56,7 +56,7 @@ class Order
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $order_user;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=DeliveriesFees::class, inversedBy="orders")
@@ -64,7 +64,7 @@ class Order
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $order_deliveries;
+    private $deliveries;
 
     /**
      * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_order")
@@ -88,60 +88,60 @@ class Order
 
     public function getOrderStatus(): ?int
     {
-        return $this->order_status;
+        return $this->status;
     }
 
-    public function setOrderStatus(int $order_status): self
+    public function setOrderStatus(int $status): self
     {
-        $this->order_status = $order_status;
+        $this->status = $status;
 
         return $this;
     }
 
     public function getOrderCreatedAt(): ?\DateTimeInterface
     {
-        return $this->order_createdAt;
+        return $this->createdAt;
     }
 
-    public function setOrderCreatedAt(\DateTimeInterface $order_createdAt): self
+    public function setOrderCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->order_createdAt = $order_createdAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getOrderUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->order_updatedAt;
+        return $this->updatedAt;
     }
 
-    public function setOrderUpdatedAt(?\DateTimeInterface $order_updatedAt): self
+    public function setOrderUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->order_updatedAt = $order_updatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     public function getOrderUser(): ?User
     {
-        return $this->order_user;
+        return $this->user;
     }
 
-    public function setOrderUser(?User $order_user): self
+    public function setOrderUser(?User $user): self
     {
-        $this->order_user = $order_user;
+        $this->user = $user;
 
         return $this;
     }
 
     public function getOrderDeliveries(): ?DeliveriesFees
     {
-        return $this->order_deliveries;
+        return $this->deliveries;
     }
 
-    public function setOrderDeliveries(?DeliveriesFees $order_deliveries): self
+    public function setOrderDeliveries(?DeliveriesFees $deliveries): self
     {
-        $this->order_deliveries = $order_deliveries;
+        $this->deliveries = $deliveries;
 
         return $this;
     }

@@ -106,7 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $user_updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="order_user")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      * @Groups("readUser")
      */
     private $orders;

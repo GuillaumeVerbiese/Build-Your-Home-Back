@@ -60,7 +60,7 @@ class DeliveriesFees
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="order_deliveries")
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="deliveries")
      */
     private $orders;
 
