@@ -6,6 +6,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -16,89 +17,177 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_description;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_price;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_stock;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_picture_link;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_slug;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=VAT::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_vat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_brand;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_category;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discount::class, inversedBy="articles")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_discount;
 
     /**
      * @ORM\OneToMany(targetEntity=Favorite::class, mappedBy="favorite_article")
+     * 
      */
     private $favorites;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="comment_article")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $comments;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $article_rating;
 
     /**
      * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="orderlist_article")
+     * 
      */
     private $orderlists;
 

@@ -21,16 +21,25 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $comment_body;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $comment_rating;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
      */
     private $comment_created_at;
 

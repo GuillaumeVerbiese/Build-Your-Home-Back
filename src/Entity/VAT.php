@@ -6,6 +6,7 @@ use App\Repository\VATRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VATRepository::class)
@@ -16,26 +17,52 @@ class VAT
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_vat")
+     * @Groups("read_vat")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("browse_vat")
+     * @Groups("read_vat")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
+     * 
      */
     private $vat_name;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("browse_vat")
+     * @Groups("read_vat")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $vat_rate;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("browse_vat")
+     * @Groups("read_vat")
      */
     private $vat_createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups("browse_vat")
+     * @Groups("read_vat")
      */
     private $vat_updatedAt;
 

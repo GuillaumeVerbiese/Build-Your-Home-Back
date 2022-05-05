@@ -46,6 +46,18 @@ class OrderRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function findAllByStatus(int $status)
+    {
+        $dbal = $this->getEntityManager()->getConnection();
+        $sql = "select * 
+            FROM `order`
+            WHERE `order_status` = '{$status}'";
+        
+            $stmt = $dbal->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
 
     // /**
     //  * @return Order[] Returns an array of Order objects

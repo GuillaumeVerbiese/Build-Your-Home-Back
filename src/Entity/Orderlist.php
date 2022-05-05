@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderlistRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderlistRepository::class)
@@ -26,6 +27,9 @@ class Orderlist
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderlists")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("browse_order")
+     * @Groups("read_order")
      */
     private $orderlist_article;
 
