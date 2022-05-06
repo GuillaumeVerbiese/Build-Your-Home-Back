@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VATRepository::class)
@@ -34,6 +35,8 @@ class VAT
      * @Groups("browse_order")
      * @Groups("read_order")
      * 
+     * @Assert\NotBlank
+     * 
      */
     private $name;
 
@@ -47,6 +50,9 @@ class VAT
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Positive
      */
     private $rate;
 

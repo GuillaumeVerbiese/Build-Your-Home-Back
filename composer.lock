@@ -1227,16 +1227,16 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "b7f12af9973c3861ca5489dd065c85fb2b99436c"
+                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/b7f12af9973c3861ca5489dd065c85fb2b99436c",
-                "reference": "b7f12af9973c3861ca5489dd065c85fb2b99436c",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
+                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
                 "shasum": ""
             },
             "require": {
@@ -1308,7 +1308,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/3.0.1"
+                "source": "https://github.com/doctrine/persistence/tree/3.0.2"
             },
             "funding": [
                 {
@@ -1324,7 +1324,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-02T17:41:58+00:00"
+            "time": "2022-05-06T06:10:05+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -7899,16 +7899,16 @@
         },
         {
             "name": "zircote/swagger-php",
-            "version": "4.3.0",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "24b23371ee962ac201fac33292034ae099c8d4a0"
+                "reference": "3eb4e8193b74373251edc1f614f9fe5401a28c0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/24b23371ee962ac201fac33292034ae099c8d4a0",
-                "reference": "24b23371ee962ac201fac33292034ae099c8d4a0",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/3eb4e8193b74373251edc1f614f9fe5401a28c0c",
+                "reference": "3eb4e8193b74373251edc1f614f9fe5401a28c0c",
                 "shasum": ""
             },
             "require": {
@@ -7922,7 +7922,9 @@
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.11",
                 "friendsofphp/php-cs-fixer": "^2.17 || ^3.0",
-                "phpunit/phpunit": ">=8"
+                "phpstan/phpstan": "^1.6",
+                "phpunit/phpunit": ">=8",
+                "vimeo/psalm": "^4.23"
             },
             "bin": [
                 "bin/openapi"
@@ -7968,9 +7970,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zircote/swagger-php/issues",
-                "source": "https://github.com/zircote/swagger-php/tree/4.3.0"
+                "source": "https://github.com/zircote/swagger-php/tree/4.4.0"
             },
-            "time": "2022-04-17T01:42:30+00:00"
+            "time": "2022-05-05T20:23:51+00:00"
         }
     ],
     "packages-dev": [

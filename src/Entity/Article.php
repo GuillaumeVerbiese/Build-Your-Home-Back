@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -34,6 +35,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -45,6 +48,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -56,6 +61,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $price;
 
@@ -78,6 +85,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $picture;
 
@@ -89,6 +98,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * 
      */
     private $slug;
 
@@ -100,6 +111,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * 
      */
     private $createdAt;
 
@@ -135,6 +148,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $brand;
 
@@ -146,6 +161,8 @@ class Article
      * @Groups("read_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $category;
 
@@ -157,6 +174,8 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $discount;
 
@@ -182,11 +201,14 @@ class Article
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
+     * @Assert\NotBlank
      */
     private $rating;
 
     /**
      * @ORM\OneToMany(targetEntity=Orderlist::class, mappedBy="article")
+     * 
      * 
      */
     private $orderlists;
