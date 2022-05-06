@@ -203,144 +203,144 @@ class Article
         return $this->id;
     }
 
-    public function getArticleName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setArticleName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getArticleDescription(): ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setArticleDescription(string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getArticlePrice(): ?float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setArticlePrice(float $price): self
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getArticleStock(): ?int
+    public function getStock(): ?int
     {
         return $this->stock;
     }
 
-    public function setArticleStock(int $stock): self
+    public function setStock(int $stock): self
     {
         $this->stock = $stock;
 
         return $this;
     }
 
-    public function getArticlePictureLink(): ?string
+    public function getPictureLink(): ?string
     {
         return $this->picture_link;
     }
 
-    public function setArticlePictureLink(string $picture_link): self
+    public function setPictureLink(string $picture_link): self
     {
         $this->picture_link = $picture_link;
 
         return $this;
     }
 
-    public function getArticleSlug(): ?string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setArticleSlug(?string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getArticleCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setArticleCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getArticleUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setArticleUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getArticleVat(): ?VAT
+    public function getVat(): ?VAT
     {
         return $this->vat;
     }
 
-    public function setArticleVat(?VAT $vat): self
+    public function setVat(?VAT $vat): self
     {
         $this->vat = $vat;
 
         return $this;
     }
 
-    public function getArticleBrand(): ?Brand
+    public function getBrand(): ?Brand
     {
         return $this->brand;
     }
 
-    public function setArticleBrand(?Brand $brand): self
+    public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
 
         return $this;
     }
 
-    public function getArticleCategory(): ?Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setArticleCategory(?Category $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
         return $this;
     }
 
-    public function getArticleDiscount(): ?Discount
+    public function getDiscount(): ?Discount
     {
         return $this->discount;
     }
 
-    public function setArticleDiscount(?Discount $discount): self
+    public function setDiscount(?Discount $discount): self
     {
         $this->discount = $discount;
 
@@ -359,7 +359,7 @@ class Article
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
-            $favorite->setFavoriteArticle($this);
+            $favorite->setArticle($this);
         }
 
         return $this;
@@ -369,8 +369,8 @@ class Article
     {
         if ($this->favorites->removeElement($favorite)) {
             // set the owning side to null (unless already changed)
-            if ($favorite->getFavoriteArticle() === $this) {
-                $favorite->setFavoriteArticle(null);
+            if ($favorite->getArticle() === $this) {
+                $favorite->setArticle(null);
             }
         }
 
@@ -389,7 +389,7 @@ class Article
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setCommentArticle($this);
+            $comment->setArticle($this);
         }
 
         return $this;
@@ -399,20 +399,20 @@ class Article
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getCommentArticle() === $this) {
-                $comment->setCommentArticle(null);
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
             }
         }
 
         return $this;
     }
 
-    public function getArticleRating(): ?float
+    public function getRating(): ?float
     {
         return $this->rating;
     }
 
-    public function setArticleRating(?float $rating): self
+    public function setRating(?float $rating): self
     {
         $this->rating = $rating;
 
@@ -431,7 +431,7 @@ class Article
     {
         if (!$this->orderlists->contains($orderlist)) {
             $this->orderlists[] = $orderlist;
-            $orderlist->setOrderlistArticle($this);
+            $orderlist->setArticle($this);
         }
 
         return $this;
@@ -441,8 +441,8 @@ class Article
     {
         if ($this->orderlists->removeElement($orderlist)) {
             // set the owning side to null (unless already changed)
-            if ($orderlist->getOrderlistArticle() === $this) {
-                $orderlist->setOrderlistArticle(null);
+            if ($orderlist->getArticle() === $this) {
+                $orderlist->setArticle(null);
             }
         }
 

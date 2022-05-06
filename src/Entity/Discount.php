@@ -80,48 +80,48 @@ class Discount
         return $this->id;
     }
 
-    public function getDiscountName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setDiscountName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getDiscountRate(): ?float
+    public function getRate(): ?float
     {
         return $this->rate;
     }
 
-    public function setDiscountRate(float $rate): self
+    public function setRate(float $rate): self
     {
         $this->rate = $rate;
 
         return $this;
     }
 
-    public function getDiscountCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setDiscountCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getDiscountUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setDiscountUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -140,7 +140,7 @@ class Discount
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setArticleDiscount($this);
+            $article->setDiscount($this);
         }
 
         return $this;
@@ -150,8 +150,8 @@ class Discount
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getArticleDiscount() === $this) {
-                $article->setArticleDiscount(null);
+            if ($article->getDiscount() === $this) {
+                $article->setDiscount(null);
             }
         }
 

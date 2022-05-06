@@ -150,48 +150,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
     }
 
-    public function getUserLastname(): ?string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
-    public function setUserLastname(string $lastname): self
+    public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getUserFirstname(): ?string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setUserFirstname(string $firstname): self
+    public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getUserAdress(): ?string
+    public function getAdress(): ?string
     {
         return $this->adress;
     }
 
-    public function setUserAdress(string $adress): self
+    public function setAdress(string $adress): self
     {
         $this->adress = $adress;
 
         return $this;
     }
 
-    public function getUserBirthdate(): ?\DateTimeInterface
+    public function getBirthdate(): ?\DateTimeInterface
     {
         return $this->birthdate;
     }
 
-    public function setUserBirthdate(\DateTimeInterface $birthdate): self
+    public function setBirthdate(\DateTimeInterface $birthdate): self
     {
         $this->birthdate = $birthdate;
 
@@ -199,36 +199,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function getUserPhone(): ?string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setUserPhone(string $phone): self
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getUserCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setUserCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUserUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUserUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -247,7 +247,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->setOrderUser($this);
+            $order->setUser($this);
         }
 
         return $this;
@@ -257,8 +257,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getOrderUser() === $this) {
-                $order->setOrderUser(null);
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
             }
         }
 
@@ -277,7 +277,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
-            $favorite->setFavoriteUser($this);
+            $favorite->setUser($this);
         }
 
         return $this;
@@ -287,8 +287,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->favorites->removeElement($favorite)) {
             // set the owning side to null (unless already changed)
-            if ($favorite->getFavoriteUser() === $this) {
-                $favorite->setFavoriteUser(null);
+            if ($favorite->getUser() === $this) {
+                $favorite->setUser(null);
             }
         }
 
@@ -307,7 +307,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setCommentUser($this);
+            $comment->setUser($this);
         }
 
         return $this;
@@ -317,8 +317,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getCommentUser() === $this) {
-                $comment->setCommentUser(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
