@@ -85,7 +85,7 @@ class UserFixture extends Fixture
             // TODO renseigner toutes les propriétés
             $name = $categoryNameList[$i];
             $newCategory->setName($name)
-            ->setPictureLink('https://picsum.photos/id/'.rand(500,1000).'/200/300')
+            ->setPicture('https://picsum.photos/id/'.rand(500,1000).'/200/300')
             ->setSlug($name)
             ->setDisplayOrder($i<=5?$i:0)
             ->setCreatedAt(new DateTime());
@@ -218,7 +218,7 @@ class UserFixture extends Fixture
                 ->setPrice(rand(1, 500))
                 ->setStock(rand(1, 20))
                 ->setRating($nombre)
-                ->setPictureLink('https://picsum.photos/id/' . rand(500, 1000) . '/200/300')
+                ->setPicture('https://picsum.photos/id/' . rand(500, 1000) . '/200/300')
                 ->setSlug($newArticleName)
                 ->setCreatedAt(new Datetime)
                 ->setUpdatedAt(new Datetime)
