@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAT index{% endblock %}
+
+{% block body %}
+    <h1>VAT index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vat in vats %}
+            <tr>
+                <td>{{ vat.id }}</td>
+                <td>{{ vat.name }}</td>
+                <td>{{ vat.rate }}</td>
+                <td>{{ vat.createdAt ? vat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ vat.updatedAt ? vat.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_back_vat_show', {'id': vat.id}) }}">show</a>
+                    <a href="{{ path('app_back_vat_edit', {'id': vat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_vat_new') }}">Create new</a>
+{% endblock %}
