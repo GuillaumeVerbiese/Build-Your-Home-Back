@@ -87,7 +87,7 @@ class UserFixture extends Fixture
             $newCategory->setName($name)
             ->setPicture('https://picsum.photos/id/'.rand(500,1000).'/200/300')
             ->setSlug($name)
-            ->setDisplayOrder($i<=5?$i:0)
+            ->setDisplayOrder($i<=9?$i:0)
             ->setCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newCategory);

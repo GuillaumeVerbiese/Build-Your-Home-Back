@@ -89,8 +89,10 @@ class Category
     /**
      * @ORM\Column(type="integer")
      * 
+     * @Groups("browse_category")
+     * @Groups("read_category")
      */
-    private $display_order;
+    private $displayOrder;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="category")
@@ -169,12 +171,12 @@ class Category
 
     public function getDisplayOrder(): ?int
     {
-        return $this->display_order;
+        return $this->displayOrder;
     }
 
-    public function setDisplayOrder(int $display_order): self
+    public function setDisplayOrder(int $displayOrder): self
     {
-        $this->display_order = $display_order;
+        $this->displayOrder = $displayOrder;
 
         return $this;
     }
