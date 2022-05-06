@@ -222,7 +222,7 @@ class Article
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $display_order;
+    private $displayOrder;
 
     public function __construct()
     {
@@ -484,12 +484,12 @@ class Article
 
     public function getDisplayOrder(): ?int
     {
-        return $this->display_order;
+        return $this->displayOrder;
     }
 
-    public function setDisplayOrder(int $display_order): self
+    public function setDisplayOrder(int $displayOrder): self
     {
-        $this->display_order = $display_order;
+        $this->displayOrder = $displayOrder;
 
         return $this;
     }
