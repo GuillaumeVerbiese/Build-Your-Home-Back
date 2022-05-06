@@ -204,7 +204,7 @@ class UserFixture extends Fixture
 
         // article
         $articleList = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $newArticle = new Article();
             $newArticleName = $faker->unique()->word();
 
@@ -222,6 +222,7 @@ class UserFixture extends Fixture
                 ->setSlug($newArticleName)
                 ->setCreatedAt(new Datetime)
                 ->setUpdatedAt(new Datetime)
+                ->setDisplayOrder($i<=15?$i:0)
                 ->setVat($VATList[rand(1, count($VATList) - 1)])
                 ->setBrand($brandList[rand(1, count($brandList) - 1)])
                 ->setDiscount($discountList[rand(1, count($discountList) - 1)])

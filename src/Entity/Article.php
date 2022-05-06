@@ -213,6 +213,17 @@ class Article
      */
     private $orderlists;
 
+    /**
+     * @ORM\Column(type="integer")
+     * 
+     * @Groups("browse_article")
+     * @Groups("read_article")
+     * @Groups("read_category_article")
+     * @Groups("browse_order")
+     * @Groups("read_order")
+     */
+    private $display_order;
+
     public function __construct()
     {
         $this->favorites = new ArrayCollection();
@@ -467,6 +478,18 @@ class Article
                 $orderlist->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDisplayOrder(): ?int
+    {
+        return $this->display_order;
+    }
+
+    public function setDisplayOrder(int $display_order): self
+    {
+        $this->display_order = $display_order;
 
         return $this;
     }
