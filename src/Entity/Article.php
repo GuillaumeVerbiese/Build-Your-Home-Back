@@ -79,7 +79,7 @@ class Article
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    private $picture_link;
+    private $picture;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
@@ -251,14 +251,14 @@ class Article
         return $this;
     }
 
-    public function getPictureLink(): ?string
+    public function getPicture(): ?string
     {
-        return $this->picture_link;
+        return $this->picture;
     }
 
-    public function setPictureLink(string $picture_link): self
+    public function setPicture(string $picture): self
     {
-        $this->picture_link = $picture_link;
+        $this->picture = $picture;
 
         return $this;
     }
