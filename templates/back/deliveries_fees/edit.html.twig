@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DeliveriesFees{% endblock %}
+
+{% block body %}
+    <h1>Edit DeliveriesFees</h1>
+
+    {{ include('back/deliveries_fees/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_back_deliveries_fees_index') }}">back to list</a>
+
+    {{ include('back/deliveries_fees/_delete_form.html.twig') }}
+{% endblock %}
