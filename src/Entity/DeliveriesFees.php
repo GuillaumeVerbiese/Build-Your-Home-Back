@@ -74,48 +74,48 @@ class DeliveriesFees
         return $this->id;
     }
 
-    public function getDeliveryFeesName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setDeliveryFeesName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getDeliveryFeesPrice(): ?float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setDeliveryFeesPrice(float $price): self
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getDeliveryFeesCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setDeliveryFeesCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getDeliveryFeesUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setDeliveryFeesUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -134,7 +134,7 @@ class DeliveriesFees
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
-            $order->setOrderDeliveries($this);
+            $order->setDeliveries($this);
         }
 
         return $this;
@@ -144,8 +144,8 @@ class DeliveriesFees
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getOrderDeliveries() === $this) {
-                $order->setOrderDeliveries(null);
+            if ($order->getDeliveries() === $this) {
+                $order->setDeliveries(null);
             }
         }
 

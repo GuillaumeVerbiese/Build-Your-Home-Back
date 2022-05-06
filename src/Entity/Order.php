@@ -86,60 +86,60 @@ class Order
 
    
 
-    public function getOrderStatus(): ?int
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setOrderStatus(int $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getOrderCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setOrderCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getOrderUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setOrderUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getOrderUser(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setOrderUser(?User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getOrderDeliveries(): ?DeliveriesFees
+    public function getDeliveries(): ?DeliveriesFees
     {
         return $this->deliveries;
     }
 
-    public function setOrderDeliveries(?DeliveriesFees $deliveries): self
+    public function setDeliveries(?DeliveriesFees $deliveries): self
     {
         $this->deliveries = $deliveries;
 
@@ -158,7 +158,7 @@ class Order
     {
         if (!$this->orderlists->contains($orderlist)) {
             $this->orderlists[] = $orderlist;
-            $orderlist->setOrderlistOrder($this);
+            $orderlist->setOrder($this);
         }
 
         return $this;
@@ -168,8 +168,8 @@ class Order
     {
         if ($this->orderlists->removeElement($orderlist)) {
             // set the owning side to null (unless already changed)
-            if ($orderlist->getOrderlistOrder() === $this) {
-                $orderlist->setOrderlistOrder(null);
+            if ($orderlist->getOrder() === $this) {
+                $orderlist->setOrder(null);
             }
         }
 

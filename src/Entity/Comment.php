@@ -65,72 +65,72 @@ class Comment
         return $this->id;
     }
 
-    public function getCommentBody(): ?string
+    public function getBody(): ?string
     {
         return $this->body;
     }
 
-    public function setCommentBody(string $body): self
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
         return $this;
     }
 
-    public function getCommentRating(): ?int
+    public function getRating(): ?int
     {
         return $this->rating;
     }
 
-    public function setCommentRating(int $rating): self
+    public function setRating(int $rating): self
     {
         $this->rating = $rating;
 
         return $this;
     }
 
-    public function getCommentCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCommentCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getCommentUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setCommentUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 
         return $this;
     }
 
-    public function getCommentArticle(): ?Article
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    public function setCommentArticle(?Article $article): self
+    public function setArticle(?Article $article): self
     {
         $this->article = $article;
 
         return $this;
     }
 
-    public function getCommentUser(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setCommentUser(?User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

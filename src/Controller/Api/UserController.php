@@ -150,7 +150,7 @@ class UserController extends AbstractController
         
             // On boucle sur le tableau pour supprimer leur utilisateur associé
             foreach ($userComments as $comment) {
-                $comment->setCommentUser(null);
+                $comment->setUser(null);
             }
         }
             // On supprime l'utilisateur

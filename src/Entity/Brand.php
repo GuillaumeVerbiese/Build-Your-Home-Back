@@ -72,48 +72,48 @@ class Brand
         return $this->id;
     }
 
-    public function getBrandName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setBrandName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getBrandSlug(): ?string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setBrandSlug(string $slug): self
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getBrandCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setBrandCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getBrandUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setBrandUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -132,7 +132,7 @@ class Brand
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setArticleBrand($this);
+            $article->setBrand($this);
         }
 
         return $this;
@@ -142,8 +142,8 @@ class Brand
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getArticleBrand() === $this) {
-                $article->setArticleBrand(null);
+            if ($article->getBrand() === $this) {
+                $article->setBrand(null);
             }
         }
 

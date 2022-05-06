@@ -44,15 +44,15 @@ class UserFixture extends Fixture
         // On le hash
         $hashedPassword = $this->passwordHasher->hashPassword($newUser,$plaintextPassword);
         // TODO renseigner toutes les propriétés
-        $newUser->setUserLastname($faker->unique()->lastName())
-                ->setUserFirstname($faker->firstName())
-                ->setUserAdress($faker->address())
-                ->setUserBirthdate(new DateTime())
+        $newUser->setLastname($faker->unique()->lastName())
+                ->setFirstname($faker->firstName())
+                ->setAdress($faker->address())
+                ->setBirthdate(new DateTime())
                 ->setPassword($hashedPassword)
                 ->setRoles(['ROLE_USER'])
                 ->setEmail('user@user.com')
-                ->setUserPhone($faker->phoneNumber())
-                ->setUserCreatedAt(new DateTime());
+                ->setPhone($faker->phoneNumber())
+                ->setCreatedAt(new DateTime());
         // TODO persist
         $manager->persist($newUser);
 
@@ -63,15 +63,15 @@ class UserFixture extends Fixture
         // On le hash
         $hashedPassword = $this->passwordHasher->hashPassword($newUserAdmin,$plaintextPassword);
         // TODO renseigner toutes les propriétés
-        $newUserAdmin->setUserLastname($faker->unique()->lastName())
-                ->setUserFirstname($faker->firstName())
-                ->setUserAdress($faker->address())
-                ->setUserBirthdate(new DateTime())
+        $newUserAdmin->setLastname($faker->unique()->lastName())
+                ->setFirstname($faker->firstName())
+                ->setAdress($faker->address())
+                ->setBirthdate(new DateTime())
                 ->setPassword($hashedPassword)
                 ->setRoles(['ROLE_ADMIN'])
                 ->setEmail('admin@admin.com')
-                ->setUserPhone($faker->phoneNumber())
-                ->setUserCreatedAt(new DateTime());
+                ->setPhone($faker->phoneNumber())
+                ->setCreatedAt(new DateTime());
         // TODO persist
         $manager->persist($newUserAdmin);
 
@@ -84,11 +84,11 @@ class UserFixture extends Fixture
             $newCategory = new Category();
             // TODO renseigner toutes les propriétés
             $name = $categoryNameList[$i];
-            $newCategory->setCategoryName($name)
-            ->setCategoryPictureLink('https://picsum.photos/id/'.rand(500,1000).'/200/300')
-            ->setCategorySlug($name)
-            ->setCategoryDisplayOrder($i<=5?$i:0)
-            ->setCategoryCreatedAt(new DateTime());
+            $newCategory->setName($name)
+            ->setPictureLink('https://picsum.photos/id/'.rand(500,1000).'/200/300')
+            ->setSlug($name)
+            ->setDisplayOrder($i<=5?$i:0)
+            ->setCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newCategory);
             // TODO l'ajouter à la liste
@@ -104,9 +104,9 @@ class UserFixture extends Fixture
             $newDeliveryFees = new DeliveriesFees();
             // TODO renseigner toutes les propriétés
             $name = $deliveryNameList[$i];
-            $newDeliveryFees->setDeliveryFeesName($name)
-                            ->setDeliveryFeesPrice(($i+1)*10)
-                            ->setDeliveryFeesCreatedAt(new DateTime());
+            $newDeliveryFees->setName($name)
+                            ->setPrice(($i+1)*10)
+                            ->setCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newDeliveryFees);
             // TODO l'ajouter à la liste
@@ -120,10 +120,10 @@ class UserFixture extends Fixture
             // TODO créer une nouvelle commande
             $newOrder = new Order();
             // TODO renseigner toutes les propriétés
-            $newOrder->setOrderStatus(rand(0,2))
-            ->setOrderUser($i%2==0?$newUser:$newUserAdmin)
-            ->setOrderDeliveries($deliveryFeesList[rand(0,count($deliveryFeesList)-1)])
-            ->setOrderCreatedAt(new DateTime());
+            $newOrder->setStatus(rand(0,2))
+            ->setUser($i%2==0?$newUser:$newUserAdmin)
+            ->setDeliveries($deliveryFeesList[rand(0,count($deliveryFeesList)-1)])
+            ->setCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newOrder);
             $orderList[] = $newOrder;
@@ -152,10 +152,10 @@ class UserFixture extends Fixture
             $newBrand = new Brand();
 
 
-            $newBrand->setBrandname($brandNameList[$i])
-                ->setBrandSlug($brandNameList[$i])
-                ->setBrandCreatedAt(new Datetime)
-                ->setBrandUpdatedAt(new Datetime);
+            $newBrand->setname($brandNameList[$i])
+                ->setSlug($brandNameList[$i])
+                ->setCreatedAt(new Datetime)
+                ->setUpdatedAt(new Datetime);
 
             $manager->persist($newBrand);
             $brandList[] = $newBrand;
@@ -166,10 +166,10 @@ class UserFixture extends Fixture
         for ($i = 0; $i < 20; $i++) {
             $newDiscount = new Discount();
 
-            $newDiscount->setDiscountName($faker->word())
-                ->setDiscountRate($i * 2)
-                ->setDiscountCreatedAt(new Datetime)
-                ->setDiscountUpdatedAt(new Datetime);
+            $newDiscount->setName($faker->word())
+                ->setRate($i * 2)
+                ->setCreatedAt(new Datetime)
+                ->setUpdatedAt(new Datetime);
 
             $manager->persist($newDiscount);
             $discountList[] = $newDiscount;
@@ -181,22 +181,22 @@ class UserFixture extends Fixture
             $newVAT = new VAT();
 
             if ($i == 0) {
-                $newVAT->setVATName("taux normal")
-                    ->setVATRate(20)
-                    ->setVATCreatedAt(new Datetime)
-                    ->setVATUpdatedAt(new Datetime);
+                $newVAT->setName("taux normal")
+                    ->setRate(20)
+                    ->setCreatedAt(new Datetime)
+                    ->setUpdatedAt(new Datetime);
             }
             if ($i == 1) {
-                $newVAT->setVATName("taux intermediaire")
-                    ->setVATRate(10)
-                    ->setVATCreatedAt(new Datetime)
-                    ->setVATUpdatedAt(new Datetime);
+                $newVAT->setName("taux intermediaire")
+                    ->setRate(10)
+                    ->setCreatedAt(new Datetime)
+                    ->setUpdatedAt(new Datetime);
             }
             if ($i == 2) {
-                $newVAT->setVATName("taux reduit")
-                    ->setVATRate(5.5)
-                    ->setVATCreatedAt(new Datetime)
-                    ->setVATUpdatedAt(new Datetime);
+                $newVAT->setName("taux reduit")
+                    ->setRate(5.5)
+                    ->setCreatedAt(new Datetime)
+                    ->setUpdatedAt(new Datetime);
             }
             $manager->persist($newVAT);
             $VATList[] = $newVAT;
@@ -213,19 +213,19 @@ class UserFixture extends Fixture
             $decimale = rand(1, 9);
             $nombre = $entier . '.' . $decimale;
 
-            $newArticle->setArticleName($newArticleName)
-                ->setArticleDescription($faker->sentence(15))
-                ->setArticlePrice(rand(1, 500))
-                ->setArticleStock(rand(1, 20))
-                ->setArticleRating($nombre)
-                ->setArticlePictureLink('https://picsum.photos/id/' . rand(500, 1000) . '/200/300')
-                ->setArticleSlug($newArticleName)
-                ->setArticleCreatedAt(new Datetime)
-                ->setArticleUpdatedAt(new Datetime)
-                ->setArticleVat($VATList[rand(1, count($VATList) - 1)])
-                ->setArticleBrand($brandList[rand(1, count($brandList) - 1)])
-                ->setArticleDiscount($discountList[rand(1, count($discountList) - 1)])
-                ->setArticleCategory($categoriesList[rand(1, count($categoriesList) - 1)]);
+            $newArticle->setName($newArticleName)
+                ->setDescription($faker->sentence(15))
+                ->setPrice(rand(1, 500))
+                ->setStock(rand(1, 20))
+                ->setRating($nombre)
+                ->setPictureLink('https://picsum.photos/id/' . rand(500, 1000) . '/200/300')
+                ->setSlug($newArticleName)
+                ->setCreatedAt(new Datetime)
+                ->setUpdatedAt(new Datetime)
+                ->setVat($VATList[rand(1, count($VATList) - 1)])
+                ->setBrand($brandList[rand(1, count($brandList) - 1)])
+                ->setDiscount($discountList[rand(1, count($discountList) - 1)])
+                ->setCategory($categoriesList[rand(1, count($categoriesList) - 1)]);
 
             $manager->persist($newArticle);
             $articleList[] = $newArticle;
@@ -236,8 +236,8 @@ class UserFixture extends Fixture
         for ($i = 0; $i < 20; $i++) {
             $newFavorite = new Favorite();
 
-            $newFavorite->setFavoriteArticle($articleList[rand(1, count($articleList) - 1)])
-                ->setFavoriteUser($i % 2 == 0 ? $newUser : $newUserAdmin);
+            $newFavorite->setArticle($articleList[rand(1, count($articleList) - 1)])
+                ->setUser($i % 2 == 0 ? $newUser : $newUserAdmin);
 
             $manager->persist($newFavorite);
         };
@@ -248,10 +248,10 @@ class UserFixture extends Fixture
             // TODO créer une nouvelle liste de commande
             $newOrderlist = new Orderlist();
             // TODO renseigner toutes les propriétés
-            $newOrderlist->setOrderlistArticle($articleList[rand(0,count($articleList)-1)])
-            ->setOrderlistOrder($orderList[rand(0,count($orderList)-1)])
-            ->setOrderlistQuantity(rand(1,3))
-            ->setOrderlistCreatedAt(new DateTime());
+            $newOrderlist->setArticle($articleList[rand(0,count($articleList)-1)])
+            ->setOrder($orderList[rand(0,count($orderList)-1)])
+            ->setQuantity(rand(1,3))
+            ->setCreatedAt(new DateTime());
             
             // TODO persist
             $manager->persist($newOrderlist);
@@ -264,11 +264,11 @@ class UserFixture extends Fixture
             $newComment = new Comment();
             // TODO renseigner toutes les propriétés
 
-            $newComment->setCommentBody($faker->sentence(15))
-                       ->setCommentRating(rand(0,5))
-                       ->setCommentArticle($articleList[rand(0,count($articleList)-1)])
-                       ->setCommentUser($i%2==0?$newUser:$newUserAdmin)
-                       ->setCommentCreatedAt(new DateTime());
+            $newComment->setBody($faker->sentence(15))
+                       ->setRating(rand(0,5))
+                       ->setArticle($articleList[rand(0,count($articleList)-1)])
+                       ->setUser($i%2==0?$newUser:$newUserAdmin)
+                       ->setCreatedAt(new DateTime());
          
             // TODO persist
             $manager->persist($newComment);

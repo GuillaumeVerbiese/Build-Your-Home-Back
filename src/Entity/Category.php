@@ -107,72 +107,72 @@ class Category
         return $this->id;
     }
 
-    public function getCategoryName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setCategoryName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getCategoryPictureLink(): ?string
+    public function getPictureLink(): ?string
     {
         return $this->picture_link;
     }
 
-    public function setCategoryPictureLink(string $picture_link): self
+    public function setPictureLink(string $picture_link): self
     {
         $this->picture_link = $picture_link;
 
         return $this;
     }
 
-    public function getCategorySlug(): ?string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setCategorySlug(?string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    public function getCategoryCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCategoryCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getCategoryUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setCategoryUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function getCategoryDisplayOrder(): ?int
+    public function getDisplayOrder(): ?int
     {
         return $this->display_order;
     }
 
-    public function setCategoryDisplayOrder(int $display_order): self
+    public function setDisplayOrder(int $display_order): self
     {
         $this->display_order = $display_order;
 
@@ -191,7 +191,7 @@ class Category
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setArticleCategory($this);
+            $article->setCategory($this);
         }
 
         return $this;
@@ -201,8 +201,8 @@ class Category
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getArticleCategory() === $this) {
-                $article->setArticleCategory(null);
+            if ($article->getCategory() === $this) {
+                $article->setCategory(null);
             }
         }
 

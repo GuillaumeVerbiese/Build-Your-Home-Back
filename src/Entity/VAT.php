@@ -81,48 +81,48 @@ class VAT
         return $this->id;
     }
 
-    public function getVatName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setVatName(string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getVatRate(): ?float
+    public function getRate(): ?float
     {
         return $this->rate;
     }
 
-    public function setVatRate(float $rate): self
+    public function setRate(float $rate): self
     {
         $this->rate = $rate;
 
         return $this;
     }
 
-    public function getVatCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setVatCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getVatUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setVatUpdatedAt(?\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -141,7 +141,7 @@ class VAT
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setArticleVat($this);
+            $article->setVat($this);
         }
 
         return $this;
@@ -151,8 +151,8 @@ class VAT
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getArticleVat() === $this) {
-                $article->setArticleVat(null);
+            if ($article->getVat() === $this) {
+                $article->setVat(null);
             }
         }
 

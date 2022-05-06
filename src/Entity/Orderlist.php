@@ -48,48 +48,48 @@ class Orderlist
         return $this->id;
     }
 
-    public function getOrderlistOrder(): ?Order
+    public function getOrder(): ?Order
     {
         return $this->order;
     }
 
-    public function setOrderlistOrder(?Order $order): self
+    public function setOrder(?Order $order): self
     {
         $this->order = $order;
 
         return $this;
     }
 
-    public function getOrderlistArticle(): ?Article
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    public function setOrderlistArticle(?Article $article): self
+    public function setArticle(?Article $article): self
     {
         $this->article = $article;
 
         return $this;
     }
 
-    public function getOrderlistCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setOrderlistCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getOrderlistQuantity(): ?int
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function setOrderlistQuantity(int $quantity): self
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
