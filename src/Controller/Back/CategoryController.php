@@ -2,6 +2,7 @@
 
 namespace App\Controller\Back;
 
+use DateTime;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -36,10 +37,12 @@ class CategoryController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $category = new Category();
+        $category->setCreatedAt(new DateTime()) ;
+        $category->setDisplayOrder(0) ;
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {            
             $entityManager->persist($category);
             $entityManager->flush();
 
@@ -71,6 +74,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_category_index', [], Response::HTTP_SEE_OTHER);
