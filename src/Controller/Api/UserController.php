@@ -50,7 +50,7 @@ class UserController extends AbstractController
             return $this->json("Aucun utilisateur n'est connecté !",Response::HTTP_NOT_FOUND);
         }
         // Sinon on renvoie l'utilisateur avec un code reponse 200
-        return $this->json($user,Response::HTTP_OK,[],["groups"=>"readUser"]);
+        return $this->json($user,Response::HTTP_OK,[],["groups"=>["readUser"]]);
     }
 
     /**
