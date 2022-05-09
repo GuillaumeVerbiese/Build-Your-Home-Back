@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container-fluid">
-        <a href="{{ path('app_login')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+        <a href="{{ path('app_back_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
             <span class="header-logo__title">Built your home</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -16,9 +16,12 @@
                     <a class="nav-link active" href="{{ path('app_logout')}}">Logout</a>
                 </li>
             {% endif %}
+            {% if app.user == null %}
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ path('app_login')}}">Login</a>
                 </li>
+            {% endif %}
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_back_article_index')}}"> Article</a>
                 </li>
