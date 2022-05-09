@@ -13,7 +13,21 @@ security:
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            security: true
+        login:
+               pattern: ^/api/login
+               stateless: true
+               json_login:
+                   check_path: /api/login_check
+                   success_handler: lexik_jwt_authentication.handler.authentication_success
+                   failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+               pattern:   ^/api
+               stateless: true
+               jwt: ~
+        nelmio_api_doc:
+                pattern: ^/api/doc
+                stateless: true
         main:
             lazy: true
             provider: app_user_provider
@@ -33,6 +47,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/back, roles: ROLE_ADMIN }
+         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
+         - { path: ^/api/secure, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
