@@ -3,6 +3,13 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
+
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1>Edit User</h1>
 
     {{ include('back/user/_form.html.twig', {'button_label': 'Update'}) }}
