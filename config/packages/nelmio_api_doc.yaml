@@ -12,14 +12,14 @@ nelmio_api_doc:
                     bearerFormat: JWT 
         security:
             - bearerAuth: []
-        paths: # documentation de la route pour obtenir le token lexkit
+        paths: # documentation de la route pour obtenir le token lexik (Merci JB)
             /api/login_check:
                 post:
                     summary: Auth method
                     description: authenticate method
                     # https://swagger.io/docs/specification/grouping-operations-with-tags/
                     tags:
-                        - O'Flix API Auth
+                        - BYH API Auth
                     # https://swagger.io/docs/specification/describing-parameters/
                     requestBody:
                         description: JSON Object
