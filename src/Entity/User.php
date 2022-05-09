@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use OpenApi\Annotations as OA;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -20,14 +21,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(max=30, maxMessage="Le nom ne doit pas contenir plus de {{ limit }} caractères")
      * 
      * @Groups("readUser")
      * @Groups("browse_order")
@@ -38,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=30)
      * 
+     * @Assert\NotBlank
+     * @Assert\Length(max=30, maxMessage="Le prénom ne doit pas contenir plus de {{ limit }} caractères")
+     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
@@ -46,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(max=255, maxMessage="L'adresse ne doit pas contenir plus de {{ limit }} caractères")
      * 
      * @Groups("readUser")
      * @Groups("browse_order")
@@ -56,6 +68,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime")
      * 
+     * @Assert\NotBlank
+     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
@@ -65,15 +79,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * 
+     * @Assert\NotBlank
+     * @Assert\Email(message = "Cette email n'est pas valide")
+     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
      */
-    
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * 
+     * @Assert\Choice(choices={"ROLE_USER","ROLE_ADMIN"},multiple=true)
      * 
      * @OA\Property(type="array", @OA\Items(type="string"))
      * 
@@ -92,6 +110,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         /**
      * @ORM\Column(type="string", length=20)
      * 
+     * @Assert\NotBlank
+     * @Assert\Length(max=20, maxMessage="Le numero ne doit pas contenir plus de {{ limit }} chiffres")
+     * 
      * @Groups("readUser")
      * @Groups("browse_order")
      * @Groups("read_order")
@@ -100,6 +121,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Assert\NotBlank
      */
     private $createdAt;
 
