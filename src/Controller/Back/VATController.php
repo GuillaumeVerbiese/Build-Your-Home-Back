@@ -45,6 +45,11 @@ class VATController extends AbstractController
             $entityManager->persist($vAT);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre taux de tva a bien été ajouter.'
+            );
+
             return $this->redirectToRoute('app_back_vat_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +81,11 @@ class VATController extends AbstractController
             $vAT->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre taux de tva a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_vat_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,6 +103,11 @@ class VATController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$vAT->getId(), $request->request->get('_token'))) {
             $entityManager->remove($vAT);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre taux de tva a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_vat_index', [], Response::HTTP_SEE_OTHER);

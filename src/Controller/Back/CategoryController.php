@@ -46,6 +46,11 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre categorie a bien été ajouter.'
+            );
+
             return $this->redirectToRoute('app_back_category_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -77,6 +82,11 @@ class CategoryController extends AbstractController
             $category->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre categorie a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_category_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -94,6 +104,11 @@ class CategoryController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager->remove($category);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre categorie a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_category_index', [], Response::HTTP_SEE_OTHER);

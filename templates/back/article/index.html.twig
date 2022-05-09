@@ -2,7 +2,14 @@
 
 {% block title %}Article index{% endblock %}
 
+
 {% block body %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1>Article index</h1>
 <a href="{{ path('app_back_article_new') }}">Create new</a>
     <table class="table">

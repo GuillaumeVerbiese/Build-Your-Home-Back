@@ -45,6 +45,11 @@ class DiscountController extends AbstractController
             $entityManager->persist($discount);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre reduction a bien été ajouter.'
+            );
+
             return $this->redirectToRoute('app_back_discount_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +81,11 @@ class DiscountController extends AbstractController
             $discount->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre reduction a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_discount_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,6 +103,11 @@ class DiscountController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$discount->getId(), $request->request->get('_token'))) {
             $entityManager->remove($discount);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre reduction a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_discount_index', [], Response::HTTP_SEE_OTHER);

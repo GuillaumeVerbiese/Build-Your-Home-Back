@@ -44,6 +44,10 @@ class BrandController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($brand);
             $entityManager->flush();
+            $this->addFlash(
+                'notice',
+                'Votre marque a bien été ajouter.'
+            );
 
             return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,6 +80,11 @@ class BrandController extends AbstractController
             $brand->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre marque a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,6 +102,11 @@ class BrandController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$brand->getId(), $request->request->get('_token'))) {
             $entityManager->remove($brand);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre marque a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_SEE_OTHER);

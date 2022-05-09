@@ -53,6 +53,11 @@ class OrderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre commande a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_order_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +75,11 @@ class OrderController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
             $entityManager->remove($order);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre commande a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_order_index', [], Response::HTTP_SEE_OTHER);
