@@ -50,7 +50,7 @@ class UserController extends AbstractController
                 $entityManager->flush();
             }catch(UniqueConstraintViolationException $e){
                 $this->addFlash('danger','Cette adresse email est déjà lié à un autre compte !');
-                return $this->redirectToRoute('app_back_user_new', [], Response::HTTP_FOUND);
+                return $this->redirectToRoute('app_back_user_new', [], Response::HTTP_FOUND); // TODO change code réponse
             }
 
             return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);
