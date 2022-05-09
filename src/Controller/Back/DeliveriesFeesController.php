@@ -45,6 +45,11 @@ class DeliveriesFeesController extends AbstractController
             $entityManager->persist($deliveriesFee);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre frais de livraison a bien été ajouter.'
+            );
+
             return $this->redirectToRoute('app_back_deliveries_fees_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -77,6 +82,11 @@ class DeliveriesFeesController extends AbstractController
             $deliveriesFee->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre frais de livraison a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_deliveries_fees_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -94,6 +104,11 @@ class DeliveriesFeesController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$deliveriesFee->getId(), $request->request->get('_token'))) {
             $entityManager->remove($deliveriesFee);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre frais de livraison a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_deliveries_fees_index', [], Response::HTTP_SEE_OTHER);

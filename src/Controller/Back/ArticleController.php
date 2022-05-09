@@ -38,12 +38,18 @@ class ArticleController extends AbstractController
     {
         $article = new Article();
         $article->setCreatedAt(new DateTime()) ;
+        $article->setDisplayOrder(0) ;
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($article);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre article a bien été enregistrer.'
+            );
 
             return $this->redirectToRoute('app_back_article_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,6 +82,11 @@ class ArticleController extends AbstractController
             $article->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre article a bien été modifier.'
+            );
+
             return $this->redirectToRoute('app_back_article_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,6 +104,11 @@ class ArticleController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre article a bien été supprimer.'
+            );
         }
 
         return $this->redirectToRoute('app_back_article_index', [], Response::HTTP_SEE_OTHER);

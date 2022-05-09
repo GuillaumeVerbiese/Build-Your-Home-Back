@@ -3,6 +3,11 @@
 {% block title %}VAT{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('notice') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h1>VAT</h1>
 
     <table class="table">
