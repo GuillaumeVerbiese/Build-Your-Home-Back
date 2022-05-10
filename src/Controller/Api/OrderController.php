@@ -2,14 +2,27 @@
 
 namespace App\Controller\Api;
 
+use DateTime;
 use App\Entity\Order;
+use App\Entity\Article;
+use App\Form\OrderType;
+use App\Entity\Orderlist;
+use App\Form\ArticleType;
+use App\Form\OrderAddType;
+use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 class OrderController extends AbstractController
 {
@@ -76,6 +89,50 @@ class OrderController extends AbstractController
                     "browse_order"
                 ]
             ]
+        );
+    }
+
+     /**
+     * Crée une nouvelle commande
+     * 
+     * @Route("/api/order/add", name="add_order", methods={"POST"})
+     *
+     * @param EntityManagerInterface $entityManagerInterface
+     * @param Request $request
+     * @param SerializerInterface $serializerInterface
+     * @return JsonResponse
+     * 
+     *  @OA\RequestBody(
+     *     @Model(type=OrderAddType::class)
+     * )
+     */
+    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface,ValidatorInterface $validator): JsonResponse
+    {
+        // On récupére le contenu Json de la requête
+        $jsoncontent = $request->getContent();
+        
+        $order = $serializerInterface->deserialize($jsoncontent, Order::class, 'json');
+        $errorsList = $validator->validate($order);
+
+        if (count($errorsList)>0){
+            return $this->json(
+                $errorsList,
+                Response::HTTP_BAD_REQUEST,
+                [],
+                []
+            );
+        };
+        $order->setCreatedAt(new DateTime()) ;
+        $entityManagerInterface->persist($order);
+        $entityManagerInterface->flush();
+
+        return $this->json(
+            $order,
+            Response::HTTP_CREATED,
+            [],
+            ["groups" =>[
+                "read_order"
+            ]]
         );
     }
 
