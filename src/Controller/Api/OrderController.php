@@ -92,7 +92,7 @@ class OrderController extends AbstractController
         );
     }
 
-     /**
+    /**
      * Crée une nouvelle commande
      * 
      * @Route("/api/order/add", name="add_order", methods={"POST"})
@@ -106,15 +106,24 @@ class OrderController extends AbstractController
      *     @Model(type=OrderAddType::class)
      * )
      */
-    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface,ValidatorInterface $validator): JsonResponse
+    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $jsoncontent = $request->getContent();
-        
+        // {
+        //   "status": 0,
+        //   "user": 7,
+        //   "deliveries": 11,
+        //   "article": [
+        //     223,224
+        //   ]
+        // }
+
+        //le deserialize va appeler tout les deserializer dont celui que j'ai créer pour denormalizer et donc créer mes entity "étrangères"
         $order = $serializerInterface->deserialize($jsoncontent, Order::class, 'json');
         $errorsList = $validator->validate($order);
 
-        if (count($errorsList)>0){
+        if (count($errorsList) > 0) {
             return $this->json(
                 $errorsList,
                 Response::HTTP_BAD_REQUEST,
@@ -122,7 +131,7 @@ class OrderController extends AbstractController
                 []
             );
         };
-        $order->setCreatedAt(new DateTime()) ;
+        $order->setCreatedAt(new DateTime());
         $entityManagerInterface->persist($order);
         $entityManagerInterface->flush();
 
@@ -130,11 +139,9 @@ class OrderController extends AbstractController
             $order,
             Response::HTTP_CREATED,
             [],
-            ["groups" =>[
+            ["groups" => [
                 "read_order"
             ]]
         );
     }
-
-   
 }

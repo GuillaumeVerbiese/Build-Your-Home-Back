@@ -18,30 +18,48 @@ class OrderAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
+        //{
+//   "status": 0,
+//   "user": 7,
+//   "deliveries": 11,
+//   "article": [
+//     223,224
+//   ]
+// }
             ->add('status')
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'firstname',
                 'multiple' => false,
-                'expanded' => false,
+                'expanded' => false, 
+                'documentation' => [
+                    'type' => 'integer',
+                    'description' => 'id de l\'utilisateur'
+                ],
             ])
             ->add('deliveries', EntityType::class, [
                 'class' => DeliveriesFees::class,
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
-            ])
-            ->add('orderlist', EntityType::class, [
-                'class' => OrderList::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'expanded' => false,
+                'documentation' => [
+                    'type' => 'integer',
+                    'description' => 'id des frais de livraison'
+                ],
             ])
             ->add('article', EntityType::class, [
                 'class' => Article::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => false,
+                'documentation' => [
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'integer'
+                    ],
+                    'description' => 'tableau d\'id d\'article'
+                ],
             ]);
     }
 
