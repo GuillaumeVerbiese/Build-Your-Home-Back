@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -42,6 +43,11 @@ class BrandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($brand->getName());
+            $brand->setSlug($slug);
+            
             $entityManager->persist($brand);
             $entityManager->flush();
             $this->addFlash(
@@ -77,6 +83,11 @@ class BrandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($brand->getName());
+            $brand->setSlug($slug);
+
             $brand->setUpdatedAt(new DateTime()) ;
             $entityManager->flush();
 

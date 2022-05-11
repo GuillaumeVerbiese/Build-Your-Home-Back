@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+
 
 /**
  * @Route("/back/article")
@@ -38,11 +40,18 @@ class ArticleController extends AbstractController
     {
         $article = new Article();
         $article->setCreatedAt(new DateTime()) ;
-        $article->setDisplayOrder(0) ;
+        $article->setDisplayOrder(0);
+        
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($article->getName());
+            $article->setSlug($slug);
+
+
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -80,6 +89,12 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setUpdatedAt(new DateTime()) ;
+
+            
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($article->getName());
+            $article->setSlug($slug);
+            
             $entityManager->flush();
 
             $this->addFlash(
