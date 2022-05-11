@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use DateTime;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserEditType;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,7 +79,7 @@ class UserController extends AbstractController
     {
         // On récupére le contenu Json de la requête
         $jsoncontent = $request->getContent();
-        // TODO à finir après avoir fait le crud pour les validations
+        
         $user = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
         $errorsList = $validator->validate($user);
 
@@ -125,12 +126,45 @@ class UserController extends AbstractController
      * @param Request $request
      * @param SerializerInterface $serializerInterface
      * @return JsonResponse
+     * 
+     * @OA\RequestBody(
+     *     @Model(type=UserEditType::class)
+     * )
      */
-    public function modify(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface): JsonResponse
+    public function modify(int $id, EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserRepository $userRepository): JsonResponse
     {
         // On récupére le contenu Json de la requête
+        $user = $userRepository->find($id);
         $jsoncontent = $request->getContent();
         // TODO à finir après avoir fait le crud pour les validations
+        $userModify = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
+        $errorsList = $validator->validate($userModify);
+        if (count($errorsList) > 0) {
+            return $this->json(
+                $errorsList,
+                Response::HTTP_BAD_REQUEST,
+                [],
+                []
+            );
+        };
+        if($userModify->getPassword() != null){
+            $user->setPassword($userModify->getPassword());
+        }
+        
+        $user->setUpdatedAt(new DateTime());
+        $entityManagerInterface->persist($user);
+        $entityManagerInterface->flush();
+
+        return $this->json(
+            $user,
+            Response::HTTP_OK,
+            [],
+            [
+                "groups" => [
+                    "readUser"
+                ]
+            ]
+        );
         
     }
 
