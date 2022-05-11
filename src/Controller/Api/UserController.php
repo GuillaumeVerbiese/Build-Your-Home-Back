@@ -24,9 +24,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     /**
-     * Renvoie l'utilisateur correspondant à l'id
+     * Renvoie l'utilisateur correspondant à l'username
      * 
-     * @Route("/user/{id}", name="_read_user", requirements={"id":"\d+"}, methods={"GET"})
+     * @Route("/user/profile", name="_read_user", methods={"GET"})
      * 
      * @OA\Response(
      *     response=200,
@@ -39,27 +39,29 @@ class UserController extends AbstractController
      *     description="User not found"
      * )
      *
-     * @param integer $id
-     * @param UserRepository $userRepository
      * @return JsonResponse
      */
-    public function read(int $id,UserRepository $userRepository): JsonResponse
-    {
-        // On récupére l'utilisateur
-        $user = $userRepository->find($id);
-        // Si aucun utilisateur ne correspondant à cet id
+    public function read(): JsonResponse
+    { 
+        // On récupére l'utilisateur courant
+        $user = $this->getUser();
+        // Si aucun utilisateur n'est connecté
         if ($user === null) {
             // On renvoie un code reponse 404
-            return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+            return $this->json("Aucun utilisateur n'est connecté !",Response::HTTP_NOT_FOUND);
         }
         // Sinon on renvoie l'utilisateur avec un code reponse 200
-        return $this->json($user,Response::HTTP_OK,[],["groups"=>"readUser"]);
+        return $this->json($user,Response::HTTP_OK,[],["groups"=>["readUser"]]);
     }
 
     /**
      * Crée un nouvel utilisateur (à finir)
      * 
      * @Route("/user/add", name="_add_user", methods={"POST"})
+     * 
+     * @OA\RequestBody(
+     *     @Model(type=ApiUserType::class)
+     * )
      *
      * @param EntityManagerInterface $entityManagerInterface
      * @param Request $request
@@ -71,6 +73,7 @@ class UserController extends AbstractController
      *     @Model(type=UserType::class)
      * )
      */
+
     public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): JsonResponse
     {
         // On récupére le contenu Json de la requête
@@ -109,6 +112,7 @@ class UserController extends AbstractController
                 ]
             ]
         );
+
     }
     
 
