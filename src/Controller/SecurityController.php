@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -33,4 +34,14 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+    public function supports(Request $request): bool
+{
+    // le code du AbstractLoginFormAuthenticator
+    // dump($this->getLoginUrl($request)); // affiche avec un accès avec apache /symfo/oflix-JB-oclock/public/login
+    // dump($request->getPathInfo()); // affiche /login
+    // donc l'authenticator ne 
+    // return $request->isMethod('POST') && $this->getLoginUrl($request) === $request->getPathInfo();
+
+    return $request->isMethod('POST') && '/login' === $request->getPathInfo();
+}
 }
