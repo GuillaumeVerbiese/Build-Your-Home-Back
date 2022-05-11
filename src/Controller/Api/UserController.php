@@ -6,7 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEditType;
-use App\Form\ApiUserType;
+use App\Form\ApiUserAddType;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,7 +62,7 @@ class UserController extends AbstractController
      * @Route("/user/add", name="_add_user", methods={"POST"})
      * 
      * @OA\RequestBody(
-     *     @Model(type=ApiUserType::class)
+     *     @Model(type=ApiUserAddType::class)
      * )
      *
      * @param EntityManagerInterface $entityManagerInterface
