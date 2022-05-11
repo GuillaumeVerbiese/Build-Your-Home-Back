@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Form\ApiUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
@@ -13,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 /**
  * @Route("/api", name="app_api")
@@ -20,9 +23,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 class UserController extends AbstractController
 {
     /**
-     * Renvoie l'utilisateur correspondant à l'id
+     * Renvoie l'utilisateur correspondant à l'username
      * 
-     * @Route("/user/{id}", name="_read_user", requirements={"id":"\d+"}, methods={"GET"})
+     * @Route("/user/profile", name="_read_user", methods={"GET"})
      * 
      * @OA\Response(
      *     response=200,
@@ -35,39 +38,49 @@ class UserController extends AbstractController
      *     description="User not found"
      * )
      *
-     * @param integer $id
-     * @param UserRepository $userRepository
      * @return JsonResponse
      */
-    public function read(int $id,UserRepository $userRepository): JsonResponse
-    {
-        // On récupére l'utilisateur
-        $user = $userRepository->find($id);
-        // Si aucun utilisateur ne correspondant à cet id
+    public function read(): JsonResponse
+    { 
+        // On récupére l'utilisateur courant
+        $user = $this->getUser();
+        // Si aucun utilisateur n'est connecté
         if ($user === null) {
             // On renvoie un code reponse 404
-            return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+            return $this->json("Aucun utilisateur n'est connecté !",Response::HTTP_NOT_FOUND);
         }
         // Sinon on renvoie l'utilisateur avec un code reponse 200
-        return $this->json($user,Response::HTTP_OK,[],["groups"=>"readUser"]);
+        return $this->json($user,Response::HTTP_OK,[],["groups"=>["readUser"]]);
     }
 
     /**
      * Crée un nouvel utilisateur (à finir)
      * 
      * @Route("/user/add", name="_add_user", methods={"POST"})
+     * 
+     * @OA\RequestBody(
+     *     @Model(type=ApiUserType::class)
+     * )
      *
      * @param EntityManagerInterface $entityManagerInterface
      * @param Request $request
      * @param SerializerInterface $serializerInterface
      * @return JsonResponse
      */
-    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface): JsonResponse
+    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $jsoncontent = $request->getContent();
-        // TODO à finir après avoir fait le crud pour les validations
-        
+        // On transforme l'objet json en entité User
+        $newUser = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
+        // On valide si les données sont conforme à nos contraintes
+        $errorList = $validatorInterface->validate($newUser);dd($errorList);
+        // Si le tableau $errorList contient quelque chose
+        if (count($errorList) > 0) {
+            
+        }
+
+
     }
     
 

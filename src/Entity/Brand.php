@@ -35,6 +35,7 @@ class Brand
      * @Groups("read_category_article")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      * 
      * @Assert\NotBlank
      */
@@ -44,6 +45,7 @@ class Brand
      * @ORM\Column(type="string", length=30, nullable=true)
      * @Groups("browse_brand")
      * @Groups("read_brand")
+     * @Groups("readUser")
      */
     private $slug;
 

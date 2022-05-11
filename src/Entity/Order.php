@@ -31,6 +31,7 @@ class Order
      * 
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      */
     private $status;
 
@@ -39,6 +40,7 @@ class Order
      * 
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      */
     private $createdAt;
 
@@ -63,6 +65,7 @@ class Order
      * 
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      */
     private $deliveries;
 
@@ -71,6 +74,7 @@ class Order
      * 
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      */
     private $orderlists;
 
