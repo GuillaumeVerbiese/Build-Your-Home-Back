@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEditType;
+use App\Form\ApiUserType;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,11 +71,8 @@ class UserController extends AbstractController
      * @return JsonResponse
      * 
      * 
-     * @OA\RequestBody(
-     *     @Model(type=UserType::class)
-     * )
+     * 
      */
-
     public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): JsonResponse
     {
         // On récupére le contenu Json de la requête
