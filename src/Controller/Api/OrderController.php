@@ -9,6 +9,7 @@ use App\Form\OrderType;
 use App\Entity\Orderlist;
 use App\Form\ArticleType;
 use App\Form\OrderAddType;
+use App\Repository\OrderlistRepository;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use App\Repository\OrderRepository;
@@ -132,6 +133,12 @@ class OrderController extends AbstractController
             );
         };
         $order->setCreatedAt(new DateTime());
+
+        foreach ($order->getOrderlists() as $orderList) {
+            $orderList->setCreatedAt(new DateTime());
+            $entityManagerInterface->persist($orderList);
+        }
+    
         $entityManagerInterface->persist($order);
         $entityManagerInterface->flush();
 
@@ -144,4 +151,30 @@ class OrderController extends AbstractController
             ]]
         );
     }
+    /**
+     * @Route("/api/order/{id}", name="app_back_delete_order", methods={"DELETE"})
+     * 
+     * @param EntityManagerInterface $entityManagerInterface
+     * @return JsonResponse
+     * 
+     *  
+     */
+    // public function delete(int $id, Order $order, EntityManagerInterface $entityManager, OrderRepository $orderRepository, OrderlistRepository $orderlistRepository): JsonResponse
+    // {
+        
+    //     $order = $orderRepository->find($id);
+    //     $orderList = $orderlistRepository->findBy($id, "order_id");
+    //     // Si l'utilisateur n'existe pas
+    //     if ($order == null) {
+    //         return $this->json("Aucune commande ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+    //     }
+        
+    //         $entityManager->remove($order);
+    //         $entityManager->remove($orderList);
+    //         $entityManager->flush();
+
+    //     return $this->json(
+    //         "la commande a bien été supprimer",
+    //         Response::HTTP_OK);
+    // }
 }

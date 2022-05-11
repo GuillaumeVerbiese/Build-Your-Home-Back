@@ -37,6 +37,7 @@ class Denormalizer implements DenormalizerInterface
         // une entité
         // avec un ID (numeric)
         // TRUE si je suis capable de le faire
+        
         return strpos($type, 'App\\Entity\\') === 0 && (is_numeric($data));
     }
 
