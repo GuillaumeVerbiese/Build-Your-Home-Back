@@ -2,20 +2,21 @@
 
 namespace App\Controller\Api;
 
+use DateTime;
 use App\Entity\User;
-use App\Form\ApiUserType;
+use App\Form\UserType;
+use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use OpenApi\Annotations as OA;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @Route("/api", name="app_api")
@@ -66,20 +67,51 @@ class UserController extends AbstractController
      * @param Request $request
      * @param SerializerInterface $serializerInterface
      * @return JsonResponse
+     * 
+     * 
+     * @OA\RequestBody(
+     *     @Model(type=UserType::class)
+     * )
      */
-    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface): JsonResponse
+
+    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $jsoncontent = $request->getContent();
-        // On transforme l'objet json en entité User
-        $newUser = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
-        // On valide si les données sont conforme à nos contraintes
-        $errorList = $validatorInterface->validate($newUser);dd($errorList);
-        // Si le tableau $errorList contient quelque chose
-        if (count($errorList) > 0) {
-            
-        }
+        // TODO à finir après avoir fait le crud pour les validations
+        $user = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
+        $errorsList = $validator->validate($user);
 
+        if (count($errorsList) > 0) {
+            return $this->json(
+                $errorsList,
+                Response::HTTP_BAD_REQUEST,
+                [],
+                []
+            );
+        };
+
+        $textPassword = $user->getPassword();
+        $hashedPassword = $hasher->hashPassword(
+            $user,
+            $textPassword
+        );
+        $user->setPassword($hashedPassword);
+        $user->setCreatedAt(new DateTime());
+        $user->setRoles(["ROLE_USER"]);
+        $entityManagerInterface->persist($user);
+        $entityManagerInterface->flush();
+
+        return $this->json(
+            $user,
+            Response::HTTP_CREATED,
+            [],
+            [
+                "groups" => [
+                    "readUser"
+                ]
+            ]
+        );
 
     }
     

@@ -122,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime")
      * 
-     * @Assert\NotBlank
+     * 
      */
     private $createdAt;
 
