@@ -32,6 +32,7 @@ class Orderlist
      * 
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      */
     private $article;
 
@@ -42,6 +43,8 @@ class Orderlist
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("readUser")
      */
     private $quantity;
 

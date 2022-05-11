@@ -29,6 +29,7 @@ class DeliveriesFees
      * 
      * @Groups("browse_deliveryfee")
      * @Groups("read_deliveriesfee")
+     * @Groups("readUser")
      * 
      * @Assert\NotBlank
      */
@@ -41,6 +42,7 @@ class DeliveriesFees
      * @Groups("read_deliveriesfee")
      * @Groups("browse_order")
      * @Groups("read_order")
+     * @Groups("readUser")
      * 
      * @Assert\NotBlank
      * @Assert\Positive(message="Le prix doit être un nombre positif")

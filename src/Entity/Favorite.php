@@ -28,6 +28,8 @@ class Favorite
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="favorites")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups("readUser")
      */
     private $article;
 
