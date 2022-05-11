@@ -159,22 +159,20 @@ class OrderController extends AbstractController
      * 
      *  
      */
-    // public function delete(int $id, Order $order, EntityManagerInterface $entityManager, OrderRepository $orderRepository, OrderlistRepository $orderlistRepository): JsonResponse
-    // {
+    public function delete(int $id, Order $order, EntityManagerInterface $entityManager, OrderRepository $orderRepository, OrderlistRepository $orderlistRepository): JsonResponse
+    {
         
-    //     $order = $orderRepository->find($id);
-    //     $orderList = $orderlistRepository->findBy($id, "order_id");
-    //     // Si l'utilisateur n'existe pas
-    //     if ($order == null) {
-    //         return $this->json("Aucune commande ne correspond à cet id !",Response::HTTP_NOT_FOUND);
-    //     }
+        $order = $orderRepository->find($id);
+        // Si l'utilisateur n'existe pas
+        if ($order == null) {
+            return $this->json("Aucune commande ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+        }
         
-    //         $entityManager->remove($order);
-    //         $entityManager->remove($orderList);
-    //         $entityManager->flush();
+            $entityManager->remove($order);
+            $entityManager->flush();
 
-    //     return $this->json(
-    //         "la commande a bien été supprimer",
-    //         Response::HTTP_OK);
-    // }
+        return $this->json(
+            "la commande a bien été supprimer",
+            Response::HTTP_OK);
+    }
 }
