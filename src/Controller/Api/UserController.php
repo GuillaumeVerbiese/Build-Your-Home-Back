@@ -129,7 +129,7 @@ class UserController extends AbstractController
      *     @Model(type=UserEditType::class)
      * )
      */
-    public function modify(int $id, EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserRepository $userRepository): JsonResponse
+    public function modify(int $id, EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserRepository $userRepository, UserPasswordHasherInterface $hasher): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $user = $userRepository->find($id);
@@ -146,7 +146,30 @@ class UserController extends AbstractController
             );
         };
         if($userModify->getPassword() != null){
-            $user->setPassword($userModify->getPassword());
+            $textPassword = $userModify->getPassword();
+            $hashedPassword = $hasher->hashPassword(
+            $userModify,
+            $textPassword
+        );
+        $user->setPassword($hashedPassword);
+        }
+        if ($userModify->getLastName() != null) {
+            $user->setLastName($userModify->getLastName());
+        }
+        if ($userModify->getFirstName() != null) {
+            $user->setFirstName($userModify->getFirstName());
+        }
+        if ($userModify->getAdress() != null) {
+            $user->setAdress($userModify->getAdress());
+        }
+        if ($userModify->getBirthdate() != null) {
+            $user->setBirthdate($userModify->getBirthdate());
+        }
+        if ($userModify->getPhone() != null) {
+            $user->setPhone($userModify->getPhone());
+        }
+        if ($userModify->getBirthdate() != null) {
+            $user->setBirthdate($userModify->getBirthdate());
         }
         
         $user->setUpdatedAt(new DateTime());
