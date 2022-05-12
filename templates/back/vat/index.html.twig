@@ -29,6 +29,7 @@
                 <td>
                     <a href="{{ path('app_back_vat_show', {'id': vat.id}) }}">show</a>
                     <a href="{{ path('app_back_vat_edit', {'id': vat.id}) }}">edit</a>
+                    {{ include('back/vat/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

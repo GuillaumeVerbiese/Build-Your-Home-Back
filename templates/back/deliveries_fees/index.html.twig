@@ -27,6 +27,7 @@
                 <td>
                     <a href="{{ path('app_back_deliveries_fees_show', {'id': deliveries_fee.id}) }}">show</a>
                     <a href="{{ path('app_back_deliveries_fees_edit', {'id': deliveries_fee.id}) }}">edit</a>
+                    {{ include('back/deliveries_fees/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
