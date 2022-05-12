@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Order;
+use App\Form\OrderManagementType;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -127,12 +128,28 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/{id}", name="app_back_order_management_show", methods={"GET"})
+     * @Route("/management/{id}", name="app_back_order_management_show", methods={"GET", "POST"})
      */
-    public function showOrderManagement(Order $order): Response
+    public function showOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('back/order_management/show.html.twig', [
+        $statusList = ["en attentes","validées","expédiées","archivées"];
+        $form = $this->createForm(OrderManagementType::class, $order);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre commande a bien été modifier.'
+            );
+
+            return $this->redirectToRoute('app_back_order_management_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('back/order_management/show.html.twig', [
             'order' => $order,
+            'form' => $form,
+            'status' => $statusList
         ]);
     }
 }
