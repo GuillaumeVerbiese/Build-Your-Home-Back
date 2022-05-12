@@ -30,6 +30,7 @@
                 <td>
                     <a href="{{ path('app_back_discount_show', {'id': discount.id}) }}">show</a>
                     <a href="{{ path('app_back_discount_edit', {'id': discount.id}) }}">edit</a>
+                    {{ include('back/discount/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
