@@ -84,4 +84,55 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute('app_back_order_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/management/{status}", name="app_back_order_management", methods={"GET"}, requirements={"status":"[0-3]"})
+     */
+    public function orderManagement(int $status, OrderRepository $orderRepository): Response
+    {
+        // On récupère les commandes par rapport au status récupéré dans l'url
+        $orders = $orderRepository->findBy(["status"=>$status],["createdAt" => "ASC"]);
+        // on crée une liste avec les status compréhensible par l'utilisateur (indexé dans le bon ordre)
+        $statusList = ["en attentes","validées","expédiées","archivées"];
+        // On renvoie le bon template avec les bonnes données
+        return $this->render('back/order_management/index.html.twig', [
+            'orders' => $orders,
+            'status' => $statusList[$status]
+        ]);
+    }
+
+    /**
+     * @Route("/management/{id}/edit", name="app_back_order_management_edit", methods={"GET", "POST"})
+     */
+    public function editOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(OrderManagementType::class, $order);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre commande a bien été modifier.'
+            );
+
+            return $this->redirectToRoute('app_back_order_management_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('back/order_management/edit.html.twig', [
+            'order' => $order,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/management/{id}", name="app_back_order_management_show", methods={"GET"})
+     */
+    public function showOrderManagement(Order $order): Response
+    {
+        return $this->render('back/order_management/show.html.twig', [
+            'order' => $order,
+        ]);
+    }
 }

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Management{% endblock %}
+
+{% block body %}
+    <h1>Liste des commandes {{ status }} .</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Acheteur</th>
+                <th>Passé le</th>
+                {# On affiche pas si le statut est 0 donc en attente, la commande n'a jamais été mise à jour  #}
+                {% if status != "en attentes" %}
+                <th>UpdatedAt</th>                    
+                {% endif %}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
+                <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                {% if status != "en attentes" %}                   
+                <td>{{ order.updatedAt|date('Y-m-d H:i:s') }}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('app_back_order_management_show', {'id': order.id}) }}">Voir le détail</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas de commande {{ status }} !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
