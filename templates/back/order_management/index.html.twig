@@ -5,7 +5,7 @@
 {% block body %}
 
     {% for message in app.flashes('notice') %}
-        <div class="alert alert-succes" role="alert">
+        <div class="alert alert-success" role="alert">
             {{ message }}
         </div>
     {% endfor %}
@@ -30,9 +30,9 @@
             <tr>
                 <td>{{ order.id }}</td>
                 <td>{{ order.user.firstname }} {{ order.user.lastname }}</td>
-                <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                <td>{{ order.createdAt|date('D j M y à H:i') }}</td>
                 {% if status != "en attentes" %}                   
-                <td>{{ order.updatedAt|date('Y-m-d H:i:s') }}</td>
+                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 {% endif %}
                 <td>
                     <a href="{{ path('app_back_order_management_show', {'id': order.id}) }}">Voir le détail</a>

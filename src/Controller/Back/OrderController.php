@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Form\OrderManagementType;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,32 +104,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/{id}/edit", name="app_back_order_management_edit", methods={"GET", "POST"})
-     */
-    public function editOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(OrderManagementType::class, $order);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            $this->addFlash(
-                'notice',
-                'Votre commande a bien été modifier.'
-            );
-
-            return $this->redirectToRoute('app_back_order_management_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('back/order_management/edit.html.twig', [
-            'order' => $order,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/management/{id}", name="app_back_order_management_show", methods={"GET", "POST"})
+     * @Route("/management/show/{id}", name="app_back_order_management_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function showOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
@@ -137,6 +113,7 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $order->setUpdatedAt(new DateTime());
             $entityManager->flush();
 
             $this->addFlash(
@@ -144,7 +121,7 @@ class OrderController extends AbstractController
                 'Votre commande a bien été modifier.'
             );
 
-            return $this->redirectToRoute('app_back_order_management_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_back_order_management', ["status"=>$order->getStatus()], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('back/order_management/show.html.twig', [
             'order' => $order,

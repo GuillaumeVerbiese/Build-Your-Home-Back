@@ -25,11 +25,17 @@
                     </tr>
                 {% endfor %}
             <tr>
+                <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
+                <td> Adresse : {{ order.user.adress }} </td>
+                <td> Téléphone : {{ order.user.phone }} </td>
+                <td> Email : {{ order.user.email }}</td>
+            </tr>
+            <tr>
                 <td>Commande passée le : {{ order.createdAt|date('Y-m-d H:i:s') }}</td>
             </tr>
             {% if order.status != 0 %}
             <tr>
-                <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td> {# TODO enlever la ternaire en prod, elle est là pour éviter l'erreur d'updatedAt = null alors que le statut est sup à 0 #}
+                <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             {% endif %}
         </tbody>
