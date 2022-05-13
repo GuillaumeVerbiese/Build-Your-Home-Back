@@ -47,8 +47,19 @@
                     <a class="nav-link" href="{{ path('app_back_user_index')}}"> User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> Commandes en attentes</a>
+                    
                 </li>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Gestion des commandes</a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> En attentes</a></li>
+                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":1})}}"> Validées</a></li>
+                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":2})}}"> Expédiées</a></li>
+                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":3})}}"> Archivées</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </ul>
         </div>
 

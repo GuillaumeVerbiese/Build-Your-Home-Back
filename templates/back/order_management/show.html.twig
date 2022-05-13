@@ -15,12 +15,12 @@
             <tr>
                 <td>Statut : {{ status[order.status] }}</td>
             </tr>
-            {% for article in order.orderlists %}
+            {% for orderedArticle in order.orderlists %}
                     <tr> 
-                        <td>Ref article : #{{ article.article.id}}</td>
-                        <td>Nom : {{ article.article.name}}</td>
-                        <td>Quantité en stock : {{ article.article.stock}}</td>
-                        <td>Quantité commandée : {{ article.quantity}}</td>
+                        <td>Ref article : #{{ orderedArticle.article.id}}</td>
+                        <td>Nom : {{ orderedArticle.article.name}}</td>
+                        <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
+                        <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
                         <td>OK <input type="checkbox"></td>
                     </tr>
                 {% endfor %}
@@ -43,7 +43,6 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 
 {% endblock %}
