@@ -31,11 +31,11 @@
                 <td> Email : {{ order.user.email }}</td>
             </tr>
             <tr>
-                <td>Commande passée le : {{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                <td>Commande passée le : {{ order.createdAt|format_datetime('full', 'short', locale='fr') }}</td>
             </tr>
             {% if order.status != 0 %}
             <tr>
-                <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
             </tr>
             {% endif %}
         </tbody>
