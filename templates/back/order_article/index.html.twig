@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Article Order{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('doublon') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<form name="article_displayOrder" method="post">
+    <div id="article_displayOrder" novalidate="novalidate">
+        <div>
+        {% for i in 1..10 %}
+        
+            <label>{{i}}</label>
+            <select type="select" name="{{i}}" required="required">
+            {% for article in articles %}
+                <option value="{{article.name}}">{{article.name}}</option>
+            {% endfor %}
+            
+            </select>
+        {% endfor %}
+        </div>
+    </div>
+    <button class="btn">Valider</button>
+</form>
+        {% endblock %}

@@ -120,6 +120,8 @@ class OrderController extends AbstractController
         //   ]
         // }
 
+        
+
         //le deserialize va appeler tout les deserializer dont celui que j'ai créer pour denormalizer et donc créer mes entity "étrangères"
         $order = $serializerInterface->deserialize($jsoncontent, Order::class, 'json');
         $errorsList = $validator->validate($order);
