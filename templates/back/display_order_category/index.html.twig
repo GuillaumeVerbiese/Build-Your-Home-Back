@@ -9,15 +9,15 @@
             {{ message }}
         </div>
     {% endfor %}
-<form name="article_displayOrder" method="post">
-    <div id="article_displayOrder" novalidate="novalidate">
+<form name="category_displayOrder" method="post">
+    <div id="category_displayOrder" novalidate="novalidate">
         <div>
         {% for i in 1..10 %}
         
             <label>{{i}}</label>
             <select type="select" name="{{i}}" required="required">
-            {% for article in articles %}
-                <option value="{{article.name}}">{{article.name}}</option>
+            {% for category in categories %}
+                <option value="{{category.name}}">{{category.name}}</option>
             {% endfor %}
             
             </select>
