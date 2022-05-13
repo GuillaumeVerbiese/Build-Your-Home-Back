@@ -135,7 +135,8 @@ class OrderController extends AbstractController
         $order->setCreatedAt(new DateTime());
 
         foreach ($order->getOrderlists() as $orderList) {
-            $orderList->setCreatedAt(new DateTime());
+            $orderList->setValidate(false)
+                      ->setCreatedAt(new DateTime());
             $entityManagerInterface->persist($orderList);
         }
     

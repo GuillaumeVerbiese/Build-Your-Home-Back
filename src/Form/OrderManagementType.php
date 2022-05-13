@@ -28,8 +28,9 @@ class OrderManagementType extends AbstractType
                 'choices'  => [
                     'en attente' => 0,
                     'validée' => 1,
-                    'expédiée' => 2,
-                    'archivée' => 3
+                    'en attente de stock' => 2,
+                    'expédiée' => 3,
+                    'archivée' => 4
                 ],
                 "multiple" => false,
                 "expanded" => true,

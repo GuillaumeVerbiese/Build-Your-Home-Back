@@ -48,6 +48,11 @@ class Orderlist
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $validate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +102,18 @@ class Orderlist
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function isValidate(): ?bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(bool $validate): self
+    {
+        $this->validate = $validate;
 
         return $this;
     }

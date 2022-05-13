@@ -88,14 +88,14 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/{status}", name="app_back_order_management", methods={"GET"}, requirements={"status":"[0-3]"})
+     * @Route("/management/{status}", name="app_back_order_management", methods={"GET"}, requirements={"status":"[0-4]"})
      */
     public function orderManagement(int $status, OrderRepository $orderRepository): Response
     {
         // On récupère les commandes par rapport au status récupéré dans l'url
         $orders = $orderRepository->findBy(["status"=>$status],["createdAt" => "ASC"]);
         // on crée une liste avec les status compréhensible par l'utilisateur (indexé dans le bon ordre)
-        $statusList = ["en attentes","validées","expédiées","archivées"];
+        $statusList = ["en attentes","validées","en attentes de stock","expédiées","archivées"];
         // On renvoie le bon template avec les bonnes données
         return $this->render('back/order_management/index.html.twig', [
             'orders' => $orders,
@@ -108,7 +108,7 @@ class OrderController extends AbstractController
      */
     public function showOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        $statusList = ["en attentes","validées","expédiées","archivées"];
+        $statusList = ["en attentes","validées","en attentes de stock","expédiées","archivées"];
         $form = $this->createForm(OrderManagementType::class, $order);
         $form->handleRequest($request);
 
