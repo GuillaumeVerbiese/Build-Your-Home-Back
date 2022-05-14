@@ -15,15 +15,19 @@
             <tr>
                 <td>Statut : {{ status[order.status] }}</td>
             </tr>
+            <form method="post" name="validateArticle">
             {% for orderedArticle in order.orderlists %}
                     <tr> 
                         <td>Ref article : #{{ orderedArticle.article.id}}</td>
                         <td>Nom : {{ orderedArticle.article.name}}</td>
                         <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
                         <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
-                        <td>OK <input type="checkbox"></td>
+                        <td>
+                            <input id={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" type="button" value="loading...">
+                        </td>
                     </tr>
                 {% endfor %}
+            </form>
             <tr>
                 <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
                 <td> Adresse : {{ order.user.adress }} </td>

@@ -114,6 +114,8 @@ class OrderController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $order->setUpdatedAt(new DateTime());
+            // TODO récupérer les données en $_POST 
+            // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
             $entityManager->flush();
 
             $this->addFlash(
@@ -129,4 +131,6 @@ class OrderController extends AbstractController
             'status' => $statusList
         ]);
     }
+    // TODO faire un ManagementControler et y ranger les 2 méthodes ci-dessus
+    // TODO faire une méthode "itemsToOrder" orderlist->findAll ->foreach comparer article stock et quantity ->renvoyer un tableau d'article avec la quantité manquante
 }
