@@ -18,7 +18,6 @@ class DisplayOrderCategoryController extends AbstractController
     public function index(Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $entityManagerInterface)
     {
         $originCategories = $categoryRepository->findAll();
-
         if ($request->getMethod()==="POST") {
             $orderList = [];
             $orderList [1]= $request->get('1');
@@ -65,8 +64,20 @@ class DisplayOrderCategoryController extends AbstractController
         
             $entityManagerInterface->flush();
         }
+        $originDisplayOrder = [];
+        foreach($originCategories as $keys => $value){
+            $displayOrder = $value->getDisplayOrder() ;
+            if($displayOrder != 0){
+            $originDisplayOrder [$displayOrder] = $value ;
+            dump($originDisplayOrder);
+            }
+            ;
+        }
+        
+
         return $this->render('back/display_order_category/index.html.twig', [
             'categories' => $originCategories,
+            'categoryOrderbyDisplay' => $originDisplayOrder
         ]);
     }
 }
