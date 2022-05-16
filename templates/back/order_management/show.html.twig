@@ -9,46 +9,45 @@
         </div>
     {% endfor %}
     <h1>Commande Ref #{{ order.id }}</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>Statut : {{ status[order.status] }}</td>
-            </tr>
-            <form method="post" name="validateArticle">
-            {% for orderedArticle in order.orderlists %}
-                    <tr> 
-                        <td>Ref article : #{{ orderedArticle.article.id}}</td>
-                        <td>Nom : {{ orderedArticle.article.name}}</td>
-                        <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
-                        <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
-                        <td>
-                            <button name={{ orderedArticle.article.id }} id={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" value=0>loading...</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-                {# <button type="submit">save</button> #}
-            </form>
-            <tr>
-                <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
-                <td> Adresse : {{ order.user.adress }} </td>
-                <td> Téléphone : {{ order.user.phone }} </td>
-                <td> Email : {{ order.user.email }}</td>
-            </tr>
-            <tr>
-                <td>Commande passée le : {{ order.createdAt|format_datetime('full', 'short', locale='fr') }}</td>
-            </tr>
-            {% if order.status != 0 %}
-            <tr>
-                <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
     {{ form_start(form) }}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Statut : {{ status[order.status] }}</td>
+                </tr>
+                
+                {% for orderedArticle in order.orderlists %}
+                        <tr> 
+                            <td>Ref article : #{{ orderedArticle.article.id}}</td>
+                            <td>Nom : {{ orderedArticle.article.name}}</td>
+                            <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
+                            <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
+                            <td>
+                                <button name={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn">loading...</button>
+                                <input id={{ orderedArticle.article.id }} type="hidden" name=articlesList[{{ orderedArticle.article.id }}] value=0>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
+                        <td> Adresse : {{ order.user.adress }} </td>
+                        <td> Téléphone : {{ order.user.phone }} </td>
+                        <td> Email : {{ order.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Commande passée le : {{ order.createdAt|format_datetime('full', 'short', locale='fr') }}</td>
+                    </tr>
+                    {% if order.status != 0 %}
+                    <tr>
+                        <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    
         {{ form_widget(form) }}
-            <button class="btn">{{ button_label|default('Save') }}</button>
+            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 
+        <script src="/assets/validateArticleOrder.js"></script>
 {% endblock %}

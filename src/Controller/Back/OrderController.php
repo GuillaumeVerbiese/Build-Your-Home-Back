@@ -2,6 +2,7 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Article;
 use App\Entity\Order;
 use App\Form\OrderManagementType;
 use App\Form\OrderType;
@@ -106,18 +107,25 @@ class OrderController extends AbstractController
     /**
      * @Route("/management/show/{id}", name="app_back_order_management_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
-    public function showOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
-        // if($request->getMethod()== "POST"){dd($_POST);}
-        $statusList = ["en attentes","validées","en attentes de stock","expédiées","archivées"];
+        
+        $statusList = ["en attente","validée","en attente de stock","expédiée","archivée"];
         $form = $this->createForm(OrderManagementType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($_POST);
+
+            // dd($request);
             $order->setUpdatedAt(new DateTime());
             // TODO récupérer les données en $_POST 
+            $articlesList = $request->get("articlesList");
             // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
+            foreach ($articlesList as $articleId => $quantityToSub) {
+                $article = $entityManager->find(Article::class,$articleId);
+                $article->setStock($article->getStock()-$quantityToSub);
+            }
+            // TODO passer validate des orderlists a true
             $entityManager->flush();
 
             $this->addFlash(
