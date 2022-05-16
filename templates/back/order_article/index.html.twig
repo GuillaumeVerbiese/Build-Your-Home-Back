@@ -16,6 +16,7 @@
         
             <label>{{i}}</label>
             <select type="select" name="{{i}}" required="required">
+            <option value="{{ articleOrderbyDisplay[i].name }}">{{ articleOrderbyDisplay[i].name }}</option>
             {% for article in articles %}
                 <option value="{{article.name}}">{{article.name}}</option>
             {% endfor %}

@@ -69,7 +69,6 @@ class DisplayOrderCategoryController extends AbstractController
             $displayOrder = $value->getDisplayOrder() ;
             if($displayOrder != 0){
             $originDisplayOrder [$displayOrder] = $value ;
-            dump($originDisplayOrder);
             }
             ;
         }
