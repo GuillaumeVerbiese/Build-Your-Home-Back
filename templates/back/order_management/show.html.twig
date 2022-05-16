@@ -23,10 +23,11 @@
                         <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
                         <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
                         <td>
-                            <input id={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" type="button" value="loading...">
+                            <button name={{ orderedArticle.article.id }} id={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" value=0>loading...</button>
                         </td>
                     </tr>
                 {% endfor %}
+                {# <button type="submit">save</button> #}
             </form>
             <tr>
                 <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
@@ -47,6 +48,7 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 
 {% endblock %}

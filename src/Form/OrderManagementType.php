@@ -36,8 +36,8 @@ class OrderManagementType extends AbstractType
                 "expanded" => true,
                 // Grace à data on peut spécifier la valeur par défaut du champs, ici, le statut de la commande
                 'data' => $order->getStatus() ? $order->getStatus() : 0
-                ])
-                ->add('sauvegarder', SubmitType::class);
+            ]);
+                
         })
         ;
     }

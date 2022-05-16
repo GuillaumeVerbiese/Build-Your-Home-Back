@@ -108,11 +108,13 @@ class OrderController extends AbstractController
      */
     public function showOrderManagement(Request $request, Order $order, EntityManagerInterface $entityManager): Response
     {
+        // if($request->getMethod()== "POST"){dd($_POST);}
         $statusList = ["en attentes","validées","en attentes de stock","expédiées","archivées"];
         $form = $this->createForm(OrderManagementType::class, $order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($_POST);
             $order->setUpdatedAt(new DateTime());
             // TODO récupérer les données en $_POST 
             // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
