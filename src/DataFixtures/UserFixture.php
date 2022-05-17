@@ -77,8 +77,8 @@ class UserFixture extends Fixture
 
         // category
         $categoriesList = [];
-        $categoryNameList = ["electroménager","image","son","téléphone","console","gaming","cuisine","informatique","tablette","jardin","beauté","santé"];
-        for ($i=1; $i < 10; $i++) { 
+        $categoryNameList = ["electroménager","image","son","téléphone","console","gaming","cuisine","informatique","tablette","jardin","beauté","santé","énergie","bien-être","original","confort","chaise","rétro"];
+        for ($i=1; $i < 18; $i++) { 
 
             // TODO créer une nouvelle categorie
             $newCategory = new Category();
@@ -87,7 +87,7 @@ class UserFixture extends Fixture
             $newCategory->setName($name)
             ->setPicture('https://picsum.photos/id/'.rand(500,1000).'/200/300')
             ->setSlug($name)
-            ->setDisplayOrder($i<=9?$i:0)
+            ->setDisplayOrder($i<=10?$i:0)
             ->setCreatedAt(new DateTime());
             // TODO persist
             $manager->persist($newCategory);
