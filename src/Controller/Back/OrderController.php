@@ -4,8 +4,10 @@ namespace App\Controller\Back;
 
 use App\Entity\Article;
 use App\Entity\Order;
+use App\Entity\Orderlist;
 use App\Form\OrderManagementType;
 use App\Form\OrderType;
+use App\Repository\OrderlistRepository;
 use App\Repository\OrderRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -107,25 +109,33 @@ class OrderController extends AbstractController
     /**
      * @Route("/management/show/{id}", name="app_back_order_management_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
-    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager, OrderlistRepository $orderlistRepository): Response
     {
         
         $statusList = ["en attente","validée","en attente de stock","expédiée","archivée"];
-        $form = $this->createForm(OrderManagementType::class, $order);
-        $form->handleRequest($request);
+        
+        
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->getMethod() == "POST") {
 
             // dd($request);
+            $order->setStatus($request->get("status"));
             $order->setUpdatedAt(new DateTime());
             // TODO récupérer les données en $_POST 
-            $articlesList = $request->get("articlesList");
-            // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
-            foreach ($articlesList as $articleId => $quantityToSub) {
-                $article = $entityManager->find(Article::class,$articleId);
-                $article->setStock($article->getStock()-$quantityToSub);
+            if ($request->get("articlesList")) {
+                $articlesList = $request->get("articlesList");
+                // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
+                foreach ($articlesList as $articleId => $quantityToSub) {
+                    $article = $entityManager->find(Article::class, $articleId);
+                    $article->setStock($article->getStock()-$quantityToSub);
+                    // TODO passer validate des orderlists a true
+                    if ($quantityToSub > 0) {
+                        $orderlist = $orderlistRepository->findOneBy(["order"=>$order,"article"=>$article]);
+                        $orderlist->setValidate(true);
+                    }
+                }
             }
-            // TODO passer validate des orderlists a true
+
             $entityManager->flush();
 
             $this->addFlash(
@@ -135,9 +145,8 @@ class OrderController extends AbstractController
 
             return $this->redirectToRoute('app_back_order_management', ["status"=>$order->getStatus()], Response::HTTP_SEE_OTHER);
         }
-        return $this->renderForm('back/order_management/show.html.twig', [
+        return $this->render('back/order_management/show.html.twig', [
             'order' => $order,
-            'form' => $form,
             'status' => $statusList
         ]);
     }
