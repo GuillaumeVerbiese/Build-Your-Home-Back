@@ -8,12 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use OpenApi\Annotations as OA;
 
 class DiscountController extends AbstractController
 {
     /**
+     * Renvoie la liste des réductions
+     * 
      * @Route("/api/discounts", name="app_api_browse_discount", methods={"GET"})
      *  
+     * @OA\Tag(name="discount")
      */
     public function browse(DiscountRepository $discountRepository): JsonResponse
     {
@@ -33,8 +37,11 @@ class DiscountController extends AbstractController
     }
 
     /**
+     * Renvoie la réduction correspond à l'id
+     * 
      * @Route("/api/discount/{id}", name="app_api_read_discount", methods={"GET"}, requirements={"id":"\d+"})
      *  
+     * @OA\Tag(name="discount")
      */
     public function read(Discount $discount = null): JsonResponse
     {
@@ -56,8 +63,12 @@ class DiscountController extends AbstractController
         );
     }
     /**
+     * Renvoie la liste des articles dont la réduction correspond à l'id
+     * 
      * @Route("/api/discount/{id}/articles", name="app_api_read_discount_articles", methods={"GET"}, requirements={"id":"\d+"})
-     *  
+     * 
+     * 
+     * @OA\Tag(name="discount") 
      */
     public function readByArticle(Discount $discount = null)
     {

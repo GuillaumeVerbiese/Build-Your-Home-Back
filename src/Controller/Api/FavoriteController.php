@@ -19,17 +19,23 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Tag(name="favorite")
+ */
 class FavoriteController extends AbstractController
 {
     /**
+     * Crée un nouveau favori
+     * 
      * @Route("/api/favorite/add", name="app_api_add_favorite", methods={"POST"})
      *  
-     *
      *
      * @param EntityManagerInterface $entityManagerInterface
      * @param Request $request
      * @param SerializerInterface $serializerInterface
      * @return JsonResponse
+     * 
+     * 
      * 
      *  @OA\RequestBody(
      *     @Model(type=FavoriteType::class)
@@ -68,6 +74,8 @@ class FavoriteController extends AbstractController
         );
     }
     /**
+     * Supprime le favori correspondant à l'id
+     * 
      * @Route("/api/favorite/{id}", name="app_back_delete_favorite", methods={"DELETE"})
      * 
      * @param EntityManagerInterface $entityManagerInterface
