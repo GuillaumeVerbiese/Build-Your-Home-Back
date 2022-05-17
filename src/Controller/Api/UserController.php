@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEditType;
+use App\Form\ApiUserModifyType;
 use App\Form\ApiUserAddType;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
@@ -128,7 +129,7 @@ class UserController extends AbstractController
      * @return JsonResponse
      * 
      * @OA\RequestBody(
-     *     @Model(type=UserEditType::class)
+     *     @Model(type=ApiUserModifyType::class)
      * )
      */
     public function modify(int $id, EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserRepository $userRepository, UserPasswordHasherInterface $hasher): JsonResponse
@@ -136,7 +137,7 @@ class UserController extends AbstractController
         // On récupére le contenu Json de la requête
         $user = $userRepository->find($id);
         $jsoncontent = $request->getContent();
-        // TODO à finir après avoir fait le crud pour les validations
+
         $userModify = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
         $errorsList = $validator->validate($userModify);
         if (count($errorsList) > 0) {
@@ -147,14 +148,14 @@ class UserController extends AbstractController
                 []
             );
         };
-        if($userModify->getPassword() != null){
-            $textPassword = $userModify->getPassword();
-            $hashedPassword = $hasher->hashPassword(
-            $userModify,
-            $textPassword
-        );
-        $user->setPassword($hashedPassword);
-        }
+        // if($userModify->getPassword() != null){
+        //     $textPassword = $userModify->getPassword();
+        //     $hashedPassword = $hasher->hashPassword(
+        //     $userModify,
+        //     $textPassword
+        // );
+        // $user->setPassword($hashedPassword);
+        // }
         if ($userModify->getLastName() != null) {
             $user->setLastName($userModify->getLastName());
         }
