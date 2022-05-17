@@ -47,6 +47,28 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * return array of all article(array) where stock < quantity ordered
+     *
+     * @return void
+     */
+    public function findEmptyStock()
+    {
+        // On se connecte à la DB 
+        $dbal = $this->getEntityManager()->getConnection();
+        // On prépare la requete sql
+        $sql = "SELECT SUM(quantity) AS somme, `article_id`, `article`.*
+                FROM `orderlist`
+                INNER JOIN `article` ON `article`.`id` = `orderlist`.`article_id`
+                GROUP BY `article_id`
+                HAVING `article`.`stock` < somme";
+        
+        $stmt = $dbal->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
