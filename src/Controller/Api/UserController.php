@@ -137,7 +137,7 @@ class UserController extends AbstractController
         // On récupére le contenu Json de la requête
         $user = $userRepository->find($id);
         $jsoncontent = $request->getContent();
-
+        
         $userModify = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
         $errorsList = $validator->validate($userModify);
         if (count($errorsList) > 0) {
@@ -148,14 +148,7 @@ class UserController extends AbstractController
                 []
             );
         };
-        // if($userModify->getPassword() != null){
-        //     $textPassword = $userModify->getPassword();
-        //     $hashedPassword = $hasher->hashPassword(
-        //     $userModify,
-        //     $textPassword
-        // );
-        // $user->setPassword($hashedPassword);
-        // }
+        
         if ($userModify->getLastName() != null) {
             $user->setLastName($userModify->getLastName());
         }

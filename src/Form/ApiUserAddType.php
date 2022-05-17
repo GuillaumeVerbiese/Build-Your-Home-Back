@@ -37,7 +37,7 @@ class ApiUserAddType extends AbstractType
                 "label" => "Adresse :",
                 "attr" => ["placeholder" => "saisissez l'adresse de l'utilisateur ..."]
             ])
-            ->add('birthdate', DateTimeType::class, 
+            ->add('birthdate', DateType::class, 
             [
                 "widget" => "single_text",
                 "label" => "Date d'anniversaire :",
