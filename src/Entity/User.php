@@ -66,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $adress;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      * 
      * @Assert\NotBlank
      * 
