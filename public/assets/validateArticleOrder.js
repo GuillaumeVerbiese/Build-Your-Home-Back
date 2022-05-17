@@ -8,7 +8,10 @@ const validateArticleOrder = {
         validateArticleOrder.bindButton(button);
         button.addEventListener('click',validateArticleOrder.handleButtonClicked);
       };
-
+      // On récupére le bouton du form pour passer la commande en statut "expedié" 
+      const expButton = document.querySelector('#expButton');
+      // On ajoute un écouteur
+      expButton.addEventListener('click',validateArticleOrder.handleCheckArticlesAreValidate);
     },
     handleButtonClicked: function(event) {
       event.preventDefault();
@@ -54,6 +57,27 @@ const validateArticleOrder = {
         hiddenInput.value=0;
       }
     },
+    handleCheckArticlesAreValidate: function(event){
+      
+      // On récupére la liste des boutons
+      const articlesList = document.querySelectorAll('.validateButton');
+      // On crée un tableau
+      let noValidate = [];
+      // On boucle pour vérifier si data-validate = 1
+      for (const article of articlesList) {
+        if(article.dataset.validate != 1){
+          noValidate.push('noValidateItem');
+        }
+      }
+      // Si il y a quelque chose dans le tableau
+      if (noValidate.length > 0) {
+        event.preventDefault();
+        alert("Tous les articles n'ont pas été validés !");
+      } else {
+        document.querySelector('#order_manager').submit();
+      }
+
+    }
 }
 
 document.addEventListener('DOMContentLoaded', validateArticleOrder.init);
