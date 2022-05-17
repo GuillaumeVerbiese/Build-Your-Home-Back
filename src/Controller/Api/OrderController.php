@@ -24,10 +24,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-
+/**
+ * @OA\Tag(name="order")
+ */
 class OrderController extends AbstractController
 {
     /**
+     * Renvoie la liste des commandes
+     * 
      * @Route("/api/orders", name="app_api_browse_order", methods={"GET"})
      *  
      */
@@ -49,6 +53,8 @@ class OrderController extends AbstractController
     }
 
     /**
+     * Renvoie la commande qui correspond à l'id
+     * 
      * @Route("/api/order/{id}", name="app_api_read_order", methods={"GET"}, requirements={"id":"\d+"})
      *  
      */
@@ -73,6 +79,8 @@ class OrderController extends AbstractController
     }
 
     /**
+     * Renvoie la liste des commandes possédant le status donné en id
+     * 
      * @Route("/api/orders/{id}/status", name="app_api_read_order_status", methods={"GET"}, requirements={"id":"\d+"})
      *  
      */
@@ -94,6 +102,7 @@ class OrderController extends AbstractController
     }
 
     /**
+     * 
      * Crée une nouvelle commande
      * 
      * @Route("/api/order/add", name="add_order", methods={"POST"})
@@ -154,6 +163,8 @@ class OrderController extends AbstractController
         );
     }
     /**
+     * Supprime la commande correspondant à l'id
+     * 
      * @Route("/api/order/{id}", name="app_back_delete_order", methods={"DELETE"})
      * 
      * @param EntityManagerInterface $entityManagerInterface
