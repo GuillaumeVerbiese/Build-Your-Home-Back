@@ -120,7 +120,7 @@ class UserFixture extends Fixture
             // TODO créer une nouvelle commande
             $newOrder = new Order();
             // TODO renseigner toutes les propriétés
-            $newOrder->setStatus(rand(0,2))
+            $newOrder->setStatus(rand(0,4))
             ->setUser($i%2==0?$newUser:$newUserAdmin)
             ->setDeliveries($deliveryFeesList[rand(0,count($deliveryFeesList)-1)])
             ->setCreatedAt(new DateTime());
@@ -252,6 +252,7 @@ class UserFixture extends Fixture
             $newOrderlist->setArticle($articleList[rand(0,count($articleList)-1)])
             ->setOrder($orderList[rand(0,count($orderList)-1)])
             ->setQuantity(rand(1,3))
+            ->setValidate(false)
             ->setCreatedAt(new DateTime());
             
             // TODO persist

@@ -2,9 +2,12 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Article;
 use App\Entity\Order;
+use App\Form\OrderManagementType;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,4 +87,60 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute('app_back_order_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/management/{status}", name="app_back_order_management", methods={"GET"}, requirements={"status":"[0-4]"})
+     */
+    public function orderManagement(int $status, OrderRepository $orderRepository): Response
+    {
+        // On récupère les commandes par rapport au status récupéré dans l'url
+        $orders = $orderRepository->findBy(["status"=>$status],["createdAt" => "ASC"]);
+        // on crée une liste avec les status compréhensible par l'utilisateur (indexé dans le bon ordre)
+        $statusList = ["en attentes","validées","en attentes de stock","expédiées","archivées"];
+        // On renvoie le bon template avec les bonnes données
+        return $this->render('back/order_management/index.html.twig', [
+            'orders' => $orders,
+            'status' => $statusList[$status]
+        ]);
+    }
+
+    /**
+     * @Route("/management/show/{id}", name="app_back_order_management_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     */
+    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager): Response
+    {
+        
+        $statusList = ["en attente","validée","en attente de stock","expédiée","archivée"];
+        $form = $this->createForm(OrderManagementType::class, $order);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // dd($request);
+            $order->setUpdatedAt(new DateTime());
+            // TODO récupérer les données en $_POST 
+            $articlesList = $request->get("articlesList");
+            // TODO foreach find(article)->setStock( - quantity )->setUpdatedAt(now)
+            foreach ($articlesList as $articleId => $quantityToSub) {
+                $article = $entityManager->find(Article::class,$articleId);
+                $article->setStock($article->getStock()-$quantityToSub);
+            }
+            // TODO passer validate des orderlists a true
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre commande a bien été modifier.'
+            );
+
+            return $this->redirectToRoute('app_back_order_management', ["status"=>$order->getStatus()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('back/order_management/show.html.twig', [
+            'order' => $order,
+            'form' => $form,
+            'status' => $statusList
+        ]);
+    }
+    // TODO faire un ManagementControler et y ranger les 2 méthodes ci-dessus
+    // TODO faire une méthode "itemsToOrder" orderlist->findAll ->foreach comparer article stock et quantity ->renvoyer un tableau d'article avec la quantité manquante
 }
