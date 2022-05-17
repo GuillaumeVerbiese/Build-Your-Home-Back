@@ -68,8 +68,19 @@ class OrderArticleController extends AbstractController
         
             $entityManagerInterface->flush();
         }
+
+        $originDisplayOrder = [];
+        foreach($originArticles as $keys => $value){
+            $displayOrder = $value->getDisplayOrder() ;
+            if($displayOrder != 0){
+            $originDisplayOrder [$displayOrder] = $value ;
+            }
+            ;
+        }
+
         return $this->render('back/order_article/index.html.twig', [
             'articles' => $originArticles,
+            'articleOrderbyDisplay' => $originDisplayOrder
         ]);
     }
     
