@@ -22,11 +22,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @Route("/api", name="app_api")
+ * 
+ * @OA\Tag(name="user")
  */
 class UserController extends AbstractController
 {
     /**
-     * Renvoie l'utilisateur correspondant à l'username
+     * Renvoie l'utilisateur correspondant au JWT Token
      * 
      * @Route("/user/profile", name="_read_user", methods={"GET"})
      * 
@@ -57,7 +59,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Crée un nouvel utilisateur (à finir)
+     * Crée un nouvel utilisateur
      * 
      * @Route("/user/add", name="_add_user", methods={"POST"})
      * 
@@ -116,7 +118,7 @@ class UserController extends AbstractController
     
 
     /**
-     * Modifie l'utilisateur correspondant à l'id (à finir)
+     * Modifie l'utilisateur correspondant à l'id 
      * 
      * @Route("/user/{id}", name="_modify_user", requirements={"id":"\d+"}, methods={"PATCH"})
      *
