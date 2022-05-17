@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Management{% endblock %}
+
+{% block body %}
+
+
+    <h1>Liste des articles à commander.</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Nom</th>
+                <th>Nombre en stock</th>
+                <th>Quantité commander</th>
+                <th>Quantité minimum à commander</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articlesList %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.name }}</td>
+                <td>{{ article.stock }}</td>
+                <td>{{ article.somme }}</td>
+                <td>{{ article.somme - article.stock }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Pas d'article à commander pour l'instant.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

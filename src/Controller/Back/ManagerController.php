@@ -8,13 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Order;
+use App\Repository\ArticleRepository;
 use App\Repository\OrderlistRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/back/order")
+ * @Route("/back")
  */
 class ManagerController extends AbstractController
 {
@@ -79,6 +80,18 @@ class ManagerController extends AbstractController
             'status' => $statusList
         ]);
     }
-    // TODO faire un ManagementControler et y ranger les 2 méthodes ci-dessus
     // TODO faire une méthode "itemsToOrder" orderlist->findAll ->foreach comparer article stock et quantity ->renvoyer un tableau d'article avec la quantité manquante
+
+    /**
+     * @Route("/management/items-to-order", name="app_back_management_itemsToOrder", methods={"GET"})
+     *
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function showEmptyStock(ArticleRepository $articleRepository): Response
+    {
+        $articlesList = $articleRepository->findEmptyStock();
+
+        return $this->render('back/order_management/list.html.twig', ['articlesList' => $articlesList]);
+    }
 }
