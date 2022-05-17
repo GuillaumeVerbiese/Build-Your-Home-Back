@@ -9,7 +9,7 @@
         </div>
     {% endfor %}
     <h1>Commande Ref #{{ order.id }}</h1>
-    {{ form_start(form) }}
+    <form action="" method="post" name="order_manager">
         <table class="table">
             <tbody>
                 <tr>
@@ -22,10 +22,12 @@
                             <td>Nom : {{ orderedArticle.article.name}}</td>
                             <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
                             <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
+                            {% if order.status != 0 %}
                             <td>
                                 <button name={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn">loading...</button>
                                 <input id={{ orderedArticle.article.id }} type="hidden" name=articlesList[{{ orderedArticle.article.id }}] value=0>
                             </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     <tr>
@@ -39,15 +41,20 @@
                     </tr>
                     {% if order.status != 0 %}
                     <tr>
-                        <td>Commande {{ status[order.status] }} le : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
+                        <td>Commande {{ status[order.status] }} depuis : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
                     </tr>
                 {% endif %}
             </tbody>
         </table>
-    
-        {{ form_widget(form) }}
-            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+        {% if order.status == 0 %}
+            <button class="btn btn-success" type="submit" name="status" value=1>Valider la commande</button>
+            <button class="btn btn-success" type="submit" name="status" value=2>Mettre la commande en attente de stock</button>
+        {% elseif order.status == 1 or order.status == 2 %}
+            <button class="btn btn-success" type="submit" name="status" value=3>Mettre la commande comme expédiée</button>
+        {% elseif order.status == 3 %}
+            <button class="btn btn-success" type="submit" name="status" value=4>Archiver la commande</button>
+        {% endif %}
+    </form>
 
         <script src="/assets/validateArticleOrder.js"></script>
 {% endblock %}
