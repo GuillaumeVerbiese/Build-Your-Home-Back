@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use DateTime;
+use Exception;
 use App\Entity\VAT;
 use App\Form\VATType;
 use App\Repository\VATRepository;
@@ -102,7 +103,12 @@ class VATController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$vAT->getId(), $request->request->get('_token'))) {
             $entityManager->remove($vAT);
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            }catch(Exception $e){
+                $this->addFlash('danger','Ce taux de tva est lié à un article');
+                return $this->redirectToRoute('app_back_vat_index', [], Response::HTTP_FOUND); 
+            }
 
             $this->addFlash(
                 'notice',

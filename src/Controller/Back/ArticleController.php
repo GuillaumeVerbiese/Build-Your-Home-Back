@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -118,7 +119,13 @@ class ArticleController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager->remove($article);
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            }catch(Exception $e){
+                $this->addFlash('danger','Cet article est lié à une commande existante');
+                return $this->redirectToRoute('app_back_article_index', [], Response::HTTP_FOUND); 
+            }
+            
 
             $this->addFlash(
                 'notice',

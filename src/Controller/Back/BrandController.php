@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use DateTime;
+use Exception;
 use App\Entity\Brand;
 use App\Form\BrandType;
 use App\Repository\BrandRepository;
@@ -112,7 +113,13 @@ class BrandController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$brand->getId(), $request->request->get('_token'))) {
             $entityManager->remove($brand);
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            }catch(Exception $e){
+                $this->addFlash('danger','Cet marque est lié à un article');
+                return $this->redirectToRoute('app_back_brand_index', [], Response::HTTP_FOUND); 
+            }
+            
 
             $this->addFlash(
                 'notice',

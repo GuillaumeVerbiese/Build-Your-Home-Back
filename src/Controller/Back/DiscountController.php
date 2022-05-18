@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use DateTime;
+use Exception;
 use App\Entity\Discount;
 use App\Form\DiscountType;
 use App\Repository\DiscountRepository;
@@ -102,7 +103,12 @@ class DiscountController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$discount->getId(), $request->request->get('_token'))) {
             $entityManager->remove($discount);
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            }catch(Exception $e){
+                $this->addFlash('danger','Cette réduction est lié à un article');
+                return $this->redirectToRoute('app_back_discount_index', [], Response::HTTP_FOUND); 
+            }
 
             $this->addFlash(
                 'notice',
