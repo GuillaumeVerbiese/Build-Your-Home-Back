@@ -22,7 +22,7 @@
                             <td>Nom : {{ orderedArticle.article.name}}</td>
                             <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
                             <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
-                            {% if order.status != 0 %}
+                            {% if order.status == 1 or order.status == 2 %}
                             <td>
                                 <button name={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" {{orderedArticle.article.stock < orderedArticle.quantity ? ' disabled ' : '' }}>loading...</button>
                                 <input id={{ orderedArticle.article.id }} type="hidden" name=articlesList[{{ orderedArticle.article.id }}] value=0>
