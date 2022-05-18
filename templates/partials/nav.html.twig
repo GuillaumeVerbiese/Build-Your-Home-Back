@@ -60,28 +60,28 @@
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> En attentes 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    {{nbOfPendingOrders}}
+                                    ({{nbOfPendingOrders}})
                                 {% endif %}
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":1})}}"> Validées 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    {{nbOfValidateOrders}}
+                                    ({{nbOfValidateOrders}})
                                 {% endif %}
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":2})}}"> En attentes de stock 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    {{nbOfPendingStockOrders}}
+                                    ({{nbOfPendingStockOrders}})
                                 {% endif %}
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":3})}}"> Expédiées 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    {{nbOfOrdersShipped}} 
+                                    ({{nbOfOrdersShipped}}) 
                                 {% endif %}
                                 </a>
                             </li>
