@@ -14,8 +14,9 @@
         <div>
         {% for i in 1..10 %}
         
-            <label>{{i}}</label>
+            <label> Affichage n°{{i}}</label>
             <select type="select" name="{{i}}" required="required">
+            <option value="{{ categoryOrderbyDisplay[i].name }}">{{ categoryOrderbyDisplay[i].name }}</option>
             {% for category in categories %}
                 <option value="{{category.name}}">{{category.name}}</option>
             {% endfor %}

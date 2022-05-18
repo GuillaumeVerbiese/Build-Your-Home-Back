@@ -2,18 +2,19 @@
 
 namespace App\Controller\Back;
 
+use DateTime;
+use Exception;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
-use DateTime;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * @Route("/back/user")
@@ -37,7 +38,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="app_back_user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
         $user = new User();
         $user->setCreatedAt(new DateTime());
@@ -45,12 +46,19 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $textPassword = $user->getPassword();
+            $hashedPassword = $hasher->hashPassword(
+            $user,
+            $textPassword
+        );
+        $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             try {
                 $entityManager->flush();
             }catch(UniqueConstraintViolationException $e){
                 $this->addFlash('danger','Cette adresse email est déjà lié à un autre compte !');
-                return $this->redirectToRoute('app_back_user_new', [], Response::HTTP_FOUND); // TODO change code réponse
+                return $this->redirectToRoute('app_back_user_new', [], Response::HTTP_FOUND); 
             }
 
             return $this->redirectToRoute('app_back_user_index', [], Response::HTTP_SEE_OTHER);

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('notice') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1>Commande Ref #{{ order.id }}</h1>
+    <form action="" method="post" id="order_manager">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Statut : {{ status[order.status] }}</td>
+                </tr>
+                
+                {% for orderedArticle in order.orderlists %}
+                        <tr> 
+                            <td>Ref article : #{{ orderedArticle.article.id}}</td>
+                            <td>Nom : {{ orderedArticle.article.name}}</td>
+                            <td{{ orderedArticle.article.stock < orderedArticle.quantity ? ' class="text-danger" ' : ' class="text-success" ' }}>Quantité en stock : {{ orderedArticle.article.stock}}</td>
+                            <td>Quantité commandée : {{ orderedArticle.quantity}}</td>
+                            {% if order.status == 1 or order.status == 2 %}
+                            <td>
+                                <button name={{ orderedArticle.article.id }} data-quantityOrdered={{orderedArticle.quantity}} data-validate={{ orderedArticle.validate ? 1 : 0 }} class="validateButton btn" {{orderedArticle.article.stock < orderedArticle.quantity ? ' disabled ' : '' }}>loading...</button>
+                                <input id={{ orderedArticle.article.id }} type="hidden" name=articlesList[{{ orderedArticle.article.id }}] value=0>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Commande passée par : {{ order.user.lastname }} {{ order.user.firstname }} </td>
+                        <td> Adresse : {{ order.user.adress }} </td>
+                        <td> Téléphone : {{ order.user.phone }} </td>
+                        <td> Email : {{ order.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Commande passée le : {{ order.createdAt|format_datetime('full', 'short', locale='fr') }}</td>
+                    </tr>
+                    {% if order.status != 0 %}
+                    <tr>
+                        <td>Commande {{ status[order.status] }} depuis : {{ order.updatedAt ? order.updatedAt|format_datetime('full', 'short', locale='fr') : '' }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if order.status == 0 %}
+            <button class="btn btn-success" type="submit" name="status" value=1>Valider la commande</button>
+            <button class="btn btn-success" type="submit" name="status" value=2>Mettre la commande en attente de stock</button>
+        {% elseif order.status == 1 or order.status == 2 %}
+            <button class="btn btn-success" type="submit" name="status" value=3 id="expButton">Mettre la commande comme expédiée</button>
+        {% elseif order.status == 3 %}
+            <button class="btn btn-success" type="submit" name="status" value=4>Archiver la commande</button>
+        {% endif %}
+    </form>
+
+        <script src={{ asset('assets/validateArticleOrder.js') }}></script>
+{% endblock %}

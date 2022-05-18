@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserEditType extends AbstractType
+class ApiUserModifyType extends AbstractType
 {
     
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -47,15 +47,6 @@ class UserEditType extends AbstractType
             [
                 "label" => "Email :",
                 "attr" => ["placeholder" => "saisissez l'adresse email de l'utilisateur ..."]
-            ])
-            ->add('roles', ChoiceType::class, [
-                "label" => "Choisir le/les rôle/s de l'utilisateur :",
-                'choices'  => [
-                    'User' => "ROLE_USER",
-                    'Admin' => "ROLE_ADMIN"
-                ],
-                "multiple" => true,
-                "expanded" => true
             ])
             // ->add('password', RepeatedType::class, array(
             //     'type' => PasswordType::class,
