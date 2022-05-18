@@ -50,9 +50,9 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * return array of all article(array) where stock < quantity ordered
      *
-     * @return void
+     * @return array
      */
-    public function findEmptyStock()
+    public function findEmptyStock(): array
     {
         // On se connecte à la DB 
         $dbal = $this->getEntityManager()->getConnection();

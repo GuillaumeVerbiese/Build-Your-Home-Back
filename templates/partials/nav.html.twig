@@ -2,7 +2,7 @@
 
     <div class="container-fluid">
         <a href="{{ path('app_back_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
-            <span class="header-logo__title">Built your home</span>
+            <span class="header-logo__title">Build your home</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent">
@@ -57,18 +57,50 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Gestion des commandes</a>
                         <ul class="dropdown-menu bg-dark">
-                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> En attentes</a></li>
-                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":1})}}"> Validées</a></li>
-                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":2})}}"> En attentes de stock</a></li>
-                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":3})}}"> Expédiées</a></li>
-                            <li><a class="nav-link" href="{{ path('app_back_order_management',{"status":4})}}"> Archivées</a></li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> En attentes 
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{nbOfPendingOrders}}
+                                {% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_back_order_management',{"status":1})}}"> Validées 
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{nbOfValidateOrders}}
+                                {% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_back_order_management',{"status":2})}}"> En attentes de stock 
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{nbOfPendingStockOrders}}
+                                {% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_back_order_management',{"status":3})}}"> Expédiées 
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{nbOfOrdersShipped}} 
+                                {% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="{{ path('app_back_order_management',{"status":4})}}"> Archivées
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
                 <li class="nav-item">
-                    <a class="nav-link position-relative" href="{{ path('app_back_management_itemsToOrder')}}"> Articles à commander<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-  </span></a>
+                    <a class="nav-link position-relative" href="{{ path('app_back_management_itemsToOrder')}}">
+                        Articles à commander
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{nbOfArticlesToOrder}}
+                            </span>
+                        {% endif %}
+                    </a>
                 </li>
 
             </ul>
