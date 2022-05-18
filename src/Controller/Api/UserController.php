@@ -68,6 +68,16 @@ class UserController extends AbstractController
      *     @Model(type=ApiUserAddType::class)
      * )
      *
+     * @OA\Response(
+     *     response=201,
+     *     description="New user created"
+     * )
+     * 
+     * @OA\Response(
+     *     response=400,
+     *     description="The information provided does not respect the constraints"
+     * )
+     * 
      * @param EntityManagerInterface $entityManagerInterface
      * @param Request $request
      * @param SerializerInterface $serializerInterface
@@ -131,11 +141,30 @@ class UserController extends AbstractController
      * @OA\RequestBody(
      *     @Model(type=ApiUserModifyType::class)
      * )
+     * 
+     * @OA\Response(
+     *     response=403,
+     *     description="User id in url not same the current user"
+     * )
+     * 
+     * @OA\Response(
+     *     response=400,
+     *     description="The information provided does not respect the constraints"
+     * )
      */
     public function modify(int $id, EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, UserRepository $userRepository, UserPasswordHasherInterface $hasher): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $user = $userRepository->find($id);
+        // On compare l'utilisateur connecté et celui donnée dans l'url
+        if ($user != $this->getUser()) {
+            return $this->json(
+                "Vous n'étes pas autorisé à modifier cette utilisateur",
+                Response::HTTP_FORBIDDEN,
+                [],
+                []
+            );
+        }
         $jsoncontent = $request->getContent();
         
         $userModify = $serializerInterface->deserialize($jsoncontent, User::class, 'json');
@@ -198,6 +227,11 @@ class UserController extends AbstractController
      *     description="User not found"
      * )
      * 
+     * @OA\Response(
+     *     response=403,
+     *     description="User id in url not same the current user"
+     * )
+     * 
      * @Route("/user/{id}", name="_delete_user", requirements={"id":"\d+"}, methods={"DELETE"})
      *
      * @param integer $id
@@ -209,6 +243,15 @@ class UserController extends AbstractController
     {
         // On récupére l'utilisateur
         $user = $userRepository->find($id);
+        // On compare l'utilisateur connecté et celui donnée dans l'url
+        if ($user != $this->getUser()) {
+            return $this->json(
+                "Vous n'étes pas autorisé à supprimer cette utilisateur",
+                Response::HTTP_FORBIDDEN,
+                [],
+                []
+            );
+        }
         // Si l'utilisateur n'existe pas
         if ($user == null) {
             return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
