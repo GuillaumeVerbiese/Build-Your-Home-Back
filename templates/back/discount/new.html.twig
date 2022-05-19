@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Discount{% endblock %}
+{% block title %}Nouvelle Réduction{% endblock %}
 
 {% block body %}
-    <h1>Create new Discount</h1>
+    <h1>Créer une nouvelle réduction</h1>
 
     {{ include('back/discount/_form.html.twig') }}
 
-    <a href="{{ path('app_back_discount_index') }}">back to list</a>
+    <a href="{{ path('app_back_discount_index') }}" class="btn btn-primary">Retour à la liste</a>
 {% endblock %}

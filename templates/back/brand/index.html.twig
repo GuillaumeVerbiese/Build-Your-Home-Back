@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Brand index{% endblock %}
+{% block title %}Liste des marques{% endblock %}
 
 
 {% block body %}
@@ -17,17 +17,19 @@
         </div>
     {% endfor %}
     
-    <h1>Brand index</h1>
-    <a href="{{ path('app_back_brand_new') }}">Create new</a>
+    <h1>Liste des marques</h1>
+    <a href="{{ path('app_back_brand_new') }}" class="btn btn-success">Créer</a>
+
+
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
+                <th>Nom</th>
+                <th>Nom d'url</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +41,8 @@
                 <td>{{ brand.createdAt ? brand.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ brand.updatedAt ? brand.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_back_brand_show', {'id': brand.id}) }}">show</a>
-                    <a href="{{ path('app_back_brand_edit', {'id': brand.id}) }}">edit</a>
+                    <a href="{{ path('app_back_brand_show', {'id': brand.id}) }}" class="btn btn-info">Afficher</a>
+                    <a href="{{ path('app_back_brand_edit', {'id': brand.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('back/brand/_delete_form.html.twig') }}
                 </td>
             </tr>

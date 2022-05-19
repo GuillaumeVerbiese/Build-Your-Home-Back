@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DeliveriesFees{% endblock %}
+{% block title %}Frais de livraison{% endblock %}
 
 {% block body %}
 {% for message in app.flashes('notice') %}
@@ -8,7 +8,7 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h1>DeliveriesFees</h1>
+    <h1>Frais de livraison</h1>
 
     <table class="table">
         <tbody>
@@ -17,11 +17,11 @@
                 <td>{{ deliveries_fee.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ deliveries_fee.name }}</td>
             </tr>
             <tr>
-                <th>Price</th>
+                <th>Prix</th>
                 <td>{{ deliveries_fee.price }}</td>
             </tr>
             <tr>
@@ -35,9 +35,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_deliveries_fees_index') }}">back to list</a>
+    <a href="{{ path('app_back_deliveries_fees_index') }}" class="btn btn-primary">Retour à la liste</a>
 
-    <a href="{{ path('app_back_deliveries_fees_edit', {'id': deliveries_fee.id}) }}">edit</a>
+    <a href="{{ path('app_back_deliveries_fees_edit', {'id': deliveries_fee.id}) }}" class="btn btn-warning">Modifier</a>
 
     {{ include('back/deliveries_fees/_delete_form.html.twig') }}
 {% endblock %}

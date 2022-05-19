@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Liste des catégories{% endblock %}
 
 {% block body %}
 
@@ -15,21 +15,23 @@
         </div>
     {% endfor %}
     
-    <h1>Category index</h1>
+    <h1>Liste des catégories</h1>
 
 
-    <a href="{{ path('app_back_category_new') }}">Create new</a>
+    <a href="{{ path('app_back_category_new') }}" class="btn btn-success">Créer</a>
+
+
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>Slug</th>
+                <th>Nom</th>
+                <th>Photo</th>
+                <th>Nom d'url</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>Display_order</th>
-                <th>actions</th>
+                <th>Ordre d'affichage</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -43,8 +45,8 @@
                 <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ category.displayOrder }}</td>
                 <td>
-                    <a href="{{ path('app_back_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_back_category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('app_back_category_show', {'id': category.id}) }}" class="btn btn-info">Afficher</a>
+                    <a href="{{ path('app_back_category_edit', {'id': category.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('back/category/_delete_form.html.twig') }}
                 </td>
             </tr>

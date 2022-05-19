@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New VAT{% endblock %}
+{% block title %}Nouvelle TVA{% endblock %}
 
 {% block body %}
-    <h1>Create new VAT</h1>
+    <h1>Créer une nouvelle TVA</h1>
 
     {{ include('back/vat/_form.html.twig') }}
 
-    <a href="{{ path('app_back_vat_index') }}">back to list</a>
+    <a href="{{ path('app_back_vat_index') }}" class="btn btn-primary">Retour à la liste</a>
 {% endblock %}

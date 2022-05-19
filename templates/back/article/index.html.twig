@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 
 {% block body %}
@@ -15,26 +15,26 @@
         </div>
     {% endfor %}
 
-    <h1>Article index</h1>
-<a href="{{ path('app_back_article_new') }}">Create new</a>
+    <h1>Liste des articles</h1>
+<a href="{{ path('app_back_article_new') }}" class="btn btn-success">Créer</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>Price</th>
+                <th>Prix</th>
                 <th>Stock</th>
-                <th>Picture</th>
-                <th>Slug</th>
-                <th>Vat</th>
-                <th>Brand</th>
-                <th>Category</th>
-                <th>Discount</th>
+                <th>Photo</th>
+                <th>Nom d'url</th>
+                <th>TVA</th>
+                <th>Marque</th>
+                <th>Catégorie</th>
+                <th>Réduction</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>Rating</th>
-                <th>actions</th>
+                <th>Notation</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -55,8 +55,8 @@
                 <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.rating }}</td>
                 <td>
-                    <a href="{{ path('app_back_article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_back_article_edit', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('app_back_article_show', {'id': article.id}) }}" class="btn btn-info">Afficher</a>
+                    <a href="{{ path('app_back_article_edit', {'id': article.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('back/article/_delete_form.html.twig') }}
                 </td>
             </tr>

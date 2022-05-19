@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}VAT index{% endblock %}
+{% block title %}Liste des taux de TVA{% endblock %}
 
 {% block body %}
 
@@ -15,19 +15,21 @@
         </div>
     {% endfor %}
     
-    <h1>VAT index</h1>
+    <h1>Liste des taux de TVA</h1>
 
 
-    <a href="{{ path('app_back_vat_new') }}">Create new</a>
+    <a href="{{ path('app_back_vat_new') }}" class="btn btn-success">Créer</a>
+
+
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Rate</th>
+                <th>Nom</th>
+                <th>Taux</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +41,8 @@
                 <td>{{ vat.createdAt ? vat.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ vat.updatedAt ? vat.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_back_vat_show', {'id': vat.id}) }}">show</a>
-                    <a href="{{ path('app_back_vat_edit', {'id': vat.id}) }}">edit</a>
+                    <a href="{{ path('app_back_vat_show', {'id': vat.id}) }}" class="btn btn-info">Afficher</a>
+                    <a href="{{ path('app_back_vat_edit', {'id': vat.id}) }}" class="btn btn-warning">Modifier</a>
                     {{ include('back/vat/_delete_form.html.twig') }}
                 </td>
             </tr>

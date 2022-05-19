@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New DeliveriesFees{% endblock %}
+{% block title %}Nouveau frais de livraison{% endblock %}
 
 {% block body %}
-    <h1>Create new DeliveriesFees</h1>
+    <h1>Créer des frais de livraison</h1>
 
     {{ include('back/deliveries_fees/_form.html.twig') }}
 
-    <a href="{{ path('app_back_deliveries_fees_index') }}">back to list</a>
+    <a href="{{ path('app_back_deliveries_fees_index') }}" class="btn btn-primary">Retour à la liste</a>
 {% endblock %}

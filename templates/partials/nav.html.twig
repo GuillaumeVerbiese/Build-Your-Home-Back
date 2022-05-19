@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container-fluid">
-        <a href="{{ path('app_back_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+        <a href="{{ path('app_back_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo ">
             <span class="header-logo__title">Build your home</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -12,13 +12,13 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
             {% if app.user != null %}
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('app_logout')}}">Logout</a>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('app_logout')}}">Déconnexion</a>
                 </li>
             {% endif %}
             {% if app.user == null %}
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('app_login')}}">Login</a>
+                    <a class="nav-link" href="{{ path('app_login')}}">Connexion</a>
                 </li>
             {% endif %}
                 
@@ -26,31 +26,31 @@
                     <a class="nav-link" href="{{ path('app_back_article_index')}}"> Article</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_brand_index')}}"> Brand</a>
+                    <a class="nav-link" href="{{ path('app_back_brand_index')}}"> Marque</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_discount_index')}}"> Discount</a>
+                    <a class="nav-link" href="{{ path('app_back_discount_index')}}"> Réduction</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_order_index')}}"> Order</a>
+                    <a class="nav-link" href="{{ path('app_back_order_index')}}"> Commande</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_category_index')}}"> Category</a>
+                    <a class="nav-link" href="{{ path('app_back_category_index')}}"> Catégories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_vat_index')}}"> Vat</a>
+                    <a class="nav-link" href="{{ path('app_back_vat_index')}}"> TVA</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_deliveries_fees_index')}}"> DeliveryFees</a>
+                    <a class="nav-link" href="{{ path('app_back_deliveries_fees_index')}}"> Frais de livraison</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_user_index')}}"> User</a>
+                    <a class="nav-link" href="{{ path('app_back_user_index')}}"> Utilisateur</a>
                 </li> 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_order_article')}}"> Article Order</a>
+                    <a class="nav-link" href="{{ path('app_back_order_article')}}"> Mise en avant des articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_back_display_order_category')}}"> Category Order</a>
+                    <a class="nav-link" href="{{ path('app_back_display_order_category')}}"> Mise en avant des catégories</a>
                 </li>
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

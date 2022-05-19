@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Discount{% endblock %}
+{% block title %}Réduction{% endblock %}
 
 {% block body %}
 {% for message in app.flashes('notice') %}
@@ -8,7 +8,7 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h1>Discount</h1>
+    <h1>Réduction</h1>
 
     <table class="table">
         <tbody>
@@ -17,11 +17,11 @@
                 <td>{{ discount.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ discount.name }}</td>
             </tr>
             <tr>
-                <th>Rate</th>
+                <th>Taux</th>
                 <td>{{ discount.rate }}</td>
             </tr>
             <tr>
@@ -35,9 +35,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_discount_index') }}">back to list</a>
+    <a href="{{ path('app_back_discount_index') }}" class="btn btn-primary">Retour à la liste</a>
 
-    <a href="{{ path('app_back_discount_edit', {'id': discount.id}) }}">edit</a>
+    <a href="{{ path('app_back_discount_edit', {'id': discount.id}) }}" class="btn btn-warning">Modifier</a>
 
     {{ include('back/discount/_delete_form.html.twig') }}
 {% endblock %}
