@@ -22,14 +22,14 @@ class CaptchaController extends AbstractController
         
         $json = json_decode($jsonContent);
 
-        $content = $captchaApi->fetch($json['secret'],$json['response']);
+         $content = $captchaApi->fetch($json['secret'],$json['response']);
+       // $content = $captchaApi->fetch('6LeTdAEgAAAAABVSYsyL2v-9lYxCTH6roLhvsR8_','03AGdBq27FBpfZhpd8K5D48xljR8HbneSbgqDHeQqMFyE55eDxtP3ZLqZnCMKpO82C2u7gZm0dHNDCyAgYRm32UJCQ2Ef32d46MAb0eyutSZY1rbQst9dcEOIt5wuCFtYAl2O5EV95o8kK2auTvzUMQAYlg8qi4Oy-Shh5rUi9wi-FQuAXTP9fhKrEWuykpz-Ea0nX3pX9WEeIyCqEYxN4VjF1LZvaQr-bOzuYjWVAAlXVP_vQncXL85GznJN7f2m3gXVaCbhwUZ0g7Xuj7CAJpvjwgD78GtRmcgoDJZM6UmgAgDryDuM8HU6RkwxT7kqcZhnNmAHInAaM_8xfqW21HoOffdme4cGRSOkdEWyaPRrOVgMt8nuFnOVvlKnXtMqJ58CAsjYkhrkjvqNEpuWyAFxMazAHQaR2JCNtlgtfiCn-S5ll7n3vRiHkqT7cOmTPfEx6T-dZUVV_A71zaTMBJGafXrUkaINDsg');
 
+         return $this->json(
+             $content,
 
-        return $this->json(
-            $content,
-
-            Response::HTTP_OK,
-        );
+             Response::HTTP_OK,
+         );
     }
     
 }

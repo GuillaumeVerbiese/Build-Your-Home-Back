@@ -28,12 +28,11 @@ class CaptchaApi
 
     public function fetch($secret, $captchaToken)
     {
+        $link = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captchaToken ;
+
         $response = $this->client->request(
             'POST',
-            'https://www.google.com/recaptcha/api/siteverify', [
-                'secret' => $secret,
-                'response' => $captchaToken
-                ],
+            $link, 
             
         );
 
