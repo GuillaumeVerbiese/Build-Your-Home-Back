@@ -9,13 +9,14 @@
             {{ message }}
         </div>
     {% endfor %}
-<form name="article_displayOrder" method="post">
-    <div id="article_displayOrder" novalidate="novalidate">
-        <div>
+    <div class="mx-2 my-2">
+        <form name="article_displayOrder" method="post" class="ml-5">
+            <div id="article_displayOrder" novalidate="novalidate" class="form-group col-md-2">
+                <div>
         {% for i in 1..10 %}
         
-            <label>{{i}}</label>
-            <select type="select" name="{{i}}" required="required">
+            <label>Affichage n°{{i}}</label>
+            <select type="select" name="{{i}}" required="required" class="form-select form-select-sm mt-2 mb-2 ">
             <option value="{{ articleOrderbyDisplay[i].name }}">{{ articleOrderbyDisplay[i].name }}</option>
             {% for article in articles %}
                 <option value="{{article.name}}">{{article.name}}</option>
@@ -23,8 +24,9 @@
             
             </select>
         {% endfor %}
-        </div>
+                </div>
+             </div>
+            <button class="btn">Valider</button>
+        </form>
     </div>
-    <button class="btn">Valider</button>
-</form>
         {% endblock %}
