@@ -11,8 +11,11 @@ use App\Entity\Order;
 use App\Repository\ArticleRepository;
 use App\Repository\OrderlistRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mime\Address;
 use DateTime;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * @Route("/back")
@@ -39,7 +42,7 @@ class ManagerController extends AbstractController
     /**
      * @Route("/management/show/{id}", name="app_back_order_management_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
-    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager, OrderlistRepository $orderlistRepository): Response
+    public function showOrderManagemen(Request $request, Order $order, EntityManagerInterface $entityManager, OrderlistRepository $orderlistRepository, MailerInterface $mailer): Response
     {
         
         $statusList = ["en attente","validée","en attente de stock","expédiée","archivée"];
@@ -67,6 +70,21 @@ class ManagerController extends AbstractController
             }
 
             $entityManager->flush();
+
+            if ($order->getStatus() != 4) {
+
+                $email = (new TemplatedEmail())
+                    ->from(new Address('rorolaboisson@outlook.fr', 'ByH mail bot'))
+                    ->to($order->getUser()->getEmail())
+                    ->subject('Build your home - suivi de votre commande(ref:#'.$order->getId().')')
+                    ->htmlTemplate('email/emailToBuyer.html.twig')
+                    ->context([
+                        'order' => $order,
+                    ])
+                ;
+
+                $mailer->send($email);
+            }
 
             $this->addFlash(
                 'notice',
