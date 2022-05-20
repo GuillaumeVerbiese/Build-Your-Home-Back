@@ -19,7 +19,8 @@ class FavoriteType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'name',
                 'multiple' => false,
-                'expanded' => false, 
+                'expanded' => false,
+                "label" => "Utilisateur :",
                 'documentation' => [
                     'type' => 'integer',
                     'description' => 'id de l\'utilisateur'
@@ -30,6 +31,7 @@ class FavoriteType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => false,
+                "label" => "Article :",
                 'documentation' => [
                     'type' => 'integer',
                     'description' => 'id d\'article'
