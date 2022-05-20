@@ -9,12 +9,14 @@ use App\Form\OrderType;
 use App\Entity\Orderlist;
 use App\Form\ArticleType;
 use App\Form\OrderAddType;
+use Symfony\Component\Mime\Address;
 use App\Repository\OrderlistRepository;
 use OpenApi\Annotations as OA;
 use App\Repository\UserRepository;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Mailer\MailerInterface;
 
 /**
  * @OA\Tag(name="order")
@@ -116,18 +118,18 @@ class OrderController extends AbstractController
      *     @Model(type=OrderAddType::class)
      * )
      */
-    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator): JsonResponse
+    public function add(EntityManagerInterface $entityManagerInterface, Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validator, MailerInterface $mailer): JsonResponse
     {
         // On récupére le contenu Json de la requête
         $jsoncontent = $request->getContent();
-        // {
-        //   "status": 0,
-        //   "user": 7,
-        //   "deliveries": 11,
-        //   "article": [
-        //     223,224
-        //   ]
-        // }
+        //   {
+        //     "status": 0,
+        //     "user": 7,
+        //     "deliveries": 11,
+        //     "orderlists": [
+        //       {"article": 223, "quantity" : 5}
+        //     ]
+        //   }
 
         
 
@@ -154,6 +156,18 @@ class OrderController extends AbstractController
         $entityManagerInterface->persist($order);
         $entityManagerInterface->flush();
 
+        $email = (new TemplatedEmail())
+            ->from(new Address('rorolaboisson@outlook.fr', 'ByH mail bot'))
+            ->to('benoit.thaon@gmail.com')
+            ->subject('Nouvelle commande en attente')
+            ->htmlTemplate('email/emailToAdmin.html.twig')
+            ->context([
+                'order' => $order,
+            ])
+        ;
+
+        $mailer->send($email);
+        
         return $this->json(
             $order,
             Response::HTTP_CREATED,
