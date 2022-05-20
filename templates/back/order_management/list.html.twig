@@ -21,7 +21,7 @@
         {% for article in articlesList %}
             <tr>
                 <td>{{ article.id }}</td>
-                <td>{{ article.name }}</td>
+                <td><a href="{{ path('app_back_article_show', {'id': article.id}) }}"> {{ article.name }}</a></td>
                 <td>{{ article.stock }}</td>
                 <td>{{ article.somme }}</td>
                 <td>{{ article.somme - article.stock }}</td>
