@@ -21,7 +21,7 @@
                     <a class="nav-link" href="{{ path('app_login')}}">Connexion</a>
                 </li>
             {% endif %}
-                
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_back_article_index')}}"> Article</a>
                 </li>
@@ -59,30 +59,22 @@
                         <ul class="dropdown-menu bg-dark">
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":0})}}"> En attentes 
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    ({{nbOfPendingOrders}})
-                                {% endif %}
+                                    ({{nbOfPendingOrders ? nbOfPendingOrders : 0}})
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":1})}}"> Validées 
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    ({{nbOfValidateOrders}})
-                                {% endif %}
+                                    ({{nbOfValidateOrders ? nbOfValidateOrders : 0}})
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":2})}}"> En attentes de stock 
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    ({{nbOfPendingStockOrders}})
-                                {% endif %}
+                                    ({{nbOfPendingStockOrders ? nbOfPendingStockOrders : 0}})
                                 </a>
                             </li>
                             <li>
                                 <a class="nav-link" href="{{ path('app_back_order_management',{"status":3})}}"> Expédiées 
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    ({{nbOfOrdersShipped}}) 
-                                {% endif %}
+                                    ({{nbOfOrdersShipped ? nbOfOrdersShipped : 0}}) 
                                 </a>
                             </li>
                             <li>
@@ -95,14 +87,12 @@
                 <li class="nav-item">
                     <a class="nav-link position-relative" href="{{ path('app_back_management_itemsToOrder')}}">
                         Articles à commander
-                        {% if is_granted('ROLE_ADMIN') %}
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{nbOfArticlesToOrder}}
+                                {{nbOfArticlesToOrder ? nbOfArticlesToOrder : 0}}
                             </span>
-                        {% endif %}
                     </a>
                 </li>
-
+                {% endif %}
             </ul>
         </div>
 
