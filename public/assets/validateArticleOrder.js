@@ -1,8 +1,10 @@
 const validateArticleOrder = {
+    buttonList: null,
     init: function() {
       console.log("init");
       // On récupére tous les boutons ".validateButton"
       const buttonList = document.querySelectorAll('.validateButton');
+      validateArticleOrder.buttonList = buttonList;
       // On boucle sur la liste pour renseigner la bonne classe et valeur en fonction de data-validate et poser un écouteur sur chacun d'entre eux
       for (const button of buttonList) {
         validateArticleOrder.bindButton(button);
@@ -10,8 +12,18 @@ const validateArticleOrder = {
       };
       // On récupére le bouton du form pour passer la commande en statut "expedié" 
       const expButton = document.querySelector('#expButton');
-      // On ajoute un écouteur
-      expButton.addEventListener('click',validateArticleOrder.handleCheckArticlesAreValidate);
+      if (expButton) {
+        // On ajoute un écouteur
+        expButton.addEventListener('click',validateArticleOrder.handleCheckArticlesAreValidate);
+      }
+      // On récupére le bouton du form pour passer la commande en statut "validée" 
+      const validateButton = document.querySelector('#validate-order');
+      if (validateButton){
+        // On renseigne la classe du bouton de validation
+        validateArticleOrder.bindValidateButton(validateButton);
+        // On ajoute un écouteur
+        validateButton.addEventListener('click',validateArticleOrder.handleCheckArticlesStock);
+      }
     },
     handleButtonClicked: function(event) {
       event.preventDefault();
@@ -59,12 +71,10 @@ const validateArticleOrder = {
     },
     handleCheckArticlesAreValidate: function(event){
       
-      // On récupére la liste des boutons
-      const articlesList = document.querySelectorAll('.validateButton');
       // On crée un tableau
       let noValidate = [];
-      // On boucle pour vérifier si data-validate = 1
-      for (const article of articlesList) {
+      // On boucle sur la liste des articles pour vérifier si data-validate = 1
+      for (const article of validateArticleOrder.articlesList) {
         if(article.dataset.validate != 1){
           noValidate.push('noValidateItem');
         }
@@ -77,6 +87,30 @@ const validateArticleOrder = {
         document.querySelector('#order_manager').submit();
       }
 
+    },
+    handleCheckArticlesStock: function(event){
+      // On crée un variable par default
+      let emptyStock = [];
+      // On la remplie avec les elements de classe "emptyStock"
+      emptyStock = document.querySelectorAll('.emptyStock');
+      // Si il y a quelque chose dans le tableau
+      if (emptyStock.length > 0) {
+        event.preventDefault();
+        alert("Tous les articles ne sont pas en stock !");
+      } else {
+        document.querySelector('#order_manager').submit();
+      }
+    },
+    bindValidateButton: function(button){
+      // On crée un variable par default
+      let emptyStock = [];
+      // On la remplie avec les elements de classe "emptyStock"
+      emptyStock = document.querySelectorAll('.emptyStock');
+      // Si il y a quelque chose dans le tableau
+      if (emptyStock.length > 0) {
+      button.classList.toggle('btn-success');
+      button.classList.toggle('btn-danger');
+      }
     }
 }
 
