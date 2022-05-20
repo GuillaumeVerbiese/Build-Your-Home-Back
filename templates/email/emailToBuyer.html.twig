@@ -1,0 +1,12 @@
+<h1>Commande ref : #{{order.id}} </h1>
+
+{% if order.status == 1 %}
+<p>Votre commande(réf: #{{order.id}}) est en cours de préparation, vous recevrez un email dès qu'elle sera expédiée.</p>
+{% elseif order.status == 2 %}
+<p>Votre commande(réf: #{{order.id}}) a été mise en attente car il manque un ou plusieurs produits en stock. Nous vous assurons de faire tout notre possible pour écourter votre attente, vous recevrez un email dès qu'elle sera expédiée.</p>
+{% elseif order.status == 3 %}
+<p>Votre commande(réf: #{{order.id}}) a été expédiée !.</p>
+{% endif %}
+
+
+<p>Ceci est un email automatique, ne pas y répondre.</p>
