@@ -40,8 +40,8 @@ class UserController extends AbstractController
      * )
      * 
      * @OA\Response(
-     *     response=404,
-     *     description="User not found"
+     *     response=401,
+     *     description="JWT Token not found"
      * )
      *
      * @return JsonResponse
@@ -140,6 +140,11 @@ class UserController extends AbstractController
      * 
      * @OA\RequestBody(
      *     @Model(type=ApiUserModifyType::class)
+     * )
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="User has been updated"
      * )
      * 
      * @OA\Response(
@@ -243,8 +248,12 @@ class UserController extends AbstractController
     {
         // On récupére l'utilisateur
         $user = $userRepository->find($id);
+        // Si l'utilisateur n'existe pas
+        if ($user == null) {
+            return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
+        }
         // On compare l'utilisateur connecté et celui donnée dans l'url
-        if ($user != $this->getUser()) {
+        else if ($user != $this->getUser()) {
             return $this->json(
                 "Vous n'étes pas autorisé à supprimer cette utilisateur",
                 Response::HTTP_FORBIDDEN,
@@ -252,10 +261,7 @@ class UserController extends AbstractController
                 []
             );
         }
-        // Si l'utilisateur n'existe pas
-        if ($user == null) {
-            return $this->json("Aucun utilisateur ne correspond à cet id !",Response::HTTP_NOT_FOUND);
-        }
+        
         // On récupére ses favoris
         $userFavorites = $user->getFavorites();
         // Si il y a des favories
