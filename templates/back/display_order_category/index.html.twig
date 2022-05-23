@@ -18,7 +18,9 @@
         
             <label> Affichage n°{{i}}</label>
             <select type="select" name="{{i}}" required="required" class="form-select form-select-sm mt-2 mb-2" >
+            {% if  categoryOrderbyDisplay[i].name is defined %}
             <option value="{{ categoryOrderbyDisplay[i].name }}">{{ categoryOrderbyDisplay[i].name }}</option>
+            {% endif %}
             {% for category in categories %}
                 <option value="{{category.name}}">{{category.name}}</option>
             {% endfor %}
