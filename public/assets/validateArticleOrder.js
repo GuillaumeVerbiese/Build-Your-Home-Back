@@ -74,7 +74,7 @@ const validateArticleOrder = {
       // On crée un tableau
       let noValidate = [];
       // On boucle sur la liste des articles pour vérifier si data-validate = 1
-      for (const article of validateArticleOrder.articlesList) {
+      for (const article of validateArticleOrder.buttonList) {
         if(article.dataset.validate != 1){
           noValidate.push('noValidateItem');
         }
