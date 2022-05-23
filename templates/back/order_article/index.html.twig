@@ -18,7 +18,10 @@
         
             <label>Affichage n°{{i}}</label>
             <select type="select" name="{{i}}" required="required" class="form-select form-select-sm mt-2 mb-2 ">
+            {% if  articleOrderbyDisplay[i].name is defined %}
             <option value="{{ articleOrderbyDisplay[i].name }}">{{ articleOrderbyDisplay[i].name }}</option>
+            {% endif %}
+            
             {% for article in articles %}
                 <option value="{{article.name}}">{{article.name}}</option>
             {% endfor %}
