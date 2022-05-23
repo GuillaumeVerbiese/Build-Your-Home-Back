@@ -19,7 +19,7 @@ class RoutesTest extends WebTestCase
         $crawler = $client->request('GET', '/' );
     
         
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     
 
     }
