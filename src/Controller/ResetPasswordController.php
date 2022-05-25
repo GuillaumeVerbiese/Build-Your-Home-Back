@@ -129,7 +129,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
             // return new RedirectResponse('http://barthehadrien-server.eddi.cloud/');
-            return $this->redirect('http://barthehadrien-server.eddi.cloud/');
+            return $this->redirect('http://barthehadrien-server.eddi.cloud/projet-09-build-your-home-front/dist/');
         }
 
         return $this->render('reset_password/reset.html.twig', [
